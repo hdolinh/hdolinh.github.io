@@ -6,7 +6,7 @@
       "description": "Some additional details about the website",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-08-06T14:45:53-07:00"
+      "last_modified": "2021-08-06T14:54:39-07:00"
     },
     {
       "path": "cv.html",
@@ -14,14 +14,14 @@
       "description": "Work Experience",
       "author": [],
       "contents": "\nCurriculum Vitae\nDiamonds Data\n\n\nggplot(data = diamonds, aes(x = carat, y = price)) +\n  geom_point(aes(color = price))\n\n\n\n\nObjective\nEducation\nUniversity of California, Santa Barbara Master in Environmental Data Science\nAugust 2021 - Present\nWork Experience\n\n\n\n",
-      "last_modified": "2021-08-06T14:45:56-07:00"
+      "last_modified": "2021-08-06T14:54:42-07:00"
     },
     {
       "path": "index.html",
       "title": "Halina Do-Linh",
       "author": [],
-      "contents": "\n\n          \n          \n          My Website\n          \n          \n          Bananas\n          Teddy\n          My CV\n          ☰\n          \n          \n      \n        \n          \n            Halina Do-Linh\n          \n          \n            \n              I am a MEDS candidate at the Bren School of Environmental Science & Management. I am currently learning R & Python!\n            \n            \n              I am a MEDS candidate at the Bren School of Environmental Science & Management. I am currently learning R & Python!\n            \n          \n\n          \n            \n              \n                  \n                    \n                      LinkedIn\n                    \n                  \n                \n                                \n                  \n                    \n                      Instagram\n                    \n                  \n                \n                                \n                  \n                    \n                      GitHub\n                    \n                  \n                \n                                \n                  \n                    \n                      Email\n                    \n                  \n                \n                              \n          \n\n          \n            \n              \n                                \n                  \n                    LinkedIn\n                  \n                \n                                \n                  \n                    Instagram\n                  \n                \n                                \n                  \n                    GitHub\n                  \n                \n                                \n                  \n                    Email\n                  \n                \n                              \n            \n          \n        \n      \n    \n\n    \n    \n    ",
-      "last_modified": "2021-08-06T14:48:46-07:00"
+      "contents": "\n\n          \n          \n          My Website\n          \n          \n          Index\n          About\n          CV\n          ☰\n          \n          \n      \n        \n          \n            Halina Do-Linh\n          \n          \n            \n              I am a MEDS candidate at the Bren School of Environmental Science & Management. I am currently learning R & Python!\n            \n            \n              I am a MEDS candidate at the Bren School of Environmental Science & Management. I am currently learning R & Python!\n            \n          \n\n          \n            \n              \n                  \n                    \n                      LinkedIn\n                    \n                  \n                \n                                \n                  \n                    \n                      Instagram\n                    \n                  \n                \n                                \n                  \n                    \n                      GitHub\n                    \n                  \n                \n                                \n                  \n                    \n                      Email\n                    \n                  \n                \n                              \n          \n\n          \n            \n              \n                                \n                  \n                    LinkedIn\n                  \n                \n                                \n                  \n                    Instagram\n                  \n                \n                                \n                  \n                    GitHub\n                  \n                \n                                \n                  \n                    Email\n                  \n                \n                              \n            \n          \n        \n      \n    \n\n    \n    \n    ",
+      "last_modified": "2021-08-06T14:54:42-07:00"
     }
   ],
   "collections": []
