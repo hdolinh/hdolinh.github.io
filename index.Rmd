@@ -1,7 +1,7 @@
 ---
-title: "My Website"
+title: "Halina Do-Linh"
 description: |
-  Welcome to the website. I hope you enjoy it!
+  I'm a MEDS Candidate learning distill!
 site: distill::distill_website
 ---
 
