@@ -1,18 +1,18 @@
 ---
 title: "Halina Do-Linh"
-description: |
-  I'm a MEDS Candidate learning distill!
+image: "pusheencat.png"
+links:
+  - label: LinkedIn
+    url: "https://linkedin.com/in/halinadolinh/"
+  - label: Instagram
+    url: "https://instagram.com/glacierpo"
+  - label: GitHub
+    url: "https://hdolinh.github.io/"
+  - label: Email
+    url: "mailto:halina@bren.ucsb.edu"
+output:
+  postcards::jolla
 site: distill::distill_website
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-
-# Learn more about creating websites with Distill at:
-# https://rstudio.github.io/distill/website.html
-
-# Learn more about publishing to GitHub Pages at:
-# https://rstudio.github.io/distill/publish_website.html#github-pages
-
-```
-
+ 
+I am a MEDS candidate at the Bren School of Environmental Science & Management. I am currently learning R & Python! 
