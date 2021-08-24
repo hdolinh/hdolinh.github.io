@@ -1,10 +1,11 @@
 ---
-title: "My First Blog Post"
+title: "Mutate Function"
 description: |
-  This blog is super important and will be about a function I learn today.
+  A short description of the post.
 author:
   - name: Halina Do-Linh
-date: 08-10-2021
+    url: {}
+date: 08-16-2021
 output:
   distill::distill_article:
     self_contained: false
@@ -14,8 +15,6 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
-
-# test
 
 Distill is a publication format for scientific and technical writing, native to the web.
 
