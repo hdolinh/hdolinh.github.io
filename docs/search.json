@@ -5,15 +5,15 @@
       "title": "About",
       "description": "Halina Do-Linh, MEDS Candidate at the Bren School of Environmental Science & Management",
       "author": [],
-      "contents": "\nHalina Do-Linh achieved a Bachelor’s Degree in Environmental Studies & Biology from the University of California, Santa Cruz. She graduated with the expectation of becoming a field researcher studying how land management practices impact biodiversity. After graduating, she obtained two seasonal positions centered on outdoor science education - one where she taught broad environmental topics to students K-12 and the other teaching field research methods to University of California undergraduate students. In 2018, she moved to Los Angeles to work for Heal the Bay, an environmental non-profit focused on safe, clean water advocacy and policy. At Heal the Bay, she garnered support for environmental campaigns such as the Safe, Clean Water Program (Measure W), MPA Watch, and The California Circular Economy and Plastic Pollution Reduction Act (SB 54 and AB 1080). These work experiences demonstrated to her the importance of the intersection between climate change and environmental justice. As of August 2020, Halina is a Master’s candidate at the Bren School of Environmental Science & Management studying Environmental Data Science. She has a long-term goal of applying data science to science communications to ensure that environmental science is equitable, accessible, and accurate.\n\n\n\n",
-      "last_modified": "2021-08-12T15:10:31-07:00"
+      "contents": "\nHalina Do-Linh achieved a Bachelor’s Degree in Environmental Studies & Biology from the University of California, Santa Cruz. Her interest in an environmental career was solidified after researching sea turtles in Baja California through the Ecology and Conservation Supercourse field quarter at UC Santa Cruz. After graduating, Halina applied her field research skills to outdoor education, where she taught environmental topics to K-12 students and later, field research methods to University of California undergraduates. In 2018, she moved to Los Angeles to work for Heal the Bay, an environmental non-profit focused on safe, clean water. There she garnered support for environmental campaigns including the Safe, Clean Water Program (Measure W) and The California Circular Economy and Plastic Pollution Reduction Act (SB 54 and AB 1080). From these campaigns, Halina expanded her knowledge of watershed health, environmental justice, and environmental policy. Though these campaigns were successful, she recognized there were data inaccuracies in representation and in metrics. To gain the skills to overcome these challenges, Halina is studying Environmental Data Science at the Bren School of Environmental Science & Management. After Bren, Halina plans to apply her training in data science to finding equitable solutions for environmental issues affecting urban watersheds.\n\n\n\n",
+      "last_modified": "2021-08-25T22:20:18-07:00"
     },
     {
       "path": "blog.html",
       "title": "My Blog",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-08-12T15:10:31-07:00"
+      "last_modified": "2021-08-25T22:20:19-07:00"
     },
     {
       "path": "cv.html",
@@ -21,14 +21,14 @@
       "description": "Work Experience",
       "author": [],
       "contents": "\nCurriculum Vitae\nDiamonds Data\n\n\nggplot(data = diamonds, aes(x = carat, y = price)) +\n  geom_point(aes(color = price))\n\n\n\n\nObjective\nEducation\nUniversity of California, Santa Barbara Master in Environmental Data Science\nAugust 2021 - Present\nWork Experience\n\n\n\n",
-      "last_modified": "2021-08-12T15:10:35-07:00"
+      "last_modified": "2021-08-25T22:20:23-07:00"
     },
     {
       "path": "index.html",
       "title": "Halina Do-Linh",
       "author": [],
       "contents": "\n\n          \n          \n          My Website\n          \n          \n          Index\n          About\n          CV\n          Blog\n          ☰\n          \n          \n      \n        \n          \n            Halina Do-Linh\n          \n          \n            \n              I am a MEDS candidate at the Bren School of Environmental Science & Management. I am currently learning R & Python!\n            \n            \n              I am a MEDS candidate at the Bren School of Environmental Science & Management. I am currently learning R & Python!\n            \n          \n\n          \n            \n              \n                  \n                    \n                      LinkedIn\n                    \n                  \n                \n                                \n                  \n                    \n                      Instagram\n                    \n                  \n                \n                                \n                  \n                    \n                      GitHub\n                    \n                  \n                \n                                \n                  \n                    \n                      Email\n                    \n                  \n                \n                              \n          \n\n          \n            \n              \n                                \n                  \n                    LinkedIn\n                  \n                \n                                \n                  \n                    Instagram\n                  \n                \n                                \n                  \n                    GitHub\n                  \n                \n                                \n                  \n                    Email\n                  \n                \n                              \n            \n          \n        \n      \n    \n\n    \n    \n    ",
-      "last_modified": "2021-08-12T15:10:35-07:00"
+      "last_modified": "2021-08-25T22:20:23-07:00"
     }
   ],
   "collections": ["posts/posts.json"]
