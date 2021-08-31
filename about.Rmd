@@ -1,7 +1,7 @@
 ---
 title: "About"
 description: |
-  Halina Do-Linh, MEDS Candidate at the Bren School of Environmental Science & Management
+  Halina Do-Linh, MEDS Student at the Bren School of Environmental Science & Management
 ---
 
 ```{r setup, include=FALSE}
