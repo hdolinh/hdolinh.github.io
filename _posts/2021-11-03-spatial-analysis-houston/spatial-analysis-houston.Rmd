@@ -88,7 +88,7 @@ read_dnb <- function(file_name) {
 Here we used the `read_dnb` function to load in the 4 data sets as `stars` objects.
 
 ```{r, results = 'hide'}
-feb07_05 <- here::here("data", "VNP46A1", "VNP46A1.A2021038.h08v05.001.2021039064328.h5")
+feb07_05 <- here("data", "VNP46A1", "VNP46A1.A2021038.h08v05.001.2021039064328.h5")
 feb07_05_dnb <- read_dnb(feb07_05)
 
 feb16_05 <- here::here("data", "VNP46A1", "VNP46A1.A2021047.h08v05.001.2021048091106.h5")

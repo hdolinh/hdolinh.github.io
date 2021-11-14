@@ -17,23 +17,6 @@
     "input_file": {}
   },
   {
-    "path": "posts/2021-11-03-spatial-analysis-houston/",
-    "title": "Spatial Analysis of Houston Power Outage",
-    "description": "A short description of the post.",
-    "author": [
-      {
-        "name": "Halina Do-Linh",
-        "url": {}
-      }
-    ],
-    "date": "2021-11-03",
-    "categories": [],
-    "contents": "\nDistill is a publication format for scientific and technical writing, native to the web.\nLearn more about using Distill at https://rstudio.github.io/distill.\n\n\n\n",
-    "preview": {},
-    "last_modified": "2021-11-14T11:17:53-08:00",
-    "input_file": "spatial-analysis-houston.knit.md"
-  },
-  {
     "path": "posts/2021-08-10-a-function-i-learned/",
     "title": "A function I learned",
     "description": "A short description of the post.",
@@ -48,7 +31,7 @@
     "contents": "\nDistill is a publication format for scientific and technical writing, native to the web.\nLearn more about using Distill at https://rstudio.github.io/distill.\n\n\n\n",
     "preview": {},
     "last_modified": "2021-11-14T11:17:45-08:00",
-    "input_file": "a-function-i-learned.knit.md"
+    "input_file": {}
   },
   {
     "path": "posts/2021-08-10-my-first-blog-post/",
@@ -65,6 +48,6 @@
     "contents": "\nDistill is a publication format for scientific and technical writing, native to the web.\nLearn more about using Distill at https://rstudio.github.io/distill.\n\n\n\n",
     "preview": {},
     "last_modified": "2021-11-14T11:18:03-08:00",
-    "input_file": "my-first-blog-post.knit.md"
+    "input_file": {}
   }
 ]
