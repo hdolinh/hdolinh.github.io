@@ -11,16 +11,243 @@ output:
     self_contained: false
 ---
 
-
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = TRUE,
+                      message = FALSE,
+                      warning = FALSE,
+                      include = TRUE)
 ```
 
-test 
-test 
+```{r loading packages, include = FALSE}
+library(sf)
+library(here)
+library(stars)
+library(stringr)
+library(tidyverse) #attached to use dplyr's left_join
+library(tmap)
+library(rosm) #attached to put base map of houston
+library(lintr)
+```
 
-Distill is a publication format for scientific and technical writing, native to the web.
+### Assignment Objective
 
-Learn more about using Distill at <https://rstudio.github.io/distill>.
+In February 2021, temperatures in Texas dipped dangerously low and resulted in a severe winter storms where 4.4 million people suffered extended outages of electricity and water.
+
+For this assignment we used remotely-sensed night lights data from the [Visible Infrared Imaging Radiometer Suite (VIIRS)](https://www.jpss.noaa.gov/viirs.html) to:
+
+-   Estimate how many residential buildings in Houston were without power on February 16, 2021.
+-   Investigate how median income factored into the blackouts that occurred.
+
+### Preparing the Data
+
+To acquire the night lights image data we need to retrieve 4 files from NASA's [Level-1 and Atmosphere Archive & Distribution System Distributed Active Archive Center (LAADS DAAC)](https://ladsweb.modaps.eosdis.nasa.gov/).
+
+These 4 files represent 2 days (2021/02/07 and 2021/02/16) of night lights image data. The reason we have 4 files to download is because the LAADS DAAC data are projected as a sinusoidal equal-area in a 36 x 18 grid and Houston is located on the border of the h08v05 and h08v06 tiles. To create a single image we need to download both tiles and then merge them.
+
+First we used the function `read_dnb` to download the Day Night Band (DNB) dataset from VNP46A1 granules.
+
+```{r}
+read_dnb <- function(file_name) {
+  # Reads the "DNB_At_Sensor_Radiance_500m" dataset from a VNP46A1 granule into a STARS object.
+  # Then read the sinolsoidal tile x/y positions and adjust the STARS dimensions (extent+delta)
+
+  # The name of the dataset holding the nightlight band in the granule
+  dataset_name <- "//HDFEOS/GRIDS/VNP_Grid_DNB/Data_Fields/DNB_At_Sensor_Radiance_500m"
+
+  # From the metadata, we pull out a string containing the horizontal and vertical tile index
+  h_string <- gdal_metadata(file_name)[199]
+  v_string <- gdal_metadata(file_name)[219]
+  
+  # We parse the h/v string to pull out the integer number of h and v
+  tile_h <- as.integer(str_split(h_string, "=", simplify = TRUE)[[2]])
+  tile_v <- as.integer(str_split(v_string, "=", simplify = TRUE)[[2]])
+
+  # From the h/v tile grid position, we get the offset and the extent
+  west <- (10 * tile_h) - 180
+  north <- 90 - (10 * tile_v)
+  east <- west + 10
+  south <- north - 10
+
+  # A tile is 10 degrees and has 2400x2400 grid cells
+  delta <- 10 / 2400
+
+  # Reading the dataset
+  dnb <- read_stars(file_name, sub = dataset_name)
+
+  # Setting the CRS and applying offsets and deltas
+  st_crs(dnb) <- st_crs(4326)
+  st_dimensions(dnb)$x$delta <- delta
+  st_dimensions(dnb)$x$offset <- west
+  st_dimensions(dnb)$y$delta <- -delta
+  st_dimensions(dnb)$y$offset <- north
+  
+  return(dnb)
+}
+```
+
+Here we used the `read_dnb` function to load in the 4 data sets as `stars` objects.
+
+```{r, results = 'hide'}
+feb07_05 <- here::here("data", "VNP46A1", "VNP46A1.A2021038.h08v05.001.2021039064328.h5")
+feb07_05_dnb <- read_dnb(feb07_05)
+
+feb16_05 <- here::here("data", "VNP46A1", "VNP46A1.A2021047.h08v05.001.2021048091106.h5")
+feb16_05_dnb <- read_dnb(feb16_05)
+
+feb07_06 <- here::here("data", "VNP46A1", "VNP46A1.A2021038.h08v06.001.2021039064329.h5")
+feb07_06_dnb <- read_dnb(feb07_06)
+
+feb16_06 <- here::here("data", "VNP46A1", "VNP46A1.A2021047.h08v06.001.2021048091105.h5")
+feb16_06_dnb <- read_dnb(feb16_06)
+```
+
+We then combined the data sets into single `stars` objects using `st_mosaic` and then removed the dnb files from our environment using `rm`.
+
+We additionally added our `data` folder to the `.gitignore` so that these data sets and all others moving forward would not be pushed to GitHub. This was a crucial step to implement because we had previously run into conflicts pushing our commits since the data sets were too large for GitHub's file limit.
+```{r, results = 'hide'}
+stars_feb07 <- st_mosaic(feb07_05_dnb, feb07_06_dnb)
+
+stars_feb16 <- st_mosaic(feb16_05_dnb, feb16_06_dnb)
+
+rm(feb07_05_dnb, feb16_05_dnb, feb07_06_dnb, feb16_06_dnb)
+```
+
+After we created a **blackout mask** to represent the difference in night lights intensity caused by the storm. We did this by subtracting the 02/07 raster image from the 02/16 rage image. We also assumed that any location that experienced more than 200 nW cm^-2^ is a blackout location and so we assigned `NA` to those values. We then plotted the difference to see what it looks like.
+```{r, warning = FALSE, results = 'hide'}
+difference <- (stars_feb07 - stars_feb16) > 200
+difference[difference == FALSE] <- NA
+plot(difference)
+```
+
+We vectorized the blackout mask using `st_as_sf` and then used `st_make_valid` to make the mask vector a valid geometry. After we plotted the vectorized mask we noticed the image is more contrasted, making it easier to see the difference.
+```{r}
+mask_vector <- st_as_sf(difference)
+mask_vector <- st_make_valid(mask_vector)
+plot(mask_vector) #get a sense of what it looks like
+```
+
+However, the vectorized blackout mask we created is not centered on our region of interest (ROI), which is Houston. So we created a bounding box (bbox) for the metropolitan Houston area and then used `st_polygon` to create a polygon. 
+
+After we created the polygon, we converted it to a spatial feature and set the CRS to match the DNB data using `st_sfc`. 
+
+Because we want to spatially relate the Houston polygon to the blackout mask, we spatially subsetted the vectorized mask using R square brackets `[]`. We then converted the CRS of the subsetted (or cropped) mask to NAD83/ Texas Centric Albers Equal Area (3083) using `st_transform`. 
+```{r}
+#points for bounding box
+pt_1 <- st_point(c(-96.5, 29))
+pt_2 <- st_point(c(-96.5, 30.5))
+pt_3 <- st_point(c(-94.5, 30.5))
+pt_4 <- st_point(c(-94.5, 29))
+
+houston <- st_polygon(list(rbind(pt_1, pt_2, pt_3, pt_4, pt_1))) #repeat first coordinate to close box
+
+houston_sf <- st_sfc(houston, crs = 4326)
+
+mask_crop <- mask_vector[houston_sf, op = st_intersects]
+
+mask_crop <- st_transform(x = mask_crop, crs = 3083)
+plot(mask_crop) #plotted to see if crop worked
+```
+
+### Roads Data
+
+We want to ignore areas near highways since these areas account for a large amount of the night lights observable from space. We used highway spatial data from [OpenStreetMap (OSM)](https://planet.openstreetmap.org/), but specifically from [Geofabrik](https://www.geofabrik.de/) to retrieve a shapefile of all highways in Texas (as you can see in our `query` object).
+
+We read in the roads data using `st_read` and then used `st_transform` to re-project the data from WGS 84 to EPSG:3083 (NAD83 / Texas Centric Albers Equal Area).
+
+We then made a 200 m buffer using `st_buffer`, but this creates undissolved buffers so we used `st_union` to dissolve them.
+```{r, warning = FALSE, results = 'hide'}
+query <- "SELECT * FROM gis_osm_roads_free_1 WHERE fclass='motorway'"
+
+highways_84 <- st_read("data/gis_osm_roads_free_1.gpkg", query = query)
+
+highways <- st_transform(highways_84, crs = 3083)
+
+highway_buffer <- st_buffer(highways, dist = 200) %>% st_union()
+plot(highway_buffer) #plot to check
+```
+
+### Buildings Data
+
+We need building data to look at which residential buildings were affected by the blackout. We obtained building data from OSM.
+
+We queried the data to select only residential buildings, read in the data using `st_read` and then re-projected the data from WGS 84 to EPSG:3083 (NAD83/Texas Centric Albers Equal Area) using `st_transform`. 
+```{r, results = 'hide'}
+building_query <- "SELECT * 
+FROM gis_osm_buildings_a_free_1 
+WHERE (type IS NULL AND name IS NULL) 
+OR type in ('residential', 'apartments', 'house', 'static_caravan', 'detached')"
+
+buildings <- st_read("data/gis_osm_buildings_a_free_1.gpkg", query = building_query) %>% st_transform(crs = 3083)
+```
+
+### Census Tract data
+
+We want to investigate how median income factored into the blackouts that occurred. To do this we obtained socioeconomic data from the [U.S. Census Bureau's American Community Survey](https://www.census.gov/programs-surveys/acs) for Texas census tracts in 2019. 
+
+We used `st_read` to read in geodatabase layers for Texas and income, and then extracted the income data using R square brackets `[]`. We then left-joined the Texas geodatabase data with the extracted income data using `left_join`. Lastly, we re-projected the joined data to EPSG:3083 (NAD83/Texas Centric Albers Equal Area) using `st_transform`. 
+```{r, warning = FALSE, results = 'hide'}
+acs_geoms <- st_read("data/ACS_2019_5YR_TRACT_48_TEXAS.gdb",
+                     layer = "ACS_2019_5YR_TRACT_48_TEXAS")
+
+acs_income <- st_read("data/ACS_2019_5YR_TRACT_48_TEXAS.gdb",
+                      layer = "X19_INCOME")
+
+#extracted geoid and B19013e1 fields from income layer to do left_join
+median_income <- acs_income[c("GEOID", "B19013e1")]
+
+acs_join <- left_join(acs_geoms, median_income, by = c("GEOID_Data" = "GEOID"))
+
+#set new CRS to match Texas / NAD83
+acs_join <- st_transform(x = acs_join, crs = 3083)
+```
+
+### Merge the datasets
+
+Because we want to ignore areas around highways, we need to remove the highway buffer from our vectorized blackout mask. We did this using `st_difference`. 
+
+We then spatially subsetted the data to find all the residential buildings in the blackout areas using R square brackets `[]`. 
+
+Lastly, we spatially joined the building data with the joined ACS data using `st_join`.
+```{r, warning = FALSE, results = 'hide'}
+rm_highways <- st_difference(mask_crop, highway_buffer)
+
+res_buildings_blackout <- buildings[rm_highways, op = st_intersects]
+
+building_acs_join <- st_join(res_buildings_blackout, acs_join, st_intersects = "GEOID")
+```
+
+### **Question 1:** How many residential buildings were without power on 2021-02-16?
+
+> There were 157,411 residential buildings without power on 2021-02-16.
+
+```{r}
+res_no_power <- buildings[rm_highways, op = st_intersects]
+```
 
 
+### Spatial Visualization Analysis
+
+To tackle the bonus question, we wanted to create a map that shows the Houston blackout areas and the median income associated with those areas. To do this, we joined the `rm_highways` data frame (which contains DNB and geometry data) with the `acs_join` data frame (which contains income and geometry data). The result is the joined `median_income_dnb` data frame which contains median income data for just the blackout areas.
+
+We created the map using `tmap` and we used the package `rosm` to plot a base map of Houston.
+
+Based on the map we made outlining the median income of residential areas that were affected by the blackout, the vast majority of impacted areas made \$100,000 - \$150,000 or less. There are only a few regions in central Houston that were both affected by the blackout *and* made over \$250,000 in median income. This map shows that median income could be an important socioeconomic metric demonstrating which residents were more impacted by the power outage.
+```{r, warning = FALSE, results = 'hide', message = FALSE}
+median_income_dnb <- st_join(rm_highways, acs_join, st_intersects = "GEOID")
+
+houston_map <- osm.raster(st_bbox(houston)) #making open street map a raster with a bbox on houston
+
+blackout_income <- tm_shape(houston_map) +
+  tm_rgb(alpha = 0.75) +
+  tm_shape(rm_highways) + #adding the mask behind makes it show up better
+  tm_polygons() +
+  tm_shape(median_income_dnb) + #show Houston areas effected by the blackout
+  tm_fill("B19013e1", n = 5, style = "pretty", title = "Median Income") + #fill by median income
+  tm_layout(title = "Houston Blackout Areas by Median Income",
+            legend.bg.color = "lightgrey",
+            legend.bg.alpha = 0.3)+
+  tm_scale_bar()+
+  tm_credits("Modified imagery from SNP VIIRS DNB satellite imagery on 2021-02-16. Base map taken \nfrom OpenStreetMaps. Median income data drawn from the U.S. Census Bureau in 2019.", align = "right", size = 0.6, bg.color = "lightgrey", bg.alpha = 0.3)
+
+blackout_income
+```
