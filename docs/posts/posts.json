@@ -1,1 +1,19 @@
-[]
+[
+  {
+    "path": "posts/2021-11-14-stats-final/",
+    "title": "Environmental Statistics Final",
+    "description": "A short description of the post.",
+    "author": [
+      {
+        "name": "Halina Do-Linh",
+        "url": {}
+      }
+    ],
+    "date": "2021-11-14",
+    "categories": [],
+    "contents": "\nTechnical Blog Guidelines\nTechnical blog post [Due date: 12/2, 5pm]\nThis blog post is a write up summarizing in text and with figures and/or tables your question, the data you have collected, your analysis plan, and your results. Your target audience should be other quantitative scientists and practitioners familiar with the basics of statistics and data science, but not necessarily experts in environmental science or the details of the methods studied in this course.\nPlease email me your blog post in PDF format and as a live link by 5pm on December 2.\nSome guidelines for the blog post:\n3-5 pages in length, including figures, tables, captions, and references list\n1-3 tables or figures, each carefully labeled and captioned so that they are easily interpretable\nInclude scientific references when applicable\nInclude links to the underlying data you use. If your data cannot be shared publicly, note this in a short “data availability” statement at the end of your post.\n[Recommended, but optional] If you can, include a link to a repository with your replication code. I will not evaluate your code as part of your grade, but this is good practice for reproducibility and transparency and will make your blog post more exciting to the outside world.\nGeneral Guidelines\nMotivate your question.\nWhy is this important?\nIs there existing evidence on this question?\nIf so, why is it inconclusive? If not, why not?\n\nDescribe your data.\nWhere did you access it? What are its spatial and temporal features?\nWhat are its limitations?\nWhat do you know about the sampling strategy and what biases that may introduce?\nIf helpful, you can use a histogram, scatterplot, or summary statistics table to describe your data.\n\nClearly describe your analysis plan.\nWhat is your analysis plan?\nWhy did you choose this analysis, given your data and question?\nWhat are the limitations?\n\nSummarize your results visually and in words.\nShow us your results in figure(s) and/or table(s) that are carefully labeled and captioned.\nDescribe in the text (and orally when presenting) what you found, and how these results either do or do not help you answer your question.\n\nWhat might you do next?\nOne short analysis cannot fully answer an interesting scientific question.\nIf you had time to collect more data or conduct more analysis, what would help you answer this question better?\n\nDistill is a publication format for scientific and technical writing, native to the web.\nLearn more about using Distill at https://rstudio.github.io/distill.\n\n\n\n",
+    "preview": {},
+    "last_modified": "2021-11-14T11:11:26-08:00",
+    "input_file": {}
+  }
+]
