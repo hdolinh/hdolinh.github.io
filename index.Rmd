@@ -11,7 +11,7 @@ links:
   - label: Email
     url: "mailto:halina@bren.ucsb.edu"
 output:
-  postcards::trestles #jolla
+  postcards::trestles 
 site: distill::distill_website
 ---
  

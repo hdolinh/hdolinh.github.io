@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/2021-11-03-spatial-analysis-houston/",
+    "title": "Spatial Analysis of Houston Power Outage",
+    "description": "A short description of the post.",
+    "author": [
+      {
+        "name": "Halina Do-Linh",
+        "url": {}
+      }
+    ],
+    "date": "2021-11-03",
+    "categories": [],
+    "contents": "\nDistill is a publication format for scientific and technical writing, native to the web.\nLearn more about using Distill at https://rstudio.github.io/distill.\n\n\n\n",
+    "preview": "posts/2021-11-03-spatial-analysis-houston/images/houston-blackout-income.png",
+    "last_modified": "2021-11-03T15:51:48-07:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/2021-08-10-a-function-i-learned/",
     "title": "A function I learned",
     "description": "A short description of the post.",
