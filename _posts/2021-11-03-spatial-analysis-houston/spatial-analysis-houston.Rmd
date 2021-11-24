@@ -19,6 +19,8 @@ knitr::opts_chunk$set(echo = TRUE,
 ```
 
 ```{r loading packages, include = FALSE}
+###### NEED TO UPDATE FILE PATHS AND THEN TEST KINT
+
 library(sf)
 library(here)
 library(stars)
@@ -58,6 +60,8 @@ read_dnb <- function(file_name) {
   h_string <- gdal_metadata(file_name)[199]
   v_string <- gdal_metadata(file_name)[219]
   
+ # str_split(h_string, "=", simplify = TRUE)
+  
   # We parse the h/v string to pull out the integer number of h and v
   tile_h <- as.integer(str_split(h_string, "=", simplify = TRUE)[[2]])
   tile_v <- as.integer(str_split(v_string, "=", simplify = TRUE)[[2]])
@@ -84,6 +88,7 @@ read_dnb <- function(file_name) {
   return(dnb)
 }
 ```
+
 
 Here we used the `read_dnb` function to load in the 4 data sets as `stars` objects.
 

@@ -68,7 +68,18 @@ Some guidelines for the blog post:
 
     -   Show us your results in figure(s) and/or table(s) that are carefully labeled and captioned.
 
-    -   Describe in the text (and orally when presenting) what you found, and how these results either do or do not help you answer your question.\
+    -   Describe in the text (and orally when presenting) what you found, and how these results either do or do not help you answer your question.
+    
+    
+```{r}
+wells <- read_csv(here::here("_posts", "2021-11-14-stats-final", "data", "08_CA_AK.csv"))
+```
+
+```{r}
+names(wells)
+```
+
+
 
 -   What might you do next?
 
