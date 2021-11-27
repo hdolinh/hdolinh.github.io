@@ -15,18 +15,18 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 ```{r loading packages, include=FALSE}
-library(tidyverse)
+library(tidyverse) 
 library(here)
-library(lintr)
+library(lintr) # remove maybe
 library(janitor)
 library(lubridate)
-library(gt)
-library(readr)
-library(ggplot2)
-library(modelr)
-library(knitr)
+library(gt) 
+library(readr) # remove maybe
+library(ggplot2) # remove maybe
+library(modelr) # remove maybe
+library(knitr) # remove maybe
 library(broom)
-library(tsibble)
+library(tsibble) # remove maybe
 
 options(scipen = 999) # disable scientific notation
 ```
@@ -100,24 +100,43 @@ wells_AK <- wells %>%
   filter(str_detect(WellID, pattern = "AK")) # AK wells are not associated with any Counties in CA, so can confirm we should remove
 ```
 
-Here I have made my tidy dat
+Here I have made my tidy dataset `wells_tidy`.
+
+- I used `janitor` `clean_names()` to make columns in lowercase and tidy format (i.e. use underscores for spaces).
+- I used `select` (from `dpylr` in `tidyverse`) to select my columns of interest. 
+- I noticed `well_id` had prefixes "CA" and "AK". I know CA contained observations, but was uncertain about AK. I used `str_detect()` (from `stringr` in `tidyverse`) to created a subset of just AK observations and found that none of the AK well observations are associated with California counties. This confirmed that I should remove well id's that start with AK. I used `filter()` (from `dpylr` in `tidyverse`) and `str_detect()` to do this and removed 36,386 observations. 
+- Dr. Jasechko has informed me that values of -1 in the `depth_m` column are NA values, so I removed those using `filter()` (from `dpylr` in `tidyverse`). This removed a significant amount of observations - new total is 642,369.
 
 ```{r, tidy}
-wells_clean <- wells %>% 
-  janitor::clean_names()
-```
+wells_tidy <- wells %>% 
+  janitor::clean_names() %>% 
+  select("well_id", "county", "purpose_5", "date_completed", "depth_m") %>%
+  filter(str_detect(well_id, pattern = "CA")) %>% 
+  filter(depth_m > -1) %>% 
+  
+  
+  #mutate(date_completed = lubridate::parse_date_time(date_completed, orders = c("mdy", "mdy HMS", "mdY")))
+  
 
 
-```{r, selecting columns of interest}
-wells_county_depth <- wells_clean %>% 
-  select("well_id", "county", "purpose_5", "date_completed", "activity_type", "depth_m")
+well_count_year <- wells_region[!is.na(strptime(wells_region$date_completed, format = c("%m/%d/%y", "%m/%d/%Y", "%m/%d/%y HMS"))),] 
+
+well_count_year <- well_count_year %>% 
+  mutate(date_completed = lubridate::parse_date_time(date_completed, orders = c("mdy", "mdy HMS", "mdY"))) %>% 
+  mutate(year_completed = lubridate::year(date_completed)) %>% 
+  filter(year_completed >= 1900 & year_completed <= 2021) %>% 
+  group_by(year_completed) %>% 
+  count()
 ```
+
+I knew I wanted to see if there were any differences in well depth(m) over time between regions in California. So I used `unique()` (base R) to see if all 58 counties were present in the dataset and they are! 
 
 ```{r, looking at what CA counties there are}
-unique(wells_county_depth$county)
+unique(wells_tidy$county)
 ```
 
-**Added region codes to counties:**
+I knew it would be difficult to compare all 58 counties, so I found on the [California Census website](https://census.ca.gov/regions/) that counties are divided into 10 regions. I created a new column `region_code` and assigned all 58 counties their region code based on the CA.gov website using `case_when()`. If there were any NA then they would be assigned a region code of 0. This is a new dataset `wells_region`.
+
 
 ```{r, added region codes and filtered out NA / out of scope (i.e. AK)}
 region1 <- c("Butte", "Colusa", "El Dorado", "Glenn", "Lassen", "Modoc", "Nevada", "Placer", "Plumas", "Sacramento", "Shasta", "Sierra", "Siskiyou", "Sutter", "Tehama", "Yolo", "Yuba")
@@ -150,7 +169,7 @@ region9_code <- 9
 region10<- c("Imperial", "San Diego")
 region10_code <- 10
 
-wells_region <- wells_county_depth %>% 
+wells_region <- wells_tidy %>% 
   mutate(region_code = case_when(county %in% region1 ~ region1_code,
                                  county %in% region2 ~ region2_code,
                                  county %in% region3 ~ region3_code,
@@ -161,10 +180,11 @@ wells_region <- wells_county_depth %>%
                                  county %in% region8 ~ region8_code,
                                  county %in% region9 ~ region9_code,
                                  county %in% region10 ~ region10_code,
-                                 TRUE ~ 0)) %>% 
-  filter(str_detect(well_id, pattern = "CA")) %>% # removed wells not in CA
-  filter(depth_m > -1) # removed NA well depths that Scott categorized as -1
+                                 TRUE ~ 0))
 ```
+
+I found dates were not in a consistent format (using )
+
 
 **Plot to see distribution of well depth (m). Had to take the log of well depth:**
 
