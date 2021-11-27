@@ -20,6 +20,12 @@ library(here)
 library(lintr)
 library(janitor)
 library(lubridate)
+library(gt)
+library(readr)
+library(ggplot2)
+library(modelr)
+library(knitr)
+library(broom)
 ```
 
 # Technical Blog Guidelines
@@ -80,43 +86,37 @@ Some guidelines for the blog post:
 wells <- read_csv(here::here("_posts", "2021-11-14-stats-final", "data", "08_CA_AK.csv"))
 ```
 
-```{r}
-names(wells)
-```
-
-```{r}
+```{r, little bit of tidying}
 wells_clean <- wells %>% 
   janitor::clean_names()
-
-names(wells_clean)
 ```
 
 
-```{r}
+```{r, selecting columns of interest}
 wells_county_depth <- wells_clean %>% 
-  select("well_id", "county", "purpose_5", "date_completed", "depth", "screen_depth", "static_depth", "activity_type", "depth_m", "depth", "date", "depth_map")
+  select("well_id", "county", "purpose_5", "date_completed", "activity_type", "depth_m")
 ```
 
-```{r}
+```{r, looking at what CA counties there are}
 unique(wells_county_depth$county)
 ```
 
 **Added region codes to counties:**
 
-```{r}
+```{r, added region codes and filtered out NA / out of scope (i.e. AK)}
 region1 <- c("Butte", "Colusa", "El Dorado", "Glenn", "Lassen", "Modoc", "Nevada", "Placer", "Plumas", "Sacramento", "Shasta", "Sierra", "Siskiyou", "Sutter", "Tehama", "Yolo", "Yuba")
 region1_code <- 1
 
 region2 <- c("Del Norte", "Humboldt", "Lake", "Mendocino", "Napa", "Sonoma", "Trinity")
 region2_code <- 2
 
-region3 <- c("Almeda", "Contra Costa", "Marin", "San Francisco", "San Mateo", "Santa Clara", "Solano")
+region3 <- c("Alameda", "Contra Costa", "Marin", "San Francisco", "San Mateo", "Santa Clara", "Solano")
 region3_code <- 3
 
 region4 <- c("Alpine", "Amador", "Calaveras", "Madera", "Mariposa", "Merced", "Mono", "San Joaquin", "Stanislaus", "Tuolumne")
 region4_code <- 4
 
-region5 <- c("Monterey", "San Benitio", "San Luis Obispo", "Santa Barbara", "Santa Cruz", "Ventura")
+region5 <- c("Monterey", "San Benito", "San Luis Obispo", "Santa Barbara", "Santa Cruz", "Ventura")
 region5_code <- 5
 
 region6 <- c("Fresno", "Inyo", "Kern", "Kings", "Tulare")
@@ -145,12 +145,14 @@ wells_region <- wells_county_depth %>%
                                  county %in% region8 ~ region8_code,
                                  county %in% region9 ~ region9_code,
                                  county %in% region10 ~ region10_code,
-                                 TRUE ~ 0))
+                                 TRUE ~ 0)) %>% 
+  filter(str_detect(well_id, pattern = "CA")) %>% # removed wells not in CA
+  filter(depth_m > -1) # removed NA well depths that Scott categorized as -1
 ```
 
 **Plot to see distribution of well depth (m). Had to take the log of well depth:**
 
-```{r}
+```{r, distribution of well depth (m)}
 log_depth_m <- log(wells_region$depth_m)
 
 depth_hist <- ggplot(data = wells_region, aes(log_depth_m)) +
@@ -159,9 +161,9 @@ depth_hist <- ggplot(data = wells_region, aes(log_depth_m)) +
 depth_hist
 ```
 
-**Plot of depth(m) and region:**
+**Plot of region:**
 
-```{r}
+```{r, distribution of regions}
 # to color cannot use "color" in histogram, need to use "fill"
 # region_code originally has class numeric but needs to be class factor to fill
 
@@ -169,6 +171,70 @@ region_hist <- ggplot(data = wells_region, aes(x = region_code, fill = as.factor
   geom_histogram() 
 
 region_hist
+```
+
+
+**Need to count how many wells were completed by year**
+
+```{r}
+well_count_year <- wells_region[!is.na(strptime(wells_region$date_completed, format = c("%m/%d/%y", "%m/%d/%Y", "%m/%d/%y HMS"))),]
+
+well_count_year <- well_count_year %>% 
+  mutate(date_completed = lubridate::parse_date_time(date_completed, orders = c("mdy", "mdy HMS", "mdY"))) %>% 
+  mutate(year_completed = lubridate::year(date_completed)) %>% 
+  filter(year_completed >= 1900 & year_completed <= 2021) %>% 
+  group_by(year_completed) %>% 
+  count()
+
+ggplot(data = well_count_year, aes(x = year_completed, y = n)) +
+  geom_line()
+  
+```
+
+
+**Count how many wells were completed each year and in each region**
+
+```{r}
+well_count_year_region <- wells_region[!is.na(strptime(wells_region$date_completed, format = c("%m/%d/%y", "%m/%d/%Y", "%m/%d/%y HMS"))),]
+
+well_count_year_region <- well_count_year_region %>% 
+  mutate(date_completed = lubridate::parse_date_time(date_completed, orders = c("mdy", "mdy HMS", "mdY"))) %>% 
+  mutate(year_completed = lubridate::year(date_completed)) %>% 
+  filter(year_completed >= 1900 & year_completed <= 2021) %>% 
+  group_by(region_code, year_completed) %>% 
+  count()
+
+ggplot(data = well_count_year_region, aes(x = year_completed, y = n, color = region_code)) +
+  geom_point()
+```
+**Create North/South Region so that you have a categorical variable with only two levels as opposed to 10**
+
+```{r}
+norcal <- c(1, 2, 3, 4, 5)
+norcal_code <- "north"
+
+socal <- c(6, 7, 8, 9, 10)
+socal_code <- "south"
+
+region_north_south <- wells_region %>% 
+  mutate(north_south = case_when(region_code %in% norcal ~ norcal_code,
+                                 region_code %in% socal ~ socal_code,
+                                 TRUE ~ "NA"))
+```
+
+
+**Plot of Wells Region and Depth**
+
+```{r}
+well_region_1 <- wells_region[!is.na(strptime(wells_region$date_completed, format = c("%m/%d/%y", "%m/%d/%Y", "%m/%d/%y HMS"))),]
+
+well_region_1 <- wells_region %>% 
+  filter(region_code == 1) %>% 
+  mutate(date_completed = lubridate::parse_date_time(date_completed, orders = c("mdy", "mdy HMS", "mdY"))) %>% 
+  filter(date_completed >= as.POSIXct("1900-01-01") & date_completed < as.POSIXct("2021-11-26"))
+
+ggplot(data = well_region_1, aes(x = date_completed, y = depth_m)) +
+  geom_line()
 ```
 
 
@@ -211,9 +277,48 @@ wells_valid_dates <- wells_valid_dates %>%
 
 ```{r}
 ggplot(data = wells_valid_dates, aes(x = date_completed, y = depth_m, color = region_code)) + 
-  geom_point()
+  geom_point(alpha = 0.3)
 
 ```
+
+
+```{r}
+wells_valid_dates %>% 
+  summarize(wells_depth = cor(date_completed, depth_m)) %>% 
+  gt()
+```
+
+
+```{r}
+lm(depth_m ~ date_completed, data = wells_valid_dates) %>%
+  summary()
+```
+
+```{r}
+ggplot(data = wells_valid_dates, aes(x = region_code, y = depth_m)) +
+   geom_point()
+```
+
+
+```{r}
+wells_region_1_10 <- wells_valid_dates %>% 
+  filter(region_code %in% c(1, 10))
+
+wells_region_1_10 <- wells_region_1_10 %>% mutate(region_code = as.factor(region_code)) # Recall, we do this to ensure our year variable is treated as a categorical variable
+
+mod <- lm(depth_m ~ date_completed + region_code, data = wells_region_1_10)
+
+wells_region_1_10 %>% 
+  ggplot(aes(x = date_completed, y = depth_m, color = region_code)) +
+  geom_point() +
+  geom_line(data = augment(mod), aes(y = .fitted, color = region_code)) + 
+  labs(x = "Date Completed",
+       y = "Depth of Wells (m)") +
+  scale_colour_discrete("Region Code")
+```
+
+
+
 ```{r, deleted}
 # wells_time_only_year <- wells_region %>% 
 #   mutate(date_completed = na.omit(date_completed)
