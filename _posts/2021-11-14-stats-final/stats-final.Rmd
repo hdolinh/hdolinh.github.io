@@ -26,7 +26,13 @@ library(ggplot2)
 library(modelr)
 library(knitr)
 library(broom)
+library(tsibble)
+
+options(scipen = 999) # disable scientific notation
 ```
+
+**NO TIME SERIES BECAUSE COULD NOT GET INTO DATE OBJECT**
+
 
 # Technical Blog Guidelines
 
@@ -53,9 +59,6 @@ Some guidelines for the blog post:
     -   Is there existing evidence on this question?
 
     -    If so, why is it inconclusive? If not, why not?
-    
-    
-
 
 -   Describe your data.
 
@@ -81,12 +84,25 @@ Some guidelines for the blog post:
 
     -   Describe in the text (and orally when presenting) what you found, and how these results either do or do not help you answer your question.
     
-    
+## Data Setup
+
+### Import Data
+
+I received data from Dr. Scott Jasechko on private wells in California and AK (TBD on what AK is). 
+
 ```{r}
 wells <- read_csv(here::here("_posts", "2021-11-14-stats-final", "data", "08_CA_AK.csv"))
 ```
 
-```{r, little bit of tidying}
+
+```{r}
+wells_AK <- wells %>% 
+  filter(str_detect(WellID, pattern = "AK")) # AK wells are not associated with any Counties in CA, so can confirm we should remove
+```
+
+Here I have made my tidy dat
+
+```{r, tidy}
 wells_clean <- wells %>% 
   janitor::clean_names()
 ```
@@ -204,10 +220,13 @@ well_count_year_region <- well_count_year_region %>%
   group_by(region_code, year_completed) %>% 
   count()
 
-ggplot(data = well_count_year_region, aes(x = year_completed, y = n, color = region_code)) +
+ggplot(data = well_count_year_region, aes(x = year_completed, y = n, color = as.factor(region_code))) +
   geom_point()
 ```
 **Create North/South Region so that you have a categorical variable with only two levels as opposed to 10**
+
+- Plot date (year only), mean of well depth(m), and color by north/south region
+- Need to test if this is significant! 
 
 ```{r}
 norcal <- c(1, 2, 3, 4, 5)
@@ -219,11 +238,74 @@ socal_code <- "south"
 region_north_south <- wells_region %>% 
   mutate(north_south = case_when(region_code %in% norcal ~ norcal_code,
                                  region_code %in% socal ~ socal_code,
-                                 TRUE ~ "NA"))
+                                 TRUE ~ "NA")) %>% 
+  mutate(date_completed = lubridate::parse_date_time(date_completed, orders = c("mdy", "mdy HMS", "mdY"))) %>% 
+  mutate(year_completed = lubridate::year(date_completed)) %>% 
+  filter(year_completed >= 1900 & year_completed <= 2021) %>% 
+  mutate(north_south = as.factor(north_south)) %>% # make north_south a factor variable
+  group_by(year_completed, north_south) %>% 
+  mutate(mean_depth_m = mean(depth_m)) # yearly averages 
+
+mod <- lm(mean_depth_m ~ year_completed + north_south, data = region_north_south)
+
+ggplot(data = region_north_south, aes(x = year_completed, y = mean_depth_m,  color = north_south)) +
+  geom_point() +
+  geom_line(data = augment(mod), aes(y = .fitted, color = north_south)) +
+  labs(x = "Year well was completed",
+       y = "Yearly average well depth (m)") +
+  scale_colour_discrete("North South Region")
+  
 ```
 
 
-**Plot of Wells Region and Depth**
+```{r}
+
+mod_interaction <- lm(mean_depth_m ~ year_completed + north_south + year_completed:north_south, data = region_north_south) 
+summary(mod_interaction)
+
+```
+
+
+```{r}
+ggplot(region_north_south, aes(y = mean_depth_m, x = year_completed, color = north_south)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+
+```{r}
+mod_interaction <- lm(mean_depth_m ~ year_completed + north_south + year_completed:north_south, data = region_north_south) 
+
+region_north_south %>% 
+  ggplot(aes(x = year_completed, y = mean_depth_m, color = north_south)) +
+  geom_point() +
+  geom_line(data = augment(mod_interaction), aes(y = .fitted, color = north_south)) 
+```
+
+
+```{r}
+# no interaction
+mod <- lm(mean_depth_m ~ year_completed + north_south, data = region_north_south)
+AdjR2 <- summary(mod)$adj.r.squared
+print(AdjR2)
+
+# with the interaction
+mod_interaction <- lm(mean_depth_m ~ year_completed + north_south + year_completed:north_south, data = region_north_south) 
+AdjR2_int <- summary(mod_interaction)$adj.r.squared
+print(AdjR2_int)
+```
+**Interpretation: Since the adjusted $R^2$ value increased slightly, we conclude that the interaction model.....improves the model fit a little (but not meaningfully?). This indicates that the north_south region variable are adding value to the model. **
+
+
+**HYPOTHESIS TESTING**
+
+```{r}
+
+```
+
+
+
+**Plot of Wells Region 1 and Depth**
 
 ```{r}
 well_region_1 <- wells_region[!is.na(strptime(wells_region$date_completed, format = c("%m/%d/%y", "%m/%d/%Y", "%m/%d/%y HMS"))),]
