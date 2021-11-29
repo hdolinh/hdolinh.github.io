@@ -15,18 +15,24 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 ```{r loading packages, include=FALSE}
+
+### figure height and size in {r}
+
 library(tidyverse) 
 library(here)
 library(lintr) # remove maybe
 library(janitor)
 library(lubridate)
-library(gt) 
+library(kableExtra)
+library(xtable)
+library(feasts)
 library(readr) # remove maybe
 library(ggplot2) # remove maybe
 library(modelr) # remove maybe
-library(knitr) # remove maybe
+library(knitr) # use this to make kable tables
 library(broom)
 library(tsibble) # remove maybe
+library(zoo)
 
 options(scipen = 999) # disable scientific notation
 ```
@@ -92,13 +98,10 @@ I received data from Dr. Scott Jasechko on private wells in California and AK (T
 
 ```{r}
 wells <- read_csv(here::here("_posts", "2021-11-14-stats-final", "data", "08_CA_AK.csv"))
+
+#"MEDS", "hdolinh.github.io"
 ```
 
-
-```{r}
-wells_AK <- wells %>% 
-  filter(str_detect(WellID, pattern = "AK")) # AK wells are not associated with any Counties in CA, so can confirm we should remove
-```
 
 Here I have made my tidy dataset `wells_tidy`.
 
@@ -107,6 +110,8 @@ Here I have made my tidy dataset `wells_tidy`.
 - I noticed `well_id` had prefixes "CA" and "AK". I know CA contained observations, but was uncertain about AK. I used `str_detect()` (from `stringr` in `tidyverse`) to created a subset of just AK observations and found that none of the AK well observations are associated with California counties. This confirmed that I should remove well id's that start with AK. I used `filter()` (from `dpylr` in `tidyverse`) and `str_detect()` to do this and removed 36,386 observations. 
 - Dr. Jasechko has informed me that values of -1 in the `depth_m` column are NA values, so I removed those using `filter()` (from `dpylr` in `tidyverse`). This removed a significant amount of observations - new total is 642,369.
 - I found dates were not in a consistent format so I used `lubridate` `parse_date_time` and the orders mdy, mdy HMS, and mdY to create datetime objects. To simply my overall analysis I created a new column `year_completed` so I could create yearly averages of well depth(m). When I used ascending and descending order to check the `year_completed` column I found there were still issues with dates (i.e. some years were in 2068 or 0101) so I used `filter()` to keep years between 1900 and 2021. 
+
+# found there are some dates with HMY format using table(wells-region$date_completed)
 
 **Because of tidying I have a final dataset of 528,855 well observations between 1900 and 2021.**
 
@@ -130,7 +135,7 @@ unique(wells_tidy$county)
 I knew it would be difficult to compare all 58 counties, so I found on the [California Census website](https://census.ca.gov/regions/) that counties are divided into 10 regions. I created a new column `region_code` and assigned all 58 counties their region code based on the CA.gov website using `case_when()`. If there were any NA values then they would be assigned a region code of 0. This is a new dataset `wells_region`. Since the region codes have a class of numeric, I used `as.factor` to make them a factor/ categorical variable.
 
 
-```{r, added region codes and filtered out NA / out of scope (i.e. AK)}
+```{r, added region codes and made it a factor}
 region1 <- c("Butte", "Colusa", "El Dorado", "Glenn", "Lassen", "Modoc", "Nevada", "Placer", "Plumas", "Sacramento", "Shasta", "Sierra", "Siskiyou", "Sutter", "Tehama", "Yolo", "Yuba")
 region1_code <- 1
 
@@ -226,24 +231,11 @@ ggplot(data = wells_counts_year, aes(x = year_completed, y = total_year)) +
   theme_minimal()
 ```
 
-**TRIED TO DO SOME TIME SERIES ANALYSIS**
-
-```{r}
-wells_subset <- wells_region %>% 
-  select(well_id, date_completed) %>% 
-  group_by(well_id, date_completed) %>% 
-  count()
-
-wells_tsbl <- as_tsibble(wells_subset, key = well_id)
-
-ggplot(data = wells_tsbl, aes(x = date_completed, y = n)) +
-  geom_line()
-```
-
 
 **Count how many wells were completed each year and in each region**
 
 **Interpretation: This visually indicates that we are seeing less wells being drilled over time in most if not all regions as well. It also looks like there could be some seasonality...but I was not able to plot this year I could not get my `year_completed` values to be of class `date`.**
+
 
 ```{r}
 wells_counts_year_region <- wells_region %>% 
@@ -259,6 +251,22 @@ ggplot(data = wells_counts_year_region, aes(x = year_completed, y = count, color
        colour = "Region Code") +
   theme_minimal()
 ```
+
+```{r}
+wells_depth_year <- wells_region %>% 
+  select(well_id, year_completed, depth_m) %>% 
+  group_by(year_completed) %>% 
+  summarize(mean_depth_m_year = mean(depth_m))
+
+ggplot(data = wells_depth_year, aes(x = year_completed, y = mean_depth_m_year)) +
+  geom_line() +
+  labs(x = "Year well was completed",
+       y = "Yearly average well depth (m)",
+       title = "Yearly Average Well Depth (m) from 1990 to 2021") +
+  theme_minimal()
+```
+
+
 **MULTIPLE LINEAR REGRESSION ANALYSIS**
 
 **Create North/South Region so that you have a categorical variable with only two levels as opposed to 10**
@@ -276,13 +284,10 @@ socal_code <- "south"
 region_north_south <- wells_region %>% 
   mutate(north_south = case_when(region_code %in% norcal ~ norcal_code,
                                  region_code %in% socal ~ socal_code,
-                                 TRUE ~ "NA")) %>% 
-  mutate(date_completed = lubridate::parse_date_time(date_completed, orders = c("mdy", "mdy HMS", "mdY"))) %>% 
-  mutate(year_completed = lubridate::year(date_completed)) %>% 
-  filter(year_completed >= 1900 & year_completed <= 2021) %>% 
+                                 TRUE ~ "NA")) %>%
   mutate(north_south = as.factor(north_south)) %>% # make north_south a factor variable
   group_by(year_completed, north_south) %>% 
-  mutate(mean_depth_m = mean(depth_m)) # yearly averages 
+  mutate(mean_depth_m = mean(depth_m)) # yearly averages by region
 
 mod <- lm(mean_depth_m ~ year_completed + north_south, data = region_north_south)
 
@@ -293,6 +298,15 @@ ggplot(data = region_north_south, aes(x = year_completed, y = mean_depth_m,  col
        y = "Yearly average well depth (m)") +
   scale_colour_discrete("North South Region")
   
+```
+
+**Results of model**
+
+```{r}
+mod_summary <- lm(mean_depth_m ~ year_completed + north_south, data = region_north_south) %>% summary() 
+
+mod_table <- mod_summary %>% xtable() %>% kbl() %>% kable_material("striped")
+mod_table
 ```
 
 
@@ -312,7 +326,7 @@ ggplot(region_north_south, aes(y = mean_depth_m, x = year_completed, color = nor
 
 
 ```{r}
-mod_interaction <- lm(mean_depth_m ~ year_completed + north_south + year_completed:north_south, data = region_north_south) 
+#mod_interaction <- lm(mean_depth_m ~ year_completed + north_south + year_completed:north_south, data = region_north_south) 
 
 region_north_south %>% 
   ggplot(aes(x = year_completed, y = mean_depth_m, color = north_south)) +
@@ -335,107 +349,70 @@ print(AdjR2_int)
 **Interpretation: Since the adjusted $R^2$ value increased slightly, we conclude that the interaction model.....improves the model fit a little (but not meaningfully?). This indicates that the north_south region variable are adding value to the model. **
 
 
-**HYPOTHESIS TESTING**
+**TRIED TO DO SOME TIME SERIES ANALYSIS**
 
 ```{r}
-
+monthly_depth <- region_north_south %>% 
+  select(well_id, date_completed, depth_m, region_code, north_south, year_completed) %>% 
+  mutate(month_completed = lubridate::month(date_completed)) %>% 
+  mutate(month_year_completed = as.yearmon(paste0(year_completed, month_completed), "%Y %m")) %>% 
+  mutate(month_year_completed = yearmonth(month_year_completed)) %>% 
+  group_by(month_year_completed, north_south) %>% 
+  mutate(month_mean_depth_m = mean(depth_m)) %>% # monthly averages
+  ungroup()
+  
 ```
 
 
 
-**Plot of Wells Region 1 and Depth**
-
 ```{r}
-well_region_1 <- wells_region[!is.na(strptime(wells_region$date_completed, format = c("%m/%d/%y", "%m/%d/%Y", "%m/%d/%y HMS"))),]
+wells_north <- monthly_depth %>% 
+  filter(north_south == "north")
 
-well_region_1 <- wells_region %>% 
-  filter(region_code == 1) %>% 
-  mutate(date_completed = lubridate::parse_date_time(date_completed, orders = c("mdy", "mdy HMS", "mdY"))) %>% 
-  filter(date_completed >= as.POSIXct("1900-01-01") & date_completed < as.POSIXct("2021-11-26"))
+wells_subset_north <- wells_north %>% 
+  select(well_id, month_year_completed, month_mean_depth_m)
 
-ggplot(data = well_region_1, aes(x = date_completed, y = depth_m)) +
-  geom_line()
-```
+wells_tbsl_north <- as_tsibble(wells_subset_north, key = well_id, index = month_year_completed)
 
-
-**Plot time**
-
-```{r}
-# found there are some dates with HMY format using table(wells-region$date_completed)
-
-wells_time <- wells_region %>% 
-  select(well_id, date_completed) %>% 
-  mutate(date_completed = na.omit())
-  mutate(date_completed = lubridate::guess_formats(date_completed, orders = "mdy"))
-
-wells_time <- wells_region %>%
-  mutate(date_completed = lubridate::mdY(date_completed))
-
-time_hist <- ggplot(data = wells_region, aes(log_depth_m)) +
-  geom_histogram()
-
-time_hist
-
-wells_time2 <- wells_region %>% 
-  mutate(date_completed = lubridate::mdy(date_completed))
-
-wells_time3 <- wells_region %>% 
-  group_by(date_completed) %>% 
-  count()
-
-
-wells_valid_dates <- wells_region[!is.na(strptime(wells_region$date_completed, format = c("%m/%d/%y", "%m/%d/%Y", "%m/%d/%y HMS"))),]
-
-
-wells_valid_dates <- wells_valid_dates %>% 
-  mutate(date_completed = lubridate::parse_date_time(date_completed, orders = c("mdy", "mdy HMS", "mdY"))) %>% 
-  filter(date_completed >= as.POSIXct("1900-01-01") & date_completed < as.POSIXct("2021-11-26"))
-
-
-
-```
-
-```{r}
-ggplot(data = wells_valid_dates, aes(x = date_completed, y = depth_m, color = region_code)) + 
-  geom_point(alpha = 0.3)
-
+wells_decomp_north <- wells_tbsl_north %>% 
+  model(classical_decomposition(month_mean_depth_m, type = "additive")) %>%
+  components() %>% 
+  autoplot()
 ```
 
 
 ```{r}
-wells_valid_dates %>% 
-  summarize(wells_depth = cor(date_completed, depth_m)) %>% 
-  gt()
+wells_subset <- monthly_depth %>% 
+  select(well_id, month_year_completed, month_mean_depth_m)
+
+wells_tbsl <- as_tsibble(wells_subset, key = well_id, index = month_year_completed)
+
+wells_decomp <-wells_tbsl %>% 
+  model(classical_decomposition(month_mean_depth_m, type = "additive")) %>%
+  components() %>% 
+  autoplot()
 ```
+
 
 
 ```{r}
-lm(depth_m ~ date_completed, data = wells_valid_dates) %>%
-  summary()
+wells_depth_yearmon <- monthly_depth %>% 
+  select(well_id, month_year_completed, depth_m) %>% 
+  group_by(month_year_completed) %>% 
+  summarize(mean_depth_m_year = mean(depth_m))
+
+wells_tbsl_2 <- as_tsibble(wells_depth_yearmon)
+
+wells_decomp_2 <- wells_tbsl_2 %>% 
+  model(classical_decomposition(mean_depth_m_year, type = "additive")) %>%
+  components() %>% 
+  autoplot()
+
+wells_decomp_2
 ```
 
-```{r}
-ggplot(data = wells_valid_dates, aes(x = region_code, y = depth_m)) +
-   geom_point()
-```
 
 
-```{r}
-wells_region_1_10 <- wells_valid_dates %>% 
-  filter(region_code %in% c(1, 10))
-
-wells_region_1_10 <- wells_region_1_10 %>% mutate(region_code = as.factor(region_code)) # Recall, we do this to ensure our year variable is treated as a categorical variable
-
-mod <- lm(depth_m ~ date_completed + region_code, data = wells_region_1_10)
-
-wells_region_1_10 %>% 
-  ggplot(aes(x = date_completed, y = depth_m, color = region_code)) +
-  geom_point() +
-  geom_line(data = augment(mod), aes(y = .fitted, color = region_code)) + 
-  labs(x = "Date Completed",
-       y = "Depth of Wells (m)") +
-  scale_colour_discrete("Region Code")
-```
 
 
 
