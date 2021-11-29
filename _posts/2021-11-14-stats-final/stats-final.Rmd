@@ -349,9 +349,10 @@ print(AdjR2_int)
 **Interpretation: Since the adjusted $R^2$ value increased slightly, we conclude that the interaction model.....improves the model fit a little (but not meaningfully?). This indicates that the north_south region variable are adding value to the model. **
 
 
-**TRIED TO DO SOME TIME SERIES ANALYSIS**
+**TIME SERIES ANALYSIS**
 
 ```{r}
+# created dataset to use as a timeseries object 
 monthly_depth <- region_north_south %>% 
   select(well_id, date_completed, depth_m, region_code, north_south, year_completed) %>% 
   mutate(month_completed = lubridate::month(date_completed)) %>% 
@@ -364,38 +365,8 @@ monthly_depth <- region_north_south %>%
 ```
 
 
-
 ```{r}
-wells_north <- monthly_depth %>% 
-  filter(north_south == "north")
-
-wells_subset_north <- wells_north %>% 
-  select(well_id, month_year_completed, month_mean_depth_m)
-
-wells_tbsl_north <- as_tsibble(wells_subset_north, key = well_id, index = month_year_completed)
-
-wells_decomp_north <- wells_tbsl_north %>% 
-  model(classical_decomposition(month_mean_depth_m, type = "additive")) %>%
-  components() %>% 
-  autoplot()
-```
-
-
-```{r}
-wells_subset <- monthly_depth %>% 
-  select(well_id, month_year_completed, month_mean_depth_m)
-
-wells_tbsl <- as_tsibble(wells_subset, key = well_id, index = month_year_completed)
-
-wells_decomp <-wells_tbsl %>% 
-  model(classical_decomposition(month_mean_depth_m, type = "additive")) %>%
-  components() %>% 
-  autoplot()
-```
-
-
-
-```{r}
+# classical decomposition analysis 
 wells_depth_yearmon <- monthly_depth %>% 
   select(well_id, month_year_completed, depth_m) %>% 
   group_by(month_year_completed) %>% 
@@ -447,6 +418,29 @@ wells_decomp_2
 #   filter(year_completed >= 1900 & year_completed <= 2021) %>% 
 #   group_by(year_completed) %>% 
 #   count()
+
+# wells_subset <- monthly_depth %>% 
+#   select(well_id, month_year_completed, month_mean_depth_m)
+# 
+# wells_tbsl <- as_tsibble(wells_subset, key = well_id, index = month_year_completed)
+# 
+# wells_decomp <-wells_tbsl %>% 
+#   model(classical_decomposition(month_mean_depth_m, type = "additive")) %>%
+#   components() %>% 
+#   autoplot()
+
+# wells_north <- monthly_depth %>% 
+#   filter(north_south == "north")
+# 
+# wells_subset_north <- wells_north %>% 
+#   select(well_id, month_year_completed, month_mean_depth_m)
+# 
+# wells_tbsl_north <- as_tsibble(wells_subset_north, key = well_id, index = month_year_completed)
+# 
+# wells_decomp_north <- wells_tbsl_north %>% 
+#   model(classical_decomposition(month_mean_depth_m, type = "additive")) %>%
+#   components() %>% 
+#   autoplot()
 ```
 
 
