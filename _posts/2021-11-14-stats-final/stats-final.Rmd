@@ -318,6 +318,8 @@ wells_decomp_2
 
 Future research would check to see if seasonality is significant in only northern regions. There could be a more seasonal affect in northern regions due to geology or climate since this varies from the southern regions. 
 
+Other research could include policy into regression analysis or other statistical analysis to see what kind of impact policy has on well drilling in California. This would be important to look at since we know that a large amount of wells are running dry in California. And if groundwater levels continue to decline, we need to understand what policies are most effective so that we can better manage water now and in the future. 
+
 # Appendix
 
 ## Figures
