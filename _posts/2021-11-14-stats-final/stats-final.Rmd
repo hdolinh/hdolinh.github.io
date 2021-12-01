@@ -312,15 +312,11 @@ wells_decomp_2 <- wells_tbsl_2 %>%
 wells_decomp_2
 ```
 
-**Interpretation:**
-- `trend`: We see that `trend` is adding value to the model.
-- `seasonal`: We do not see that `seasonal` is adding value to the model.
-- `random`: We see that `random` is adding value to the model.
-- `mean_depth_m_year`: We see that `mean_depth_m_year` is adding value to the model.
+**Interpretation:** We see there is evidence of a long-run upward trend over time and there is no evidence of seasonality. Based on the size of the bars, the `trend` component is more important in driving overall variation in yearly average well depth (m) since the gray bar for `trend` is much smaller than the bar for the `seasonal` value. This confirmed for me that the "cycles" I was seeing in Figure 6 were not significant. It also confirms what we already know: that over time we are drilling deeper wells in California. 
 
 # Future Research
 
-Future research would check to see if seasonality is present with just northern regions. 
+Future research would check to see if seasonality is significant in only northern regions. There could be a more seasonal affect in northern regions due to geology or climate since this varies from the southern regions. 
 
 # Appendix
 
