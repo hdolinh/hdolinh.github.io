@@ -522,6 +522,29 @@ tot_wells_region
 # 
 # mod_interaction
 ```
+
+
+```{r}
+# wells_counts_year_region <- wells_region %>% 
+#   group_by(region_code, year_completed) %>% 
+#   count() %>% 
+#   rename(count = n)
+# 
+# wells_counts_year_region_plot <- ggplot(data = wells_counts_year_region, aes(x = year_completed, y = count, color = region_code)) +
+#   geom_line() +
+#   labs(x = "Year well was completed",
+#        y = "Number of wells",
+#        title = "Total number of wells per year by region",
+#        colour = "Region Code") +
+#   guides(color = guide_legend(nrow = 1)) +
+#   theme_light() +
+#   theme(
+#     panel.grid = element_blank(),
+#     legend.position = "bottom"
+#   )
+```
+
+
 -   What might you do next?
 
     -   One short analysis cannot fully answer an interesting scientific question.

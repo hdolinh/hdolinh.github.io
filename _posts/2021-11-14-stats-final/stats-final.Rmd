@@ -5,14 +5,14 @@ description: |
 author: "Halina Do-Linh"
 date: 12-02-2021
 output:
-  distill::distill_article:
-    self_contained: false
-    code_folding: true
+  pdf_document:
+    fig_caption: yes
   html_document:
     toc: yes
     df_print: paged
-  pdf_document:
-    fig_caption: yes
+  distill::distill_article:
+    self_contained: false
+    code_folding: true
 ---
 
 ```{r setup, include=FALSE}
@@ -46,7 +46,7 @@ wells <- read_csv(here::here("_posts", "2021-11-14-stats-final","data", "08_CA_A
 
 # Question
 
-## Are we drilling deeper wells over time in California?
+## Are we drilling deeper wells faster over time in California?
 
 1.5 million people in California rely on domestic well water. (Johnson) Majority of the 1.5 million reside in rural areas without alternative drinking-water sources. Furthermore, in the Central Valley, it has been found that one in five wells now run dry due to groundwater level declines (Jasechko 1). While some have responded to this issue by drilling deeper, this practice has also been found to be unsustainable because it is costly, it is impractical in certain hydrogeological conditions, and deep groundwater is often brackish or saline. (Perrone 3) While we are aware that groundwater levels are declining and that deeper drilling is unsustainable, we do not know if this is a long-term trend in California. 
 
@@ -219,27 +219,6 @@ $$welldepth(m) =\beta_{0}+\beta_{1} \cdot year_i +\beta_{2} \cdot region_i+ \bet
 **2. Time Series Analysis**
 
 Run decomposition analysis to test for seasonality. From my exploratory graphs I visually saw some evidence of cyclical patterns (see Figure 6 in Appendix) and wanted to see if this was significant. 
-
-```{r}
-wells_counts_year_region <- wells_region %>% 
-  group_by(region_code, year_completed) %>% 
-  count() %>% 
-  rename(count = n)
-
-wells_counts_year_region_plot <- ggplot(data = wells_counts_year_region, aes(x = year_completed, y = count, color = region_code)) +
-  geom_line() +
-  labs(x = "Year well was completed",
-       y = "Number of wells",
-       title = "Total number of wells per year by region",
-       colour = "Region Code") +
-  guides(color = guide_legend(nrow = 1)) +
-  theme_light() +
-  theme(
-    panel.grid = element_blank(),
-    legend.position = "bottom"
-  )
-```
-
 
 # Results
 
