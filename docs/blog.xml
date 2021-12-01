@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
+  <channel>
+    <title>Halina Do-Linh</title>
+    <link>hdolinh.github.io</link>
+    <atom:link href="hdolinh.github.io/blog.xml" rel="self" type="application/rss+xml"/>
+    <description>My Website
+</description>
+    <generator>Distill</generator>
+    <lastBuildDate>Thu, 02 Dec 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Assessing Well Depth in California Between 1990 and 2021</title>
+      <dc:creator>Halina Do-Linh</dc:creator>
+      <link>hdolinh.github.io/posts/2021-11-14-stats-final</link>
+      <description>Final project for EDS 222 Environmental Statistics</description>
+      <guid>hdolinh.github.io/posts/2021-11-14-stats-final</guid>
+      <pubDate>Thu, 02 Dec 2021 00:00:00 +0000</pubDate>
+      <media:content url="hdolinh.github.io/posts/2021-11-14-stats-final/stats-final_files/figure-html5/unnamed-chunk-2-1.png" medium="image" type="image/png" width="1056" height="672"/>
+    </item>
+    <item>
+      <title>A function I learned</title>
+      <dc:creator>Halina Do-Linh</dc:creator>
+      <link>hdolinh.github.io/posts/2021-08-10-a-function-i-learned</link>
+      <description>A short description of the post.</description>
+      <guid>hdolinh.github.io/posts/2021-08-10-a-function-i-learned</guid>
+      <pubDate>Tue, 10 Aug 2021 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>My First Blog Post</title>
+      <dc:creator>Halina Do-Linh</dc:creator>
+      <link>hdolinh.github.io/posts/2021-08-10-my-first-blog-post</link>
+      <description>A short description of the post.</description>
+      <guid>hdolinh.github.io/posts/2021-08-10-my-first-blog-post</guid>
+      <pubDate>Tue, 10 Aug 2021 00:00:00 +0000</pubDate>
+    </item>
+  </channel>
+</rss>

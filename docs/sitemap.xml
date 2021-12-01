@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" version="1.0">
+  <url>
+    <loc>hdolinh.github.io/about.html</loc>
+    <lastmod>2021-08-31T14:56:09-07:00</lastmod>
+  </url>
+  <url>
+    <loc>hdolinh.github.io/blog.html</loc>
+    <lastmod>2021-08-10T10:28:16-07:00</lastmod>
+  </url>
+  <url>
+    <loc>hdolinh.github.io/cv.html</loc>
+    <lastmod>2021-08-06T11:07:28-07:00</lastmod>
+  </url>
+  <url>
+    <loc>hdolinh.github.io/</loc>
+    <lastmod>2021-11-14T10:57:17-08:00</lastmod>
+  </url>
+  <url>
+    <loc>hdolinh.github.io/posts/2021-11-14-stats-final/</loc>
+    <lastmod>2021-12-01T13:57:09-08:00</lastmod>
+  </url>
+  <url>
+    <loc>hdolinh.github.io/posts/2021-08-10-a-function-i-learned/</loc>
+    <lastmod>2021-11-14T11:17:45-08:00</lastmod>
+  </url>
+  <url>
+    <loc>hdolinh.github.io/posts/2021-08-10-my-first-blog-post/</loc>
+    <lastmod>2021-11-14T11:18:03-08:00</lastmod>
+  </url>
+</urlset>

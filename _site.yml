@@ -1,5 +1,6 @@
 name: "hdolinh.github.io"
-title: "My Website"
+title: "Halina Do-Linh"
+base_url: hdolinh.github.io
 description: |
   My Website
 output_dir: "docs"
