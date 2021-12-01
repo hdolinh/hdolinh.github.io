@@ -1,19 +1,18 @@
 ---
-title: "Environmental Statistics Final"
+title: "Assessing Well Depth in California Between 1990 and 2021"
 description: |
-  A short description of the post.
+  Final project for EDS 222 Environmental Statistics
 author: "Halina Do-Linh"
 date: 12-02-2021
 output:
-  pdf_document:
-    fig_caption: yes
+  distill::distill_article:
+    self_contained: false
+    code_folding: true
   html_document:
     toc: yes
     df_print: paged
-  distill::distill_article:
-    self_contained: false
-    toc: yes
-    code_folding: true
+  pdf_document:
+    fig_caption: yes
 ---
 
 ```{r setup, include=FALSE}
