@@ -7,16 +7,16 @@ date: 12-02-2021
 slug: hdoinheds222final
 bibliography: bibliography.bib
 output:
-  pdf_document:
-    fig_caption: yes
-  html_document:
-    toc: yes
-    df_print: paged
   distill::distill_article:
     self_contained: false
     code_folding: true
     toc: yes
     toc_float: yes
+  html_document:
+    toc: yes
+    df_print: paged
+  pdf_document:
+    fig_caption: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -44,23 +44,21 @@ options(scipen = 999) # disable scientific notation
 
 ```{r}
 wells <- read_csv(here::here("_posts", "2021-11-14-stats-final","data", "08_CA_AK.csv"))
-
-#"MEDS", "hdolinh.github.io"
 ```
 
 # Question
 
 ## Are we drilling deeper wells faster over time in California?
 
-1.5 million people in California rely on domestic well water. (Johnson) Majority of the 1.5 million reside in rural areas without alternative drinking-water sources. Furthermore, in the Central Valley, it has been found that one in five wells now run dry due to groundwater level declines (Jasechko 1). While some have responded to this issue by drilling deeper, this practice has also been found to be unsustainable because it is costly, it is impractical in certain hydrogeological conditions, and deep groundwater is often brackish or saline. (Perrone 3) While we are aware that groundwater levels are declining and that deeper drilling is unsustainable, we do not know how fast we are drilling deeper in California over time. 
+1.5 million people in California rely on domestic well water^[@Johnson:2015:10.1016/j.ejrh.2014.09.002].  Majority of the 1.5 million reside in rural areas without alternative drinking-water sources. Furthermore, in the Central Valley, it has been found that one in five wells now run dry due to groundwater level declines^[@Jasechko:2020:10.1029/2019EF001339]. While some have responded to this issue by drilling deeper, this practice has also been found to be unsustainable because it is costly, it is impractical in certain hydrogeological conditions, and deep groundwater is often brackish or saline^[@Perrone:2019:10.1038/s41893-019-0325-z]. While we are aware that groundwater levels are declining and that deeper drilling is unsustainable, we do not know how fast we are drilling deeper in California over time. 
 
 It is important to study groundwater trends because water is an important resource in California and it is crucial for groundwater management to be sustainable and equitable. By understanding the rate at which we are drilling deeper wells over time, we can improve groundwater management and make well water water a more secure resource, especially for communities that depend on it.
 
 # Data
 
-My data has been obtained by Dr. Debra Perrone and Dr. Scott Jasechko for their research on groundwater wells. California domestic well water data was obtained through personal communication with state representatives from the California Department of Water Resources (CADWR) in March 2016 and April 2016. The CADWR maintains the [California Groundwater Well Completion Report database](https://data.cnra.ca.gov/dataset/well-completion-reports). Dr. Perrone and Dr. Jasechko reported that the data may contain biases by region, time, purpose, and compliance.
+My data was obtained by Dr. Debra Perrone and Dr. Scott Jasechko for their research on groundwater wells. California domestic well water data was obtained through personal communication with state representatives from the California Department of Water Resources (CADWR) in March 2016 and April 2016. The CADWR maintains the [California Groundwater Well Completion Report database](https://data.cnra.ca.gov/dataset/well-completion-reports). Dr. Perrone and Dr. Jasechko reported that the data may contain biases by region, time, purpose, and compliance.
 
-This data is international, but I subsetted the data to only contain wells from California. I also added region codes based on the [California Complete Count Office](https://census.ca.gov/regions/), which grouped California's 58 counties into 10 regions based on  hard-to-count populations, like-mindedness of the counties, capacity of community-based organizations within the counties, and state Census staff workload capabilities.
+This data is international, but I subsetted the data to only contain wells from California. I also added region codes based on the [California Complete Count Office](https://census.ca.gov/regions/), which groups California's 58 counties into 10 regions based on  hard-to-count populations, like-mindedness of the counties, capacity of community-based organizations within the counties, and state Census staff workload capabilities.
 
 ```{r, tidy}
 wells_tidy <- wells %>% 
@@ -174,7 +172,7 @@ region_bar <- ggplot(data = wells_region, aes(x = region_code)) +
 depth_hist / region_bar
 ```
 
-Exploratory graphs of total counts of wells both over time and by region suggests that overall we are completing less wells (figure 1). However, we are also seeing that we could be potentially drilling deeper wells over time (figure 2).
+Exploratory graphs of total counts of wells both over time and by region suggests that overall we are completing less wells (Figure 1). However, we are also seeing that we could be potentially drilling deeper wells over time (Figure 2).
 
 ```{r, plot of average well depth over time}
 wells_depth_year <- wells_region %>% 
@@ -268,7 +266,7 @@ interaction_plot
 
 **Overall Interpretation:** This interaction effect tells us that the relationship between `year` and `well_depth` varies with `region`. This is a significant effect with a **p-value of 0.00000000000000022 at the the significance level 0.01**. The adjusted r-value is reports that **75%** of the data is explained by this interaction effect. Since this is a slight increase from the adjusted $R^2$ value from the model with no interaction, this tells us that the interaction model improves the model fit (at least a little). The rate of the wells being drilled in the north are at a **rate of 0.28 m per year**. This is faster than the rate we found without the interaction effect, so we are seeing that not only are we drilling deeper wells faster over time, but that we are drilling deeper in northern regions than southern regions over time as well.
 
-```{r, include=FALSE}
+```{r, adjusted r squares, include=FALSE}
 # no interaction
 mod <- lm(mean_depth_m ~ year_completed + north_south, data = region_north_south)
 AdjR2 <- summary(mod)$adj.r.squared
@@ -318,7 +316,7 @@ wells_decomp_2
 
 Future research could check to see if seasonality is significant in only northern regions. A closer look at Figure 6 shows that most of the seasonality is visible in regions one through five, which represent the northern region. This could make sense, as intuition tells me there could be a more seasonal affect in northern regions due to geology or colder climates.
 
-Other research could include policy as an independent variable in regression or other statistical analysis to see what kind of impact policy has on well drilling depth in California. This would be important to look at since we know that a large amount of wells are running dry in California (Jasecko 1). And if groundwater levels continue to decline, we need to understand what policies are most effective so that we can better manage water now and for the future. 
+Other research could include policy as an independent variable in regression or other statistical analysis to see what kind of impact policy has on well drilling depth in California. This would be important to look at since we know that a large amount of wells are running dry in California^[@Jasechko:2020:10.1029/2019EF001339]. And if groundwater levels continue to decline, we need to understand what policies are most effective so that we can better manage water now and for the future. 
 
 \newpage
 
@@ -348,6 +346,7 @@ tot_wells_region <- ggplot(data = wells_counts_year_region, aes(x = year_complet
 tot_wells_region
 ```
 
+## References
 
 Full code can be found at my [GitHub repository hdolinh.github.io](https://github.com/hdolinh/hdolinh.github.io/tree/main/_posts/2021-11-14-stats-final).
 

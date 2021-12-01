@@ -109,6 +109,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   <!--/radix_placeholder_meta_tags-->
   
+  <meta name="citation_reference" content="citation_title=California’s central valley groundwater wells run dry during recent drought;citation_publication_date=2020;citation_volume=8;citation_author= Jasechko;citation_author=Debra Perrone"/>
+  <meta name="citation_reference" content="citation_title=Identifying the location and population served by domestic wells in california;citation_publication_date=2015;citation_volume=3;citation_author=Tyler D. Johnson;citation_author=Kenneth Belitz"/>
+  <meta name="citation_reference" content="citation_title=Deeper well drilling an unsustainable stopgap to groundwater depletion;citation_publication_date=2019;citation_volume=2;citation_author=Debra Perrone;citation_author=Scott Jasechko"/>
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
@@ -117,7 +120,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["bibliography.bib","data/08_CA_AK.csv","data/ca-dwr-wells.csv","data/capstone-projs.xlsx","stats-final_files/anchor-4.2.2/anchor.min.js","stats-final_files/bowser-1.9.3/bowser.min.js","stats-final_files/distill-2.2.21/template.v2.js","stats-final_files/figure-html5/distribution of regions-1.png","stats-final_files/figure-html5/distribution of well depth (m)-1.png","stats-final_files/figure-html5/unnamed-chunk-10-1.png","stats-final_files/figure-html5/unnamed-chunk-2-1.png","stats-final_files/figure-html5/unnamed-chunk-3-1.png","stats-final_files/figure-html5/unnamed-chunk-4-1.png","stats-final_files/figure-html5/unnamed-chunk-5-1.png","stats-final_files/figure-html5/unnamed-chunk-6-1.png","stats-final_files/figure-html5/unnamed-chunk-8-1.png","stats-final_files/figure-html5/unnamed-chunk-9-1.png","stats-final_files/header-attrs-2.11/header-attrs.js","stats-final_files/jquery-3.6.0/jquery-3.6.0.js","stats-final_files/jquery-3.6.0/jquery-3.6.0.min.js","stats-final_files/jquery-3.6.0/jquery-3.6.0.min.map","stats-final_files/popper-2.6.0/popper.min.js","stats-final_files/tippy-6.2.7/tippy-bundle.umd.min.js","stats-final_files/tippy-6.2.7/tippy-light-border.css","stats-final_files/tippy-6.2.7/tippy.css","stats-final_files/tippy-6.2.7/tippy.umd.min.js","stats-final_files/webcomponents-2.0.0/webcomponents.js","stats-final.pdf"]}
+  {"type":"character","attributes":{},"value":["bibliography.bib","data/08_CA_AK.csv","data/ca-dwr-wells.csv","data/capstone-projs.xlsx","stats-final_files/anchor-4.2.2/anchor.min.js","stats-final_files/bowser-1.9.3/bowser.min.js","stats-final_files/distill-2.2.21/template.v2.js","stats-final_files/figure-html5/distribution of regions-1.png","stats-final_files/figure-html5/distribution of well depth (m)-1.png","stats-final_files/figure-html5/unnamed-chunk-10-1.png","stats-final_files/figure-html5/unnamed-chunk-2-1.png","stats-final_files/figure-html5/unnamed-chunk-3-1.png","stats-final_files/figure-html5/unnamed-chunk-4-1.png","stats-final_files/figure-html5/unnamed-chunk-5-1.png","stats-final_files/figure-html5/unnamed-chunk-6-1.png","stats-final_files/figure-html5/unnamed-chunk-7-1.png","stats-final_files/figure-html5/unnamed-chunk-8-1.png","stats-final_files/figure-html5/unnamed-chunk-9-1.png","stats-final_files/header-attrs-2.11/header-attrs.js","stats-final_files/jquery-3.6.0/jquery-3.6.0.js","stats-final_files/jquery-3.6.0/jquery-3.6.0.min.js","stats-final_files/jquery-3.6.0/jquery-3.6.0.min.map","stats-final_files/popper-2.6.0/popper.min.js","stats-final_files/tippy-6.2.7/tippy-bundle.umd.min.js","stats-final_files/tippy-6.2.7/tippy-light-border.css","stats-final_files/tippy-6.2.7/tippy.css","stats-final_files/tippy-6.2.7/tippy.umd.min.js","stats-final_files/webcomponents-2.0.0/webcomponents.js","stats-final.pdf"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1503,6 +1506,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <li><a href="#appendix">Appendix</a>
 <ul>
 <li><a href="#figures">Figures</a></li>
+<li><a href="#references">References</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -1514,19 +1518,17 @@ Show code
 </summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>wells</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='fu'>here</span><span class='fu'>::</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"_posts"</span>, <span class='st'>"2021-11-14-stats-final"</span>,<span class='st'>"data"</span>, <span class='st'>"08_CA_AK.csv"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>#"MEDS", "hdolinh.github.io"</span>
 </code></pre>
 </div>
 </details>
 </div>
 <h1 id="question">Question</h1>
 <h2 id="are-we-drilling-deeper-wells-faster-over-time-in-california">Are we drilling deeper wells faster over time in California?</h2>
-<p>1.5 million people in California rely on domestic well water. (Johnson) Majority of the 1.5 million reside in rural areas without alternative drinking-water sources. Furthermore, in the Central Valley, it has been found that one in five wells now run dry due to groundwater level declines (Jasechko 1). While some have responded to this issue by drilling deeper, this practice has also been found to be unsustainable because it is costly, it is impractical in certain hydrogeological conditions, and deep groundwater is often brackish or saline. (Perrone 3) While we are aware that groundwater levels are declining and that deeper drilling is unsustainable, we do not know how fast we are drilling deeper in California over time.</p>
+<p>1.5 million people in California rely on domestic well water<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Majority of the 1.5 million reside in rural areas without alternative drinking-water sources. Furthermore, in the Central Valley, it has been found that one in five wells now run dry due to groundwater level declines<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. While some have responded to this issue by drilling deeper, this practice has also been found to be unsustainable because it is costly, it is impractical in certain hydrogeological conditions, and deep groundwater is often brackish or saline<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. While we are aware that groundwater levels are declining and that deeper drilling is unsustainable, we do not know how fast we are drilling deeper in California over time.</p>
 <p>It is important to study groundwater trends because water is an important resource in California and it is crucial for groundwater management to be sustainable and equitable. By understanding the rate at which we are drilling deeper wells over time, we can improve groundwater management and make well water water a more secure resource, especially for communities that depend on it.</p>
 <h1 id="data">Data</h1>
-<p>My data has been obtained by Dr. Debra Perrone and Dr. Scott Jasechko for their research on groundwater wells. California domestic well water data was obtained through personal communication with state representatives from the California Department of Water Resources (CADWR) in March 2016 and April 2016. The CADWR maintains the <a href="https://data.cnra.ca.gov/dataset/well-completion-reports">California Groundwater Well Completion Report database</a>. Dr. Perrone and Dr. Jasechko reported that the data may contain biases by region, time, purpose, and compliance.</p>
-<p>This data is international, but I subsetted the data to only contain wells from California. I also added region codes based on the <a href="https://census.ca.gov/regions/">California Complete Count Office</a>, which grouped California’s 58 counties into 10 regions based on hard-to-count populations, like-mindedness of the counties, capacity of community-based organizations within the counties, and state Census staff workload capabilities.</p>
+<p>My data was obtained by Dr. Debra Perrone and Dr. Scott Jasechko for their research on groundwater wells. California domestic well water data was obtained through personal communication with state representatives from the California Department of Water Resources (CADWR) in March 2016 and April 2016. The CADWR maintains the <a href="https://data.cnra.ca.gov/dataset/well-completion-reports">California Groundwater Well Completion Report database</a>. Dr. Perrone and Dr. Jasechko reported that the data may contain biases by region, time, purpose, and compliance.</p>
+<p>This data is international, but I subsetted the data to only contain wells from California. I also added region codes based on the <a href="https://census.ca.gov/regions/">California Complete Count Office</a>, which groups California’s 58 counties into 10 regions based on hard-to-count populations, like-mindedness of the counties, capacity of community-based organizations within the counties, and state Census staff workload capabilities.</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
@@ -1679,7 +1681,7 @@ Figure 1: Well depth (m) data transformed by natural log were normally distribut
 </p>
 </div>
 </div>
-<p>Exploratory graphs of total counts of wells both over time and by region suggests that overall we are completing less wells (figure 1). However, we are also seeing that we could be potentially drilling deeper wells over time (figure 2).</p>
+<p>Exploratory graphs of total counts of wells both over time and by region suggests that overall we are completing less wells (Figure 1). However, we are also seeing that we could be potentially drilling deeper wells over time (Figure 2).</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
@@ -1852,8 +1854,8 @@ Show code
 </code></pre>
 </div>
 </details>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-8"></span>
-<img src="stats-final_files/figure-html5/unnamed-chunk-8-1.png" alt="Decomposition of yearly mean well depth (m) is significant with trend component, but not with seasonal component" width="528" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-7"></span>
+<img src="stats-final_files/figure-html5/unnamed-chunk-7-1.png" alt="Decomposition of yearly mean well depth (m) is significant with trend component, but not with seasonal component" width="528" />
 <p class="caption">
 Figure 5: Decomposition of yearly mean well depth (m) is significant with trend component, but not with seasonal component
 </p>
@@ -1862,7 +1864,7 @@ Figure 5: Decomposition of yearly mean well depth (m) is significant with trend 
 <p><strong>Interpretation:</strong> We see there is evidence of a <strong>long-run upward trend</strong> over time and there is <strong>no evidence of seasonality</strong>. Based on the size of the bars, the <strong><code>trend</code> component is more important in driving overall variation in yearly average well depth (m)</strong> since the gray bar for <code>trend</code> is much smaller than the bar for the <code>seasonal</code> component. This confirmed for me that the “cycles” I was seeing in Figure 6 were not significant. It also confirms what we already know: that over time we are drilling deeper wells in California.</p>
 <h1 id="future-research">Future Research</h1>
 <p>Future research could check to see if seasonality is significant in only northern regions. A closer look at Figure 6 shows that most of the seasonality is visible in regions one through five, which represent the northern region. This could make sense, as intuition tells me there could be a more seasonal affect in northern regions due to geology or colder climates.</p>
-<p>Other research could include policy as an independent variable in regression or other statistical analysis to see what kind of impact policy has on well drilling depth in California. This would be important to look at since we know that a large amount of wells are running dry in California (Jasecko 1). And if groundwater levels continue to decline, we need to understand what policies are most effective so that we can better manage water now and for the future.</p>
+<p>Other research could include policy as an independent variable in regression or other statistical analysis to see what kind of impact policy has on well drilling depth in California. This would be important to look at since we know that a large amount of wells are running dry in California<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. And if groundwater levels continue to decline, we need to understand what policies are most effective so that we can better manage water now and for the future.</p>
 <div style="page-break-after: always;"></div>
 <h1 id="appendix">Appendix</h1>
 <h2 id="figures">Figures</h2>
@@ -1894,15 +1896,36 @@ Show code
 </code></pre>
 </div>
 </details>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-9"></span>
-<img src="stats-final_files/figure-html5/unnamed-chunk-9-1.png" alt="Total number of wells by region with potential for cyclical or seasonal trending." width="528" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-8"></span>
+<img src="stats-final_files/figure-html5/unnamed-chunk-8-1.png" alt="Total number of wells by region with potential for cyclical or seasonal trending." width="528" />
 <p class="caption">
 Figure 6: Total number of wells by region with potential for cyclical or seasonal trending.
 </p>
 </div>
 </div>
+<h2 id="references">References</h2>
 <p>Full code can be found at my <a href="https://github.com/hdolinh/hdolinh.github.io/tree/main/_posts/2021-11-14-stats-final">GitHub repository hdolinh.github.io</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-Jasechko:2020:10.1029/2019EF001339" class="csl-entry" role="doc-biblioentry">
+Jasechko, Scott, and Debra Perrone. 2020. <span>“California’s Central Valley Groundwater Wells Run Dry During Recent Drought.”</span> <em>Earth’s Future</em> 8. <a href="https://doi.org/10.1029/2019EF001339">https://doi.org/10.1029/2019EF001339</a>.
+</div>
+<div id="ref-Johnson:2015:10.1016/j.ejrh.2014.09.002" class="csl-entry" role="doc-biblioentry">
+Johnson, Tyler D., and Kenneth Belitz. 2015. <span>“Identifying the Location and Population Served by Domestic Wells in California.”</span> <em>Journal of Hydrology: Regional Studies</em> 3: 31–86. <a href="https://doi.org/10.1016/j.ejrh.2014.09.002">https://doi.org/10.1016/j.ejrh.2014.09.002</a>.
+</div>
+<div id="ref-Perrone:2019:10.1038/s41893-019-0325-z" class="csl-entry" role="doc-biblioentry">
+Perrone, Debra, and Scott Jasechko. 2019. <span>“Deeper Well Drilling an Unsustainable Stopgap to Groundwater Depletion.”</span> <em>Nature Sustainability</em> 2: 773–82. <a href="https://doi.org/10.1038/s41893-019-0325-z">https://doi.org/10.1038/s41893-019-0325-z</a>.
+</div>
+</div>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p><span class="citation" data-cites="Johnson:2015:10.1016/j.ejrh.2014.09.002"><a href="#ref-Johnson:2015:10.1016/j.ejrh.2014.09.002" role="doc-biblioref">Johnson and Belitz</a> (<a href="#ref-Johnson:2015:10.1016/j.ejrh.2014.09.002" role="doc-biblioref">2015</a>)</span><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p><span class="citation" data-cites="Jasechko:2020:10.1029/2019EF001339"><a href="#ref-Jasechko:2020:10.1029/2019EF001339" role="doc-biblioref">Jasechko and Perrone</a> (<a href="#ref-Jasechko:2020:10.1029/2019EF001339" role="doc-biblioref">2020</a>)</span><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p><span class="citation" data-cites="Perrone:2019:10.1038/s41893-019-0325-z"><a href="#ref-Perrone:2019:10.1038/s41893-019-0325-z" role="doc-biblioref">Perrone and Jasechko</a> (<a href="#ref-Perrone:2019:10.1038/s41893-019-0325-z" role="doc-biblioref">2019</a>)</span><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p><span class="citation" data-cites="Jasechko:2020:10.1029/2019EF001339"><a href="#ref-Jasechko:2020:10.1029/2019EF001339" role="doc-biblioref">Jasechko and Perrone</a> (<a href="#ref-Jasechko:2020:10.1029/2019EF001339" role="doc-biblioref">2020</a>)</span><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
