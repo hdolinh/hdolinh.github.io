@@ -6,14 +6,14 @@
       "description": "Halina Do-Linh, MEDS Student at the Bren School of Environmental Science & Management",
       "author": [],
       "contents": "\nHalina Do-Linh achieved a Bachelor’s Degree in Environmental Studies & Biology from the University of California, Santa Cruz. Her interest in an environmental career was solidified after researching sea turtles in Baja California through the Ecology and Conservation Supercourse field quarter at UC Santa Cruz. After graduating, Halina applied her field research skills to outdoor education, where she taught environmental topics to K-12 students and later, field research methods to University of California undergraduates. In 2018, she moved to Los Angeles to work for Heal the Bay, an environmental non-profit focused on safe, clean water. There she garnered support for environmental campaigns including the Safe, Clean Water Program (Measure W) and The California Circular Economy and Plastic Pollution Reduction Act (SB 54 and AB 1080). From these campaigns, Halina expanded her knowledge of watershed health, environmental justice, and environmental policy. Though these campaigns were successful, she recognized there were data inaccuracies in representation and in metrics. To gain the skills to overcome these challenges, Halina is studying Environmental Data Science at the Bren School of Environmental Science & Management. After Bren, Halina plans to apply her training in data science to finding equitable solutions for environmental issues affecting urban watersheds.\n\n\n\n",
-      "last_modified": "2021-12-01T13:58:24-08:00"
+      "last_modified": "2021-12-01T14:58:26-08:00"
     },
     {
       "path": "blog.html",
       "title": "My Blog",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-12-01T13:58:24-08:00"
+      "last_modified": "2021-12-01T14:58:26-08:00"
     },
     {
       "path": "cv.html",
@@ -21,14 +21,14 @@
       "description": "Work Experience",
       "author": [],
       "contents": "\nCurriculum Vitae\nDiamonds Data\n\n\nggplot(data = diamonds, aes(x = carat, y = price)) +\n  geom_point(aes(color = price))\n\n\n\n\nObjective\nEducation\nUniversity of California, Santa Barbara Master in Environmental Data Science\nAugust 2021 - Present\nWork Experience\n\n\n\n",
-      "last_modified": "2021-12-01T13:58:28-08:00"
+      "last_modified": "2021-12-01T14:58:30-08:00"
     },
     {
       "path": "index.html",
       "title": "Halina Do-Linh",
       "author": [],
       "contents": "\n\n          \n          \n          Halina Do-Linh\n          \n          \n          Index\n          About\n          CV\n          Blog\n          ☰\n          \n          \n      \n        \n          \n            \n              \n            \n              Halina Do-Linh\n            \n            \n              \n                \n                    \n                      \n                        LinkedIn\n                      \n                    \n                  \n                                    \n                    \n                      \n                        Twitter\n                      \n                    \n                  \n                                    \n                    \n                      \n                        GitHub\n                      \n                    \n                  \n                                    \n                    \n                      \n                        Email\n                      \n                    \n                  \n                                  \n            \n          \n        \n        \n        \n          \n            I am a Master of Environmental Data Science student at the Bren School of Environmental Science & Management. I am currently learning R & Python!\n          \n        \n      \n    \n\n    \n      \n        \n          \n            \n              \n            \n              Halina Do-Linh\n            \n            \n              \n                \n                                    \n                    \n                      LinkedIn\n                    \n                  \n                                    \n                    \n                      Twitter\n                    \n                  \n                                    \n                    \n                      GitHub\n                    \n                  \n                                    \n                    \n                      Email\n                    \n                  \n                                  \n              \n            \n            \n              I am a Master of Environmental Data Science student at the Bren School of Environmental Science & Management. I am currently learning R & Python!\n            \n        \n      \n    \n\n    \n    \n    ",
-      "last_modified": "2021-12-01T13:58:28-08:00"
+      "last_modified": "2021-12-01T14:58:30-08:00"
     }
   ],
   "collections": ["posts/posts.json"]

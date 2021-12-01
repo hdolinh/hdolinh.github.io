@@ -550,6 +550,16 @@ tot_wells_region
     -   One short analysis cannot fully answer an interesting scientific question.
 
     -   If you had time to collect more data or conduct more analysis, what would help you answer this question better?
+    
+    
+## References
+
+1. Jasechko, Scott, and Debra Perrone. “California’s Central Valley Groundwater Wells Run Dry During Recent Drought.” Earth’s Future, vol. 8, no. 4, Apr. 2020. DOI.org (Crossref), https://doi.org/10.1029/2019EF001339.
+
+2. Johnson, Tyler D., and Kenneth Belitz. “Identifying the Location and Population Served by Domestic Wells in California.” Journal of Hydrology: Regional Studies, vol. 3, Mar. 2015, pp. 31–86. DOI.org (Crossref), https://doi.org/10.1016/j.ejrh.2014.09.002.
+
+3. Perrone, Debra, and Scott Jasechko. “Deeper Well Drilling an Unsustainable Stopgap to Groundwater Depletion.” Nature Sustainability, vol. 2, no. 8, Aug. 2019, pp. 773–82. DOI.org (Crossref), https://doi.org/10.1038/s41893-019-0325-z.
+
 
 Distill is a publication format for scientific and technical writing, native to the web.
 

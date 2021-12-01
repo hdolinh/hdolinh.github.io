@@ -1,5 +1,5 @@
 ---
-title: "Assessing Well Depth in California Between 1990 and 2021"
+title: "Well depth rate is increasing in California"
 description: |
   Final project for EDS 222 Environmental Statistics
 author: "Halina Do-Linh"
@@ -15,6 +15,8 @@ output:
   distill::distill_article:
     self_contained: false
     code_folding: true
+    toc: yes
+    toc_float: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -346,13 +348,6 @@ tot_wells_region <- ggplot(data = wells_counts_year_region, aes(x = year_complet
 tot_wells_region
 ```
 
-## References
-
-1. Jasechko, Scott, and Debra Perrone. “California’s Central Valley Groundwater Wells Run Dry During Recent Drought.” Earth’s Future, vol. 8, no. 4, Apr. 2020. DOI.org (Crossref), https://doi.org/10.1029/2019EF001339.
-
-2. Johnson, Tyler D., and Kenneth Belitz. “Identifying the Location and Population Served by Domestic Wells in California.” Journal of Hydrology: Regional Studies, vol. 3, Mar. 2015, pp. 31–86. DOI.org (Crossref), https://doi.org/10.1016/j.ejrh.2014.09.002.
-
-3. Perrone, Debra, and Scott Jasechko. “Deeper Well Drilling an Unsustainable Stopgap to Groundwater Depletion.” Nature Sustainability, vol. 2, no. 8, Aug. 2019, pp. 773–82. DOI.org (Crossref), https://doi.org/10.1038/s41893-019-0325-z.
 
 Full code can be found at my [GitHub repository hdolinh.github.io](https://github.com/hdolinh/hdolinh.github.io/tree/main/_posts/2021-11-14-stats-final).
 
