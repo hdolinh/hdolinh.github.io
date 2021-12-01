@@ -5,15 +5,16 @@ description: |
 author: "Halina Do-Linh"
 date: 12-02-2021
 slug: hdoinheds222final
+bibliography: bibliography.bib
 output:
-  distill::distill_article:
-    self_contained: false
-    code_folding: true
+  pdf_document:
+    fig_caption: yes
   html_document:
     toc: yes
     df_print: paged
-  pdf_document:
-    fig_caption: yes
+  distill::distill_article:
+    self_contained: false
+    code_folding: true
 ---
 
 ```{r setup, include=FALSE}
@@ -323,7 +324,7 @@ Other research could include policy as an independent variable in regression or 
 
 ## Figures
 
-```{r, fig.height=2.5, fig.width=4.5, fig.cap="Total number of wells by region with potential for cyclical or seasonal trending."}
+```{r, fig.height=3.5, fig.width=5.5, fig.cap="Total number of wells by region with potential for cyclical or seasonal trending."}
 wells_counts_year_region <- wells_region %>%
   group_by(region_code, year_completed) %>%
   count() %>%
@@ -353,6 +354,6 @@ tot_wells_region
 
 3. Perrone, Debra, and Scott Jasechko. “Deeper Well Drilling an Unsustainable Stopgap to Groundwater Depletion.” Nature Sustainability, vol. 2, no. 8, Aug. 2019, pp. 773–82. DOI.org (Crossref), https://doi.org/10.1038/s41893-019-0325-z.
 
-## GitHub
+Full code can be found at my [GitHub repository hdolinh.github.io](https://github.com/hdolinh/hdolinh.github.io/tree/main/_posts/2021-11-14-stats-final).
 
 
