@@ -2,16 +2,22 @@
 title: "Environmental Statistics Final"
 description: |
   A short description of the post.
-author:
-  - name: Halina Do-Linh
-date: 11-14-2021
+author: "Halina Do-Linh"
+date: 12-02-2021
 output:
+  pdf_document:
+    fig_caption: yes
+  html_document:
+    toc: yes
+    df_print: paged
   distill::distill_article:
     self_contained: false
+    toc: yes
+    code_folding: true
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 ```
 
 ```{r loading packages, include=FALSE}
@@ -20,100 +26,38 @@ knitr::opts_chunk$set(echo = FALSE)
 
 library(tidyverse) 
 library(here)
-library(lintr) # remove maybe
 library(janitor)
 library(lubridate)
 library(kableExtra)
 library(xtable)
+library(patchwork)
 library(feasts)
-library(readr) # remove maybe
-library(ggplot2) # remove maybe
-library(modelr) # remove maybe
+library(zoo) # use this for as.yearmon 
 library(knitr) # use this to make kable tables
-library(broom)
-library(tsibble) # remove maybe
-library(zoo)
+library(tsibble) # use to make as.ts
 
 options(scipen = 999) # disable scientific notation
 ```
 
-**NO TIME SERIES BECAUSE COULD NOT GET INTO DATE OBJECT**
-
-
-# Technical Blog Guidelines
-
-**Technical blog post [Due date: 12/2, 5pm]**
-
-This blog post is a write up summarizing in text and with figures and/or tables your question, the data you have collected, your analysis plan, and your results. Your target audience should be other quantitative scientists and practitioners familiar with the basics of statistics and data science, but not necessarily experts in environmental science or the details of the methods studied in this course.
-
-**Please email me your blog post in PDF format and as a live link by 5pm on December 2.**
-
-Some guidelines for the blog post:
-
--   3-5 pages in length, including figures, tables, captions, and references list
--   1-3 tables or figures, each carefully labeled and captioned so that they are easily interpretable
--   Include scientific references when applicable
--   Include links to the underlying data you use. If your data cannot be shared publicly, note this in a short "data availability" statement at the end of your post.
--   [Recommended, but optional] If you can, include a link to a repository with your replication code. I will not evaluate your code as part of your grade, but this is good practice for reproducibility and transparency and will make your blog post more exciting to the outside world.
-
-# General Guidelines
-
--   Motivate your question.
-
-    -   Why is this important?
-
-    -   Is there existing evidence on this question?
-
-    -    If so, why is it inconclusive? If not, why not?
-
--   Describe your data.
-
-    -    Where did you access it? What are its spatial and temporal features?
-
-    -   What are its limitations?
-
-    -   What do you know about the sampling strategy and what biases that may introduce?
-
-    -   If helpful, you can use a histogram, scatterplot, or summary statistics table to describe your data.
-
--   Clearly describe your analysis plan.
-
-    -   What is your analysis plan?
-
-    -   Why did you choose this analysis, given your data and question?
-
-    -   What are the limitations?
-
--   Summarize your results visually and in words.
-
-    -   Show us your results in figure(s) and/or table(s) that are carefully labeled and captioned.
-
-    -   Describe in the text (and orally when presenting) what you found, and how these results either do or do not help you answer your question.
-    
-## Data Setup
-
-### Import Data
-
-I received data from Dr. Scott Jasechko on private wells in California and AK (TBD on what AK is). 
-
 ```{r}
-wells <- read_csv(here::here("_posts", "2021-11-14-stats-final", "data", "08_CA_AK.csv"))
+wells <- read_csv(here::here("_posts", "2021-11-14-stats-final","data", "08_CA_AK.csv"))
 
 #"MEDS", "hdolinh.github.io"
 ```
 
+# Question
 
-Here I have made my tidy dataset `wells_tidy`.
+## Are we drilling deeper wells over time in California?
 
-- I used `janitor` `clean_names()` to make columns in lowercase and tidy format (i.e. use underscores for spaces).
-- I used `select` (from `dpylr` in `tidyverse`) to select my columns of interest. 
-- I noticed `well_id` had prefixes "CA" and "AK". I know CA contained observations, but was uncertain about AK. I used `str_detect()` (from `stringr` in `tidyverse`) to created a subset of just AK observations and found that none of the AK well observations are associated with California counties. This confirmed that I should remove well id's that start with AK. I used `filter()` (from `dpylr` in `tidyverse`) and `str_detect()` to do this and removed 36,386 observations. 
-- Dr. Jasechko has informed me that values of -1 in the `depth_m` column are NA values, so I removed those using `filter()` (from `dpylr` in `tidyverse`). This removed a significant amount of observations - new total is 642,369.
-- I found dates were not in a consistent format so I used `lubridate` `parse_date_time` and the orders mdy, mdy HMS, and mdY to create datetime objects. To simply my overall analysis I created a new column `year_completed` so I could create yearly averages of well depth(m). When I used ascending and descending order to check the `year_completed` column I found there were still issues with dates (i.e. some years were in 2068 or 0101) so I used `filter()` to keep years between 1900 and 2021. 
+1.5 million people in California rely on domestic well water. (Johnson) Majority of the 1.5 million reside in rural areas without alternative drinking-water sources. Furthermore, in the Central Valley, it has been found that one in five wells now run dry due to groundwater level declines (Jasechko 1). While some have responded to this issue by drilling deeper, this practice has also been found to be unsustainable because it is costly, it is impractical in certain hydrogeological conditions, and deep groundwater is often brackish or saline. (Perrone 3) While we are aware that groundwater levels are declining and that deeper drilling is unsustainable, we do not know if this is a long-term trend in California. 
 
-# found there are some dates with HMY format using table(wells-region$date_completed)
+It is important to study groundwater trends because water is an important resource in California and it is crucial for groundwater management to be sustainable and equitable.
 
-**Because of tidying I have a final dataset of 528,855 well observations between 1900 and 2021.**
+# Data
+
+My data has been obtained by Dr. Debra Perrone and Dr. Scott Jasechko for their research on groundwater wells. California domestic well water data was obtained through personal communication with state representatives from the California Department of Water Resources (CADWR) in March 2016 and April 2016. The CADWR maintains the [California Groundwater Well Completion Report database](https://data.cnra.ca.gov/dataset/well-completion-reports). Dr. Perrone and Dr. Jasechko reported that the data may contain biases by region, time, purpose, and compliance.
+
+This data is international, but I subsetted the data to only contain wells from California. I also added region codes based on the [California Complete Count Office](https://census.ca.gov/regions/), which grouped California's 58 counties into 10 regions based on  hard-to-count populations, like-mindedness of the counties, capacity of community-based organizations within the counties, and state Census staff workload capabilities.
 
 ```{r, tidy}
 wells_tidy <- wells %>% 
@@ -126,16 +70,8 @@ wells_tidy <- wells %>%
   filter(year_completed >= 1900 & year_completed <= 2021)
 ```
 
-I knew I wanted to see if there were any differences in well depth(m) over time between regions in California. So I used `unique()` (base R) to see if all 58 counties were present in the dataset and they are! 
 
-```{r, looking at what CA counties there are}
-unique(wells_tidy$county)
-```
-
-I knew it would be difficult to compare all 58 counties, so I found on the [California Census website](https://census.ca.gov/regions/) that counties are divided into 10 regions. I created a new column `region_code` and assigned all 58 counties their region code based on the CA.gov website using `case_when()`. If there were any NA values then they would be assigned a region code of 0. This is a new dataset `wells_region`. Since the region codes have a class of numeric, I used `as.factor` to make them a factor/ categorical variable.
-
-
-```{r, added region codes and made it a factor}
+```{r, added region codes}
 region1 <- c("Butte", "Colusa", "El Dorado", "Glenn", "Lassen", "Modoc", "Nevada", "Placer", "Plumas", "Sacramento", "Shasta", "Sierra", "Siskiyou", "Sutter", "Tehama", "Yolo", "Yuba")
 region1_code <- 1
 
@@ -182,99 +118,7 @@ wells_region <- wells_tidy %>%
 ```
 
 
-**Plot to see distribution of well depth (m). Had to take the log of well depth:**
-
-```{r, distribution of well depth (m)}
-log_depth_m <- log(wells_region$depth_m)
-
-depth_hist <- ggplot(data = wells_region, aes(log_depth_m)) +
-  geom_histogram() +
-  labs(x = "Log of Well Depth (m)",
-       y = "Count",
-       title = "Distribution of Well Depths (m) in California between 1900 and 2021")
-  theme_light()
-
-depth_hist
-```
-
-**Plot of regions and number of wells in regions**
-
-```{r, distribution of regions}
-# to color cannot use "color" in histogram, need to use "fill"
-
-region_bar <- ggplot(data = wells_region, aes(x = region_code, fill = region_code)) + 
-  geom_bar() +
-  labs(x = "Region Code",
-       y = "Count",
-       title = "Distribution of Wells between 1900 and 2021 by Region",
-       fill = "Region Code") +  # legend title
-  theme_light()
-
-region_bar
-```
-
-**Need to count how many wells were completed by year**
-
-**Interpretation: This visually indicates that we are seeing less wells being drilled over time.**
-
-```{r}
-wells_counts_year <- wells_region %>% 
-  group_by(year_completed) %>% 
-  count() %>% 
-  rename("total_year" = n)
-
-ggplot(data = wells_counts_year, aes(x = year_completed, y = total_year)) +
-  geom_line() +
-  labs(x = "Year well was completed",
-       y = "Number of wells",
-       title = "Total number of wells per year") +
-  theme_minimal()
-```
-
-
-**Count how many wells were completed each year and in each region**
-
-**Interpretation: This visually indicates that we are seeing less wells being drilled over time in most if not all regions as well. It also looks like there could be some seasonality...but I was not able to plot this year I could not get my `year_completed` values to be of class `date`.**
-
-
-```{r}
-wells_counts_year_region <- wells_region %>% 
-  group_by(region_code, year_completed) %>% 
-  count() %>% 
-  rename(count = n)
-
-ggplot(data = wells_counts_year_region, aes(x = year_completed, y = count, color = region_code)) +
-  geom_line() +
-  labs(x = "Year well was completed",
-       y = "Number of wells",
-       title = "Total number of wells per year by region",
-       colour = "Region Code") +
-  theme_minimal()
-```
-
-```{r}
-wells_depth_year <- wells_region %>% 
-  select(well_id, year_completed, depth_m) %>% 
-  group_by(year_completed) %>% 
-  summarize(mean_depth_m_year = mean(depth_m))
-
-ggplot(data = wells_depth_year, aes(x = year_completed, y = mean_depth_m_year)) +
-  geom_line() +
-  labs(x = "Year well was completed",
-       y = "Yearly average well depth (m)",
-       title = "Yearly Average Well Depth (m) from 1990 to 2021") +
-  theme_minimal()
-```
-
-
-**MULTIPLE LINEAR REGRESSION ANALYSIS**
-
-**Create North/South Region so that you have a categorical variable with only two levels as opposed to 10**
-
-- Plot date (year only), mean of well depth(m), and color by north/south region
-- Need to test if this is significant! 
-
-```{r}
+```{r, added north south regions}
 norcal <- c(1, 2, 3, 4, 5)
 norcal_code <- "north"
 
@@ -288,54 +132,160 @@ region_north_south <- wells_region %>%
   mutate(north_south = as.factor(north_south)) %>% # make north_south a factor variable
   group_by(year_completed, north_south) %>% 
   mutate(mean_depth_m = mean(depth_m)) # yearly averages by region
+```
 
+
+## Data Histograms
+
+After taking the natural log of well depth (m), it appears to have a normal distribution . It also looks like majority of wells are located in Region 1 or Superior California (Figure 1). 
+
+
+```{r, log distribution of well depth over time}
+log_depth_m <- log(wells_region$depth_m)
+
+depth_hist <- ggplot(data = wells_region, aes(log_depth_m)) +
+  geom_histogram(fill = "light gray") +
+  labs(x = "Log of Well Depth (m)",
+       y = "Count",
+       title = "Well depths (m) in California Transformed by Natural Log (1900-2021)") +
+  theme_light() +
+  theme(panel.grid = element_blank(),
+        plot.title = element_text(size = 9))
+```
+
+
+```{r, distribution of wells by region}
+# to color cannot use "color" in histogram, need to use "fill"
+region_bar <- ggplot(data = wells_region, aes(x = region_code)) + 
+  geom_bar(fill = "light gray") +
+  labs(x = "Region Code",
+       y = "Count",
+       title = "Distribution of wells by region (1900-2021)") +
+  theme_light() +
+  theme(panel.grid = element_blank(),
+        plot.title = element_text(size = 9))
+```
+
+
+```{r, fig.height=3.5, fig.width=5.5, fig.cap="Well depth (m) data transformed by natural log were normally distributed (top). Majority of wells in California can be found in Northern regions of California identified here as region codes 1-5 (bottom)."}
+depth_hist / region_bar
+```
+
+Exploratory graphs of total counts of wells both over time and by region suggests that overall we are completing less wells (figure 1). However, we are also seeing that we could be potentially drilling deeper wells over time (figure 2).
+
+```{r, plot of average well depth over time}
+wells_depth_year <- wells_region %>% 
+  select(well_id, year_completed, depth_m) %>% 
+  group_by(year_completed) %>% 
+  summarize(mean_depth_m_year = mean(depth_m))
+
+average_yr_well_depth_plot <-ggplot(data = wells_depth_year, aes(x = year_completed, y = mean_depth_m_year)) +
+  geom_line() +
+  labs(x = "Year well was completed",
+       y = "Well depth (m)",
+       title = "Yearly Average Well Depth (m) from 1990 to 2021") +
+  theme_light() +
+  theme(panel.grid = element_blank())
+```
+
+```{r, plot of well counts over time}
+wells_counts_year <- wells_region %>% 
+  group_by(year_completed) %>% 
+  count() %>% 
+  rename("total_year" = n)
+
+tot_wells_yr <- ggplot(data = wells_counts_year, aes(x = year_completed, y = total_year)) +
+  geom_line() +
+  labs(x = "Year well was completed",
+       y = "Count",
+       title = "Total number of wells per year") +
+  theme_light() +
+  theme(panel.grid = element_blank())
+```
+
+```{r, fig.height=3.5, fig.width=5.5, fig.cap="Number of wells are appearing to decrease overtime in California with a significant drop in 2005 (top). Average well depth (m) are appearing to increase overtime in California with a significant increase after 2010 (bottom)."}
+tot_wells_yr / average_yr_well_depth_plot
+```
+
+# Analysis Plan
+
+**1. Regression Analysis**
+
+Use a multiple linear regression model to test if there an affect of time and region on well depth (m). 
+$$welldepth(m) =\beta_{0}+\beta_{1} \cdot year_i +\beta_{2} \cdot region_i+\varepsilon_i$$
+
+I added an interaction effect to my multiple linear regression model to see if the effect of year on well depth (m) depends on region. I predict there may be deeper wells in the northern regions than the southern regions since majority of California's drinking water comes from northern regions. An interaction effect allows me to test my prediction.
+$$welldepth(m) =\beta_{0}+\beta_{1} \cdot year_i +\beta_{2} \cdot region_i+ \beta_{3} \cdot year_i \cdot region_i + \varepsilon_i$$
+
+**2. Time Series Analysis**
+
+Run decomposition analysis to test for seasonality. From my exploratory graphs I visually saw some evidence of cyclical patterns (see Figure 6 in Appendix) and wanted to see if this was significant. 
+
+```{r}
+wells_counts_year_region <- wells_region %>% 
+  group_by(region_code, year_completed) %>% 
+  count() %>% 
+  rename(count = n)
+
+wells_counts_year_region_plot <- ggplot(data = wells_counts_year_region, aes(x = year_completed, y = count, color = region_code)) +
+  geom_line() +
+  labs(x = "Year well was completed",
+       y = "Number of wells",
+       title = "Total number of wells per year by region",
+       colour = "Region Code") +
+  guides(color = guide_legend(nrow = 1)) +
+  theme_light() +
+  theme(
+    panel.grid = element_blank(),
+    legend.position = "bottom"
+  )
+```
+
+
+# Results
+
+## Multiple Linear Regression
+
+```{r, fig.height=3.5, fig.width=5.5, fig.cap="Mulitple linear regression model of year and region on well depth. P-value < 0.00000000000000022. Adjusted R-value 0.7354648."}
 mod <- lm(mean_depth_m ~ year_completed + north_south, data = region_north_south)
 
-ggplot(data = region_north_south, aes(x = year_completed, y = mean_depth_m,  color = north_south)) +
+parallel_slopes <- ggplot(data = region_north_south, aes(x = year_completed, y = mean_depth_m,  color = north_south)) +
   geom_point() +
   geom_line(data = augment(mod), aes(y = .fitted, color = north_south)) +
   labs(x = "Year well was completed",
        y = "Yearly average well depth (m)") +
-  scale_colour_discrete("North South Region")
-  
+  scale_colour_discrete("North South Region") +
+  theme_light() +
+  theme(panel.grid = element_blank())
+parallel_slopes
 ```
 
-**Results of model**
+**Interpretation:** The `intercept` coefficient tells us that we expect to see a well depth of -292.98 m at year 0 in the south region (this is nonsensical). The `year_completed` coefficient tells us that we expect well depth to increase by 0.178 m each year, holding region constant. The `north_south` coefficient tells us that we expect to see, on average, a 23.85 m increase in well depth in the south region compared to the north region, holding `year` constant.
 
-```{r}
-mod_summary <- lm(mean_depth_m ~ year_completed + north_south, data = region_north_south) %>% summary() 
+This parallel slopes model tells us that `year`, regardless of `region`, will have the same impact on yearly average well depth (m). 
 
-mod_table <- mod_summary %>% xtable() %>% kbl() %>% kable_material("striped")
-mod_table
-```
+## Mulitple Linear Regression Model with Interaction Effect
 
-
-```{r}
-
+```{r, fig.height=3.5, fig.width=5.5, fig.cap="Interaction effect of year and region on well depth. P-value < 0.00000000000000022. Adjusted R-value 0.7563347"}
 mod_interaction <- lm(mean_depth_m ~ year_completed + north_south + year_completed:north_south, data = region_north_south) 
-summary(mod_interaction)
 
-```
-
-
-```{r}
-ggplot(region_north_south, aes(y = mean_depth_m, x = year_completed, color = north_south)) + 
-  geom_point() + 
-  geom_smooth(method = "lm", se = FALSE)
-```
-
-
-```{r}
-#mod_interaction <- lm(mean_depth_m ~ year_completed + north_south + year_completed:north_south, data = region_north_south) 
-
-region_north_south %>% 
+interaction_plot <- region_north_south %>% 
   ggplot(aes(x = year_completed, y = mean_depth_m, color = north_south)) +
   geom_point() +
-  geom_line(data = augment(mod_interaction), aes(y = .fitted, color = north_south)) 
+  geom_line(data = augment(mod_interaction), aes(y = .fitted, color = north_south)) +
+  labs(x = "Year well was completed",
+       y = "Yearly average well depth (m)") +
+  scale_colour_discrete("North South Region") +
+  theme_light() +
+  theme(panel.grid = element_blank())
+interaction_plot
 ```
 
+**Interpretation:** The `intercept` coefficient tells us that we expect to see a well depth of -493.84 m at year 0 in the north region (this is nonsensical). The `year_completed` coefficient tells us that we expect well depth to increase by 0.27 m each year for a well located in the northern region. The `north_south` coefficient tells us that well depths are, on average, 689.50 m deeper in the north region than the south region at year 0 (this is also nonsensical). The `year_completed:north_south` coefficient tells us that `year` on yearly average well depth (m) is 0.33 higher in the southern region than the northern region. The relationship between `year` and `well_depth` varies with `region`. 
 
-```{r}
+Additionally, since the adjusted $R^2$ value increased slightly, this tells us that the interaction model improves the model fit a little. This indicates that `north_south`  adding value to the model. 
+
+```{r, include=FALSE}
 # no interaction
 mod <- lm(mean_depth_m ~ year_completed + north_south, data = region_north_south)
 AdjR2 <- summary(mod)$adj.r.squared
@@ -346,10 +296,8 @@ mod_interaction <- lm(mean_depth_m ~ year_completed + north_south + year_complet
 AdjR2_int <- summary(mod_interaction)$adj.r.squared
 print(AdjR2_int)
 ```
-**Interpretation: Since the adjusted $R^2$ value increased slightly, we conclude that the interaction model.....improves the model fit a little (but not meaningfully?). This indicates that the north_south region variable are adding value to the model. **
 
-
-**TIME SERIES ANALYSIS**
+## Time Series Analysis - Decomposition 
 
 ```{r}
 # created dataset to use as a timeseries object 
@@ -361,11 +309,10 @@ monthly_depth <- region_north_south %>%
   group_by(month_year_completed, north_south) %>% 
   mutate(month_mean_depth_m = mean(depth_m)) %>% # monthly averages
   ungroup()
-  
 ```
 
 
-```{r}
+```{r, fig.height=3, fig.width=5, fig.cap="Decomposition of yearly mean well depth (m) with significance with trend, but not seasonal."}
 # classical decomposition analysis 
 wells_depth_yearmon <- monthly_depth %>% 
   select(well_id, month_year_completed, depth_m) %>% 
@@ -382,76 +329,46 @@ wells_decomp_2 <- wells_tbsl_2 %>%
 wells_decomp_2
 ```
 
+**Interpretation:**
+- `trend`: We see that `trend` is adding value to the model.
+- `seasonal`: We do not see that `seasonal` is adding value to the model.
+- `random`: We see that `random` is adding value to the model.
+- `mean_depth_m_year`: We see that `mean_depth_m_year` is adding value to the model.
 
+# Future Research
 
+Future research would check to see if seasonality is present with just northern regions. 
 
+# Appendix
 
+## Figures
 
-```{r, deleted}
-# wells_time_only_year <- wells_region %>% 
-#   mutate(date_completed = na.omit(date_completed)
-#   mutate(date_completed = format(date_completed, format = "%m/%d/%Y")) %>% 
-#   group_by(date_completed) %>% 
-#   count() %>% 
-#   na.omit
-#   mutate(date_completed = lubridate::mdy(date_completed))
-# 
-# wells_time_only_year <- wells_region %>% 
-#   group_by(date_completed) %>% 
-#   count()
-# 
-# wells_time_na <- wells_region %>% 
-#   drop_na(date_completed) %>% 
-#   mutate(date_completed = lubridate::parse_date_time(date_completed, c("mdy", "mdy HMS", "mdY")))
-# 
-# # wells_valid_dates <- wells_valid_dates %>% 
-# #   group_by(date_completed) %>% 
-# #   count()
+```{r, fig.height=2.5, fig.width=4.5, fig.cap="Total number of wells by region with potential for cyclical or seasonal trending."}
+wells_counts_year_region <- wells_region %>%
+  group_by(region_code, year_completed) %>%
+  count() %>%
+  rename(count = n)
 
-#  mutate(date_completed = !is.na(strptime(date_completed, format = c("%m/%d/%y", "%m/%d/%Y", "%m/%d/%y HMS")))) this returns a column of TRUE and FALSE values
-
-# well_count_year <- wells_region[!is.na(strptime(wells_region$date_completed, format = c("%m/%d/%y", "%m/%d/%Y", "%m/%d/%y HMS"))),] 
-# 
-# well_count_year <- well_count_year %>% 
-#   mutate(date_completed = lubridate::parse_date_time(date_completed, orders = c("mdy", "mdy HMS", "mdY"))) %>% 
-#   mutate(year_completed = lubridate::year(date_completed)) %>% 
-#   filter(year_completed >= 1900 & year_completed <= 2021) %>% 
-#   group_by(year_completed) %>% 
-#   count()
-
-# wells_subset <- monthly_depth %>% 
-#   select(well_id, month_year_completed, month_mean_depth_m)
-# 
-# wells_tbsl <- as_tsibble(wells_subset, key = well_id, index = month_year_completed)
-# 
-# wells_decomp <-wells_tbsl %>% 
-#   model(classical_decomposition(month_mean_depth_m, type = "additive")) %>%
-#   components() %>% 
-#   autoplot()
-
-# wells_north <- monthly_depth %>% 
-#   filter(north_south == "north")
-# 
-# wells_subset_north <- wells_north %>% 
-#   select(well_id, month_year_completed, month_mean_depth_m)
-# 
-# wells_tbsl_north <- as_tsibble(wells_subset_north, key = well_id, index = month_year_completed)
-# 
-# wells_decomp_north <- wells_tbsl_north %>% 
-#   model(classical_decomposition(month_mean_depth_m, type = "additive")) %>%
-#   components() %>% 
-#   autoplot()
+tot_wells_region <- ggplot(data = wells_counts_year_region, aes(x = year_completed, y = count, color = region_code)) +
+  geom_line() +
+  labs(x = "Year well was completed",
+       y = "Number of wells",
+       title = "Total number of wells per year by region",
+       colour = "Region Code") +
+  guides(color = guide_legend(nrow = 1)) +
+  theme_light() +
+  theme(
+    panel.grid = element_blank(),
+    legend.position = "bottom",
+    legend.title = element_text(size = 7),
+    legend.text = element_text(size = 7))
+tot_wells_region
 ```
 
+## References
 
+1. Jasechko, Scott, and Debra Perrone. “California’s Central Valley Groundwater Wells Run Dry During Recent Drought.” Earth’s Future, vol. 8, no. 4, Apr. 2020. DOI.org (Crossref), https://doi.org/10.1029/2019EF001339.
 
+2. Johnson, Tyler D., and Kenneth Belitz. “Identifying the Location and Population Served by Domestic Wells in California.” Journal of Hydrology: Regional Studies, vol. 3, Mar. 2015, pp. 31–86. DOI.org (Crossref), https://doi.org/10.1016/j.ejrh.2014.09.002.
 
--   What might you do next?
-
-    -   One short analysis cannot fully answer an interesting scientific question.
-
-    -   If you had time to collect more data or conduct more analysis, what would help you answer this question better?
-
-Distill is a publication format for scientific and technical writing, native to the web.
-
-Learn more about using Distill at <https://rstudio.github.io/distill>.
+3. Perrone, Debra, and Scott Jasechko. “Deeper Well Drilling an Unsustainable Stopgap to Groundwater Depletion.” Nature Sustainability, vol. 2, no. 8, Aug. 2019, pp. 773–82. DOI.org (Crossref), https://doi.org/10.1038/s41893-019-0325-z.
