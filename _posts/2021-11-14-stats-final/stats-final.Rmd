@@ -52,7 +52,7 @@ wells <- read_csv(here::here("_posts", "2021-11-14-stats-final","data", "08_CA_A
 
 1.5 million people in California rely on domestic well water^[@Johnson].  Majority of the 1.5 million reside in rural areas without alternative drinking-water sources. Furthermore, in the Central Valley, it has been found that one in five wells now run dry due to groundwater level declines^[@Jasechko]. While some have responded to this issue by drilling deeper, this practice has also been found to be unsustainable because it is costly, it is impractical in certain hydrogeological conditions, and deep groundwater is often brackish or saline^[@Perrone]. While we are aware that groundwater levels are declining and that deeper drilling is unsustainable, we do not know how fast we are drilling deeper in California over time. 
 
-It is important to study groundwater trends because water is an important resource in California and it is crucial for groundwater management to be sustainable and equitable. By understanding the rate at which we are drilling deeper wells over time, we can improve groundwater management and make well water water a more secure resource, especially for communities that depend on it.
+It is important to study groundwater trends because water is an important resource in California and it is crucial for groundwater management to be sustainable and equitable. By understanding the rate at which we are drilling deeper wells over time, we can improve groundwater management and make well water a more secure resource, especially for communities that depend on it.
 
 # Data
 
@@ -243,7 +243,7 @@ parallel_slopes
 
 **Reporting & Interpretation of Coefficients:** The `intercept` coefficient tells us that we expect to see a well depth of **-292.98 m** at year 0 in the south region (this is nonsensical). The `year_completed` coefficient tells us that we expect well depth to increase by **0.178 m** each year, holding region constant. The `north_south` coefficient tells us that we expect to see, on average, a **23.85 m** increase in well depth in the south region compared to the north region, holding `year` constant.
 
-**Overall Interpretation:** This parallel slopes model tells us that `year`, regardless of `region`, will have the same impact on yearly average well depth (m). This impact is **significant with a p-value of 0.00000000000000022 at the significance level 0.01**. The adjusted r-value also reports that **74%** of the data is explained by `year`. So over time we are seeing that `year` is significantly increasing well depth (m) by **0.178 m** every year. This is a fairly fast rate.
+**Overall Interpretation:** This parallel slopes model tells us that `year`, regardless of `region`, will have the same impact on yearly average well depth (m). This impact is **significant with a p-value of 0.00000000000000022 at the significance level 0.01**. The adjusted r-squared also reports that **74%** of the data is explained by `year`. So over time we are seeing that `year` is significantly increasing well depth (m) by **0.178 m** every year. This is a fairly fast rate.
 
 ## Mulitple Linear Regression Model with Interaction Effect
 
@@ -264,7 +264,7 @@ interaction_plot
 
 **Reporting & Interpretation of Coefficients:** The `intercept` coefficient tells us that we expect to see a well depth of **-493.84 m** at year 0 in the north region (this is nonsensical). The `year_completed` coefficient tells us that we expect well depth to increase by **0.27 m** each year for a well located in the northern region. The `north_south` coefficient tells us that well depths are, on average, **689.50 m** deeper in the north region than the south region at year 0 (this is also nonsensical). The `year_completed:north_south` coefficient tells us that the change in average well depth (m) after one year for a well in a northern region compared to a well in the southern region is **-0.334 m**. 
 
-**Overall Interpretation:** This interaction effect tells us that the relationship between `year` and `well_depth` varies with `region`. This is a significant effect with a **p-value of 0.00000000000000022 at the the significance level 0.01**. The adjusted r-value is reports that **75%** of the data is explained by this interaction effect. Since this is a slight increase from the adjusted $R^2$ value from the model with no interaction, this tells us that the interaction model improves the model fit (at least a little). The rate of the wells being drilled in the north are at a **rate of 0.28 m per year**. This is faster than the rate we found without the interaction effect, so we are seeing that not only are we drilling deeper wells faster over time, but that we are drilling deeper in northern regions than southern regions over time as well.
+**Overall Interpretation:** This interaction effect tells us that the relationship between `year` and `well_depth` varies with `region`. This is a significant effect with a **p-value of 0.00000000000000022 at the the significance level 0.01**. The adjusted r-squared is reports that **75%** of the data is explained by this interaction effect. Since this is a slight increase from the adjusted $R^2$ value from the model with no interaction, this tells us that the interaction model improves the model fit (at least a little). The rate of the wells being drilled in the north are at a **rate of 0.28 m per year**. This is faster than the rate we found without the interaction effect, so we are seeing that not only are we drilling deeper wells faster over time, but that we are drilling deeper in northern regions than southern regions over time as well.
 
 ```{r, adjusted r squares, include=FALSE}
 # no interaction
@@ -285,8 +285,8 @@ print(AdjR2_int)
 monthly_depth <- region_north_south %>% 
   select(well_id, date_completed, depth_m, region_code, north_south, year_completed) %>% 
   mutate(month_completed = lubridate::month(date_completed)) %>% 
-  mutate(month_year_completed = as.yearmon(paste0(year_completed, month_completed), "%Y %m")) %>% 
-  mutate(month_year_completed = yearmonth(month_year_completed)) %>% 
+  mutate(month_year_completed = as.yearmon(paste0(year_completed, month_completed), "%Y %m")) %>% #as.yearmon turns my month_year_completed column into a yearmon object
+  mutate(month_year_completed = yearmonth(month_year_completed)) %>% #used yearmonth to turn it into a date object
   group_by(month_year_completed, north_south) %>% 
   mutate(month_mean_depth_m = mean(depth_m)) %>% # monthly averages
   ungroup()
