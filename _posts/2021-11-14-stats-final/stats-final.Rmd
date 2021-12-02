@@ -50,7 +50,7 @@ wells <- read_csv(here::here("_posts", "2021-11-14-stats-final","data", "08_CA_A
 
 ## Are we drilling deeper wells faster over time in California?
 
-1.5 million people in California rely on domestic well water^[@Johnson:2015:10.1016/j.ejrh.2014.09.002].  Majority of the 1.5 million reside in rural areas without alternative drinking-water sources. Furthermore, in the Central Valley, it has been found that one in five wells now run dry due to groundwater level declines^[@Jasechko:2020:10.1029/2019EF001339]. While some have responded to this issue by drilling deeper, this practice has also been found to be unsustainable because it is costly, it is impractical in certain hydrogeological conditions, and deep groundwater is often brackish or saline^[@Perrone:2019:10.1038/s41893-019-0325-z]. While we are aware that groundwater levels are declining and that deeper drilling is unsustainable, we do not know how fast we are drilling deeper in California over time. 
+1.5 million people in California rely on domestic well water^[@Johnson].  Majority of the 1.5 million reside in rural areas without alternative drinking-water sources. Furthermore, in the Central Valley, it has been found that one in five wells now run dry due to groundwater level declines^[@Jasechko]. While some have responded to this issue by drilling deeper, this practice has also been found to be unsustainable because it is costly, it is impractical in certain hydrogeological conditions, and deep groundwater is often brackish or saline^[@Perrone]. While we are aware that groundwater levels are declining and that deeper drilling is unsustainable, we do not know how fast we are drilling deeper in California over time. 
 
 It is important to study groundwater trends because water is an important resource in California and it is crucial for groundwater management to be sustainable and equitable. By understanding the rate at which we are drilling deeper wells over time, we can improve groundwater management and make well water water a more secure resource, especially for communities that depend on it.
 
@@ -316,7 +316,7 @@ wells_decomp_2
 
 Future research could check to see if seasonality is significant in only northern regions. A closer look at Figure 6 shows that most of the seasonality is visible in regions one through five, which represent the northern region. This could make sense, as intuition tells me there could be a more seasonal affect in northern regions due to geology or colder climates.
 
-Other research could include policy as an independent variable in regression or other statistical analysis to see what kind of impact policy has on well drilling depth in California. This would be important to look at since we know that a large amount of wells are running dry in California^[@Jasechko:2020:10.1029/2019EF001339]. And if groundwater levels continue to decline, we need to understand what policies are most effective so that we can better manage water now and for the future. 
+Other research could include policy as an independent variable in regression or other statistical analysis to see what kind of impact policy has on well drilling depth in California. This would be important to look at since we know that a large amount of wells are running dry in California^[@Jasechko]. And if groundwater levels continue to decline, we need to understand what policies are most effective so that we can better manage water now and for the future. 
 
 \newpage
 
