@@ -285,8 +285,8 @@ print(AdjR2_int)
 monthly_depth <- region_north_south %>% 
   select(well_id, date_completed, depth_m, region_code, north_south, year_completed) %>% 
   mutate(month_completed = lubridate::month(date_completed)) %>% 
-  mutate(month_year_completed = as.yearmon(paste0(year_completed, month_completed), "%Y %m")) %>% #as.yearmon turns my month_year_completed column into a yearmon object
-  mutate(month_year_completed = yearmonth(month_year_completed)) %>% #used yearmonth to turn it into a date object
+  mutate(month_year_completed = as.yearmon(paste0(year_completed, month_completed), "%Y %m")) %>% 
+  mutate(month_year_completed = yearmonth(month_year_completed)) %>% 
   group_by(month_year_completed, north_south) %>% 
   mutate(month_mean_depth_m = mean(depth_m)) %>% # monthly averages
   ungroup()
