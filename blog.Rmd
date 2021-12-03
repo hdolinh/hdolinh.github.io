@@ -1,4 +1,4 @@
 ---
-title: "My Blog" 
+title: "Halina's Blog" 
 listing: posts
 ---
