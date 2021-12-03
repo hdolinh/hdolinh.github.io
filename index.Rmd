@@ -1,6 +1,6 @@
 ---
 title: "Halina Do-Linh"
-image: "images/profilepic.png"
+image: "images/profilepic2.jpeg"
 links:
   - label: LinkedIn
     url: "https://linkedin.com/in/halinadolinh/"
