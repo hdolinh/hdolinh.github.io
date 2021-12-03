@@ -1,17 +1,20 @@
 ---
 title: "Halina Do-Linh"
-image: "images/profilepic.png"
+image: "images/profilepic2.jpeg"
 links:
   - label: LinkedIn
     url: "https://linkedin.com/in/halinadolinh/"
   - label: Twitter
     url: "https://twitter.com/hdolinh"
   - label: GitHub
-    url: "https://hdolinh.github.io/"
+    url: "https://github.com/hdolinh"
   - label: Email
     url: "mailto:halina@bren.ucsb.edu"
+color1: "#138086"
+color2: "#DC8665"
+angle: 150
 output:
-  postcards::trestles 
+  postcards::onofre 
 site: distill::distill_website
 ---
  

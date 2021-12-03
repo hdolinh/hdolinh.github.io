@@ -6,4 +6,8 @@
 _posts/**/data
 _posts/**/rosm
 _posts/**/rosm/osm
+_posts/**/images
 docs/posts/**/data
+docs/images
+docs/posts/**/images
+images
