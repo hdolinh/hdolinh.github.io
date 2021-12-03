@@ -76,3 +76,9 @@ d-appendix {
 /*-- Additional custom styles --*/
 /* Add any additional CSS rules below                      */
 
+/* body color */
+
+body {
+  background-color: #e8f0ed;
+}
+
