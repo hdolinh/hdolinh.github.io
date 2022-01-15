@@ -1,7 +1,7 @@
 ---
-title: "Bren Master's Project Directory"
+title: "Visually Exploring the Bren Master's Project Directory"
 description: |
-  A short description of the post.
+  Exploratory visualizations based on data from the Bren School's Master's Project Directory.
 author:
   - name: Halina Do-Linh
     url: {}
@@ -16,6 +16,31 @@ draft: true
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
+
+```{r}
+library(RCurl)
+```
+
+Attempting to pull from the master's project directory
+
+```{r}
+url = "https://bren.ucsb.edu/projects"
+```
+
+```{r}
+get_url = getURLContent(url, verbose = TRUE)
+```
+
+Metadata on `get_url`
+
+```{r}
+class(get_url)
+```
+
+```{r}
+substring(get_url, 1, 1000)
+```
+
 
 Distill is a publication format for scientific and technical writing, native to the web.
 
