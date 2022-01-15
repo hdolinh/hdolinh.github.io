@@ -36,39 +36,5 @@
     "input_file": {},
     "preview_width": 1248,
     "preview_height": 768
-  },
-  {
-    "path": "posts/2021-08-10-a-function-i-learned/",
-    "title": "A function I learned",
-    "description": "A short description of the post.",
-    "author": [
-      {
-        "name": "Halina Do-Linh",
-        "url": {}
-      }
-    ],
-    "date": "2021-08-10",
-    "categories": [],
-    "contents": "\nDistill is a publication format for scientific and technical writing, native to the web.\nLearn more about using Distill at https://rstudio.github.io/distill.\n\n\n\n",
-    "preview": {},
-    "last_modified": "2021-11-14T11:17:45-08:00",
-    "input_file": {}
-  },
-  {
-    "path": "posts/2021-08-10-my-first-blog-post/",
-    "title": "My First Blog Post",
-    "description": "A short description of the post.",
-    "author": [
-      {
-        "name": "Halina Do-Linh",
-        "url": {}
-      }
-    ],
-    "date": "2021-08-10",
-    "categories": [],
-    "contents": "\nDistill is a publication format for scientific and technical writing, native to the web.\nLearn more about using Distill at https://rstudio.github.io/distill.\n\n\n\n",
-    "preview": {},
-    "last_modified": "2021-11-14T11:18:03-08:00",
-    "input_file": {}
   }
 ]
