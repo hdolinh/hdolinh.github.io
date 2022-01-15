@@ -1,0 +1,25 @@
+---
+title: "Halina Do-Linh"
+image: "images/profilepic2-full.jpeg"
+links:
+  - label: LinkedIn
+    url: "https://linkedin.com/in/halinadolinh/"
+  - label: Twitter
+    url: "https://twitter.com/hdolinh"
+  - label: GitHub
+    url: "https://github.com/hdolinh"
+  - label: Goodreads
+    url: "https://www.goodreads.com/halinadolinh"    
+  - label: Email
+    url: "mailto:halina@bren.ucsb.edu"
+color1: "#138086"
+color2: "#DC8665"
+angle: 150
+output:
+  postcards::onofre 
+site: distill::distill_website
+---
+
+Hello! -- I am a multidisciplinary urban dweller that cares about environmental systems and the people within them. You can often find me on mountains, but these days I'm closer to the ocean studying Environmental Data Science at the Bren School of Environmental Science & Management. 
+
+Click around and I look forward to connecting with you.

@@ -6,8 +6,8 @@ description: |
 output_dir: "docs"
 navbar:
   right:
-    - text: "Index"
-      href: index.html
+    - text: "Home"
+      href: home.html
     - text: "About"
       href: about.html
     - text: "CV"
