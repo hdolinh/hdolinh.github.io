@@ -12,8 +12,8 @@ links:
     url: "https://www.goodreads.com/halinadolinh"    
   - label: Email
     url: "mailto:halina@bren.ucsb.edu"
-color1: "#138086"
-color2: "#DC8665"
+color1: "#487c74"
+color2: "#e2924c"
 angle: 150
 output:
   postcards::onofre 

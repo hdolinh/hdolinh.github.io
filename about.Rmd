@@ -1,11 +1,20 @@
 ---
-title: "About Halina"
-description: |
-
+title: "About Me"
+description: ""
+output:
+  distill::distill_article:
+    self_contained: no
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
+
+# All About Data
+
+# Environmental Education
+
+# Field Research
 
 Halina Do-Linh achieved a Bachelor’s Degree in Environmental Studies & Biology from the University of California, Santa Cruz. Her interest in an environmental career was solidified after researching sea turtles in Baja California through the Ecology and Conservation Supercourse field quarter at UC Santa Cruz. After graduating, Halina applied her field research skills to outdoor education, where she taught environmental topics to K-12 students and later, field research methods to University of California undergraduates. In 2018, she moved to Los Angeles to work for Heal the Bay, an environmental non-profit focused on safe, clean water. There she garnered support for environmental campaigns including the Safe, Clean Water Program (Measure W) and The California Circular Economy and Plastic Pollution Reduction Act (SB 54 and AB 1080). From these campaigns, Halina expanded her knowledge of watershed health, environmental justice, and environmental policy. Though these campaigns were successful, she recognized there were data inaccuracies in representation and in metrics. To gain the skills to overcome these challenges, Halina is studying Environmental Data Science at the Bren School of Environmental Science & Management. After Bren, Halina plans to apply her training in data science to finding equitable solutions for environmental issues affecting urban watersheds. 

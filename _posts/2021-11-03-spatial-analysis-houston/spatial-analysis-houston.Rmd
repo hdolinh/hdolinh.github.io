@@ -1,7 +1,7 @@
 ---
 title: "Spatial Analysis of Houston Power Outage"
 description: |
-  A short description of the post.
+  Assignment for advnaced spatial analysis.
 author:
   - name: Halina Do-Linh
     url: {}
@@ -9,6 +9,7 @@ date: 11-03-2021
 output:
   distill::distill_article:
     self_contained: false
+    code_fold: true
 ---
 
 ```{r setup, include=FALSE}
@@ -93,22 +94,26 @@ read_dnb <- function(file_name) {
 Here we used the `read_dnb` function to load in the 4 data sets as `stars` objects.
 
 ```{r, results = 'hide'}
-feb07_05 <- here("data", "VNP46A1", "VNP46A1.A2021038.h08v05.001.2021039064328.h5")
+feb07_05 <- here("_posts", "2021-11-03-spatial-analysis-houston", "data", "VNP46A1", "VNP46A1.A2021038.h08v05.001.2021039064328.h5")
 feb07_05_dnb <- read_dnb(feb07_05)
 
-feb16_05 <- here::here("data", "VNP46A1", "VNP46A1.A2021047.h08v05.001.2021048091106.h5")
+feb16_05 <- here::here("_posts", "2021-11-03-spatial-analysis-houston", "data", "VNP46A1", "VNP46A1.A2021047.h08v05.001.2021048091106.h5")
 feb16_05_dnb <- read_dnb(feb16_05)
 
-feb07_06 <- here::here("data", "VNP46A1", "VNP46A1.A2021038.h08v06.001.2021039064329.h5")
+feb07_06 <- here::here("_posts", "2021-11-03-spatial-analysis-houston", "data", "VNP46A1", "VNP46A1.A2021038.h08v06.001.2021039064329.h5")
 feb07_06_dnb <- read_dnb(feb07_06)
 
-feb16_06 <- here::here("data", "VNP46A1", "VNP46A1.A2021047.h08v06.001.2021048091105.h5")
+feb16_06 <- here::here("_posts", "2021-11-03-spatial-analysis-houston", "data", "VNP46A1", "VNP46A1.A2021047.h08v06.001.2021048091105.h5")
 feb16_06_dnb <- read_dnb(feb16_06)
 ```
 
+
 We then combined the data sets into single `stars` objects using `st_mosaic` and then removed the dnb files from our environment using `rm`.
 
+
 We additionally added our `data` folder to the `.gitignore` so that these data sets and all others moving forward would not be pushed to GitHub. This was a crucial step to implement because we had previously run into conflicts pushing our commits since the data sets were too large for GitHub's file limit.
+
+
 ```{r, results = 'hide'}
 stars_feb07 <- st_mosaic(feb07_05_dnb, feb07_06_dnb)
 
@@ -117,25 +122,34 @@ stars_feb16 <- st_mosaic(feb16_05_dnb, feb16_06_dnb)
 rm(feb07_05_dnb, feb16_05_dnb, feb07_06_dnb, feb16_06_dnb)
 ```
 
+
 After we created a **blackout mask** to represent the difference in night lights intensity caused by the storm. We did this by subtracting the 02/07 raster image from the 02/16 rage image. We also assumed that any location that experienced more than 200 nW cm^-2^ is a blackout location and so we assigned `NA` to those values. We then plotted the difference to see what it looks like.
+
+
 ```{r, warning = FALSE, results = 'hide'}
 difference <- (stars_feb07 - stars_feb16) > 200
 difference[difference == FALSE] <- NA
 plot(difference)
 ```
 
+
 We vectorized the blackout mask using `st_as_sf` and then used `st_make_valid` to make the mask vector a valid geometry. After we plotted the vectorized mask we noticed the image is more contrasted, making it easier to see the difference.
+
+
 ```{r}
 mask_vector <- st_as_sf(difference)
 mask_vector <- st_make_valid(mask_vector)
 plot(mask_vector) #get a sense of what it looks like
 ```
 
+
 However, the vectorized blackout mask we created is not centered on our region of interest (ROI), which is Houston. So we created a bounding box (bbox) for the metropolitan Houston area and then used `st_polygon` to create a polygon. 
 
 After we created the polygon, we converted it to a spatial feature and set the CRS to match the DNB data using `st_sfc`. 
 
 Because we want to spatially relate the Houston polygon to the blackout mask, we spatially subsetted the vectorized mask using R square brackets `[]`. We then converted the CRS of the subsetted (or cropped) mask to NAD83/ Texas Centric Albers Equal Area (3083) using `st_transform`. 
+
+
 ```{r}
 #points for bounding box
 pt_1 <- st_point(c(-96.5, 29))
@@ -160,12 +174,14 @@ We want to ignore areas near highways since these areas account for a large amou
 We read in the roads data using `st_read` and then used `st_transform` to re-project the data from WGS 84 to EPSG:3083 (NAD83 / Texas Centric Albers Equal Area).
 
 We then made a 200 m buffer using `st_buffer`, but this creates undissolved buffers so we used `st_union` to dissolve them.
+
+
 ```{r, warning = FALSE, results = 'hide'}
 query <- "SELECT * FROM gis_osm_roads_free_1 WHERE fclass='motorway'"
 
-highways_84 <- st_read("data/gis_osm_roads_free_1.gpkg", query = query)
+highways_84 <- sf::st_read("data/gis_osm_roads_free_1.gpkg", query = query)
 
-highways <- st_transform(highways_84, crs = 3083)
+highways <- sf::st_transform(highways_84, crs = 3083)
 
 highway_buffer <- st_buffer(highways, dist = 200) %>% st_union()
 plot(highway_buffer) #plot to check
@@ -176,13 +192,15 @@ plot(highway_buffer) #plot to check
 We need building data to look at which residential buildings were affected by the blackout. We obtained building data from OSM.
 
 We queried the data to select only residential buildings, read in the data using `st_read` and then re-projected the data from WGS 84 to EPSG:3083 (NAD83/Texas Centric Albers Equal Area) using `st_transform`. 
+
+
 ```{r, results = 'hide'}
 building_query <- "SELECT * 
 FROM gis_osm_buildings_a_free_1 
 WHERE (type IS NULL AND name IS NULL) 
 OR type in ('residential', 'apartments', 'house', 'static_caravan', 'detached')"
 
-buildings <- st_read("data/gis_osm_buildings_a_free_1.gpkg", query = building_query) %>% st_transform(crs = 3083)
+buildings <- sf::st_read("data/gis_osm_buildings_a_free_1.gpkg", query = building_query) %>% st_transform(crs = 3083)
 ```
 
 ### Census Tract data
@@ -190,11 +208,13 @@ buildings <- st_read("data/gis_osm_buildings_a_free_1.gpkg", query = building_qu
 We want to investigate how median income factored into the blackouts that occurred. To do this we obtained socioeconomic data from the [U.S. Census Bureau's American Community Survey](https://www.census.gov/programs-surveys/acs) for Texas census tracts in 2019. 
 
 We used `st_read` to read in geodatabase layers for Texas and income, and then extracted the income data using R square brackets `[]`. We then left-joined the Texas geodatabase data with the extracted income data using `left_join`. Lastly, we re-projected the joined data to EPSG:3083 (NAD83/Texas Centric Albers Equal Area) using `st_transform`. 
+
+
 ```{r, warning = FALSE, results = 'hide'}
-acs_geoms <- st_read("data/ACS_2019_5YR_TRACT_48_TEXAS.gdb",
+acs_geoms <- sf::st_read("data/ACS_2019_5YR_TRACT_48_TEXAS.gdb",
                      layer = "ACS_2019_5YR_TRACT_48_TEXAS")
 
-acs_income <- st_read("data/ACS_2019_5YR_TRACT_48_TEXAS.gdb",
+acs_income <- sf::st_read("data/ACS_2019_5YR_TRACT_48_TEXAS.gdb",
                       layer = "X19_INCOME")
 
 #extracted geoid and B19013e1 fields from income layer to do left_join
@@ -213,6 +233,8 @@ Because we want to ignore areas around highways, we need to remove the highway b
 We then spatially subsetted the data to find all the residential buildings in the blackout areas using R square brackets `[]`. 
 
 Lastly, we spatially joined the building data with the joined ACS data using `st_join`.
+
+
 ```{r, warning = FALSE, results = 'hide'}
 rm_highways <- st_difference(mask_crop, highway_buffer)
 
@@ -237,6 +259,8 @@ To tackle the bonus question, we wanted to create a map that shows the Houston b
 We created the map using `tmap` and we used the package `rosm` to plot a base map of Houston.
 
 Based on the map we made outlining the median income of residential areas that were affected by the blackout, the vast majority of impacted areas made \$100,000 - \$150,000 or less. There are only a few regions in central Houston that were both affected by the blackout *and* made over \$250,000 in median income. This map shows that median income could be an important socioeconomic metric demonstrating which residents were more impacted by the power outage.
+
+
 ```{r, warning = FALSE, results = 'hide', message = FALSE}
 median_income_dnb <- st_join(rm_highways, acs_join, st_intersects = "GEOID")
 
