@@ -1,7 +1,7 @@
 ---
 title: "Spatial Analysis of Houston Power Outage"
-description: |
-  Assignment for advnaced spatial analysis.
+description: ""
+preview: images/houston-blackout-income.png
 author:
   - name: Halina Do-Linh
     url: {}
@@ -261,7 +261,7 @@ We created the map using `tmap` and we used the package `rosm` to plot a base ma
 Based on the map we made outlining the median income of residential areas that were affected by the blackout, the vast majority of impacted areas made \$100,000 - \$150,000 or less. There are only a few regions in central Houston that were both affected by the blackout *and* made over \$250,000 in median income. This map shows that median income could be an important socioeconomic metric demonstrating which residents were more impacted by the power outage.
 
 
-```{r, warning = FALSE, results = 'hide', message = FALSE}
+```{r, warning = FALSE, results = 'hide', message = FALSE, preview=TRUE}
 median_income_dnb <- st_join(rm_highways, acs_join, st_intersects = "GEOID")
 
 houston_map <- osm.raster(st_bbox(houston)) #making open street map a raster with a bbox on houston
