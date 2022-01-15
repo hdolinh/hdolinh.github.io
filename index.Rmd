@@ -20,6 +20,6 @@ output:
 site: distill::distill_website
 ---
 
-Hello! -- I am a multidisciplinary urban dweller that cares about environmental systems and the people within them. You can often find me on mountains, but these days I'm closer to the ocean studying Environmental Data Science at the Bren School of Environmental Science & Management. 
+Hello! I am an aspiring data scientist with a multidisciplinary background who cares about urban environmental systems and the people within them. Usually you can find me in the mountains, but these days I'm closer to the ocean studying Environmental Data Science at the Bren School of Environmental Science & Management. 
 
 Click around and I look forward to connecting with you.
