@@ -6,14 +6,14 @@
       "description": "",
       "author": [],
       "contents": "\nHalina Do-Linh achieved a Bachelor’s Degree in Environmental Studies & Biology from the University of California, Santa Cruz (UCSC). There she grew her interests in sustainable development, field research and conservation.\n\n\nHer interest in an environmental career was solidified after researching green and hawksbill sea turtles in Baja California through the Ecology and Conservation Supercourse field quarter at UC Santa Cruz.\n\n\nAfter graduating, Halina applied her field research skills to outdoor education, where she taught environmental topics to K-12 students and later, field research methods to University of California undergraduates.\n\n\nIn 2018, she moved to Los Angeles to work for Heal the Bay, an environmental non-profit focused on safe, clean water. There she garnered support for environmental campaigns including the Safe, Clean Water Program (Measure W) and The California Circular Economy and Plastic Pollution Reduction Act (SB 54 and AB 1080). These campaigns expanded Halina’s knowledge of watershed health, environmental justice, and environmental policy. Though these campaigns were successful, she recognized there were data inaccuracies in representation and in metrics.\n\n\n\nTo gain the skills to overcome these data challenges, Halina is studying Environmental Data Science at the Bren School of Environmental Science & Management. After Bren, Halina plans to apply her training in data science to finding equitable solutions for environmental issues affecting urban watersheds.\n\n\n\n",
-      "last_modified": "2022-01-15T15:40:06-08:00"
+      "last_modified": "2022-03-27T12:39:21-07:00"
     },
     {
       "path": "blog.html",
       "title": "Blog Posts",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2022-01-15T15:40:07-08:00"
+      "last_modified": "2022-03-27T12:39:21-07:00"
     },
     {
       "path": "cv.html",
@@ -21,14 +21,14 @@
       "description": "Work Experience",
       "author": [],
       "contents": "\nCurriculum Vitae\nDiamonds Data\n\n\nggplot(data = diamonds, aes(x = carat, y = price)) +\n  geom_point(aes(color = price))\n\n\n\n\nObjective\nEducation\nUniversity of California, Santa Barbara Master in Environmental Data Science\nAugust 2021 - Present\nWork Experience\n\n\n\n",
-      "last_modified": "2022-01-15T15:40:11-08:00"
+      "last_modified": "2022-03-27T12:39:26-07:00"
     },
     {
       "path": "index.html",
       "title": "Halina Do-Linh",
       "author": [],
       "contents": "\n\n          \n          \n          Halina Do-Linh\n          \n          \n          Home\n          About\n          Blog\n          Resume\n          \n          \n          \n          ☰\n          \n          \n      \n        \n          \n            \n          \n            Halina Do-Linh\n          \n          \n            \n          \n          \n            Hello! I am an aspiring data scientist with a multidisciplinary background who cares about urban environmental systems and the people within them. Usually you can find me in the mountains, but these days I’m closer to the ocean studying Environmental Data Science at the Bren School of Environmental Science & Management.\n            Click around and I look forward to connecting with you.\n          \n          \n            \n                \n                  \n                    LinkedIn\n                  \n                \n              \n                            \n                \n                  \n                    Twitter\n                  \n                \n              \n                            \n                \n                  \n                    GitHub\n                  \n                \n              \n                            \n                \n                  \n                    Goodreads\n                  \n                \n              \n                            \n                \n                  \n                    Email\n                  \n                \n              \n                          \n        \n      \n    \n\n    \n      \n        \n          \n            \n          \n            Halina Do-Linh\n          \n          \n            \n          \n          \n            Hello! I am an aspiring data scientist with a multidisciplinary background who cares about urban environmental systems and the people within them. Usually you can find me in the mountains, but these days I’m closer to the ocean studying Environmental Data Science at the Bren School of Environmental Science & Management.\n            Click around and I look forward to connecting with you.\n          \n        \n      \n      \n          \n              \n                                \n                    \n                    LinkedIn\n                    \n                \n                                \n                    \n                    Twitter\n                    \n                \n                                \n                    \n                    GitHub\n                    \n                \n                                \n                    \n                    Goodreads\n                    \n                \n                                \n                    \n                    Email\n                    \n                \n                              \n          \n      \n    \n\n    \n    \n    \n          © 2021 Halina Do-Linh Made with  and the  distill package Last updated on January 15, 2022\n          \n          \n          \n          \n\n    \n  ",
-      "last_modified": "2022-01-15T15:40:11-08:00"
+      "last_modified": "2022-03-27T12:39:26-07:00"
     }
   ],
   "collections": ["posts/posts.json"]
