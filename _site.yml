@@ -4,6 +4,7 @@ base_url: hdolinh.github.io
 description: |
   Halina Do-Linh's personal website
 output_dir: "docs"
+favicon: images/favicon.ico
 navbar:
   right:
     - text: "Home"
