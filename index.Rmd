@@ -1,6 +1,7 @@
 ---
 title: "Halina Do-Linh"
 image: "images/profilepic2-full.jpeg"
+favicon: images/favicon.ico
 links:
   - label: LinkedIn
     url: "https://linkedin.com/in/halinadolinh/"
@@ -21,5 +22,7 @@ site: distill::distill_website
 ---
 
 Hello! I am an aspiring data scientist with a multidisciplinary background who cares about urban environmental systems and the people within them. Usually you can find me in the mountains, but these days I'm closer to the ocean studying Environmental Data Science at the Bren School of Environmental Science & Management. 
+
+Currently, I'm building a Shiny app for my [capstone project](https://bren.ucsb.edu/projects/ensuring-equitable-access-outdoor-recreation-evaluating-spatiotemporal-patterns-and-trends) to support federal public land managers in their efforts to ensure equitable access to public campgrounds.
 
 Click around and I look forward to connecting with you.
