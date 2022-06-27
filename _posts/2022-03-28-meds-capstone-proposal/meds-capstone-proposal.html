@@ -108,7 +108,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","preview","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["MEDS Capstone Proposal"]},{"type":"NULL"},{"type":"character","attributes":{},"value":["images/outdoor-equity-logo.png"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Halina Do-Linh"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["03-28-2022"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","preview","author","date","draft","output"]}},"value":[{"type":"character","attributes":{},"value":["MEDS Capstone Proposal"]},{"type":"NULL"},{"type":"character","attributes":{},"value":["images/outdoor-equity-logo.png"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Halina Do-Linh"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["03-28-2022"]},{"type":"logical","attributes":{},"value":[true]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1432,8 +1432,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   <!--/radix_placeholder_distill-->
   <script src="meds-capstone-proposal_files/header-attrs-2.11/header-attrs.js"></script>
-  <script src="meds-capstone-proposal_files/kePrint-0.0.1/kePrint.js"></script>
-  <link href="meds-capstone-proposal_files/lightable-0.0.1/lightable.css" rel="stylesheet" />
   <script src="meds-capstone-proposal_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="meds-capstone-proposal_files/popper-2.6.0/popper.min.js"></script>
   <link href="meds-capstone-proposal_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
@@ -1477,184 +1475,211 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
-<p>This blog post was written with <a href="https://cboyajian.github.io/">Clarissa Boyajian</a> and a version of it was originally posted on the Bren School’s <a href="https://bren.ucsb.edu/masters-programs/master-environmental-data-science">Masters of Environmental Data Science (MEDS)</a> community <a href="https://ucsb-meds.github.io/posts/2022-01-06-capstone-proposal/">blog</a></p>
+<p>This blog post was written with <a
+href="https://cboyajian.github.io/">Clarissa Boyajian</a> and a version
+of it was originally posted on the Bren School’s <a
+href="https://bren.ucsb.edu/masters-programs/master-environmental-data-science">Masters
+of Environmental Data Science (MEDS)</a> community <a
+href="https://ucsb-meds.github.io/posts/2022-01-06-capstone-proposal/">blog</a></p>
 <h2 id="meds-capstone-project-101">MEDS Capstone Project 101</h2>
-<p>The <a href="https://bren.ucsb.edu/masters-programs/master-environmental-data-science/meds-capstone-projects">MEDS capstone project</a> is a collaborative team experience where students use data to design, develop, and share a deliverable to help a client address an environmental issue. For the 2021-2022 academic year, all clients for capstone projects are UCSB affiliated, but in future years anyone will be able to propose a project! Projects that are chosen by the Capstone Committee get a team of 3-4 students from January to June 2022 (roughly 1 full-time staff for 6-months). All projects need to be product-oriented, have access to necessary data, be fully funded, have an environmental justice aspect, and have a clearly defined scope. Check out more in the timeline below.</p>
+<p>The <a
+href="https://bren.ucsb.edu/masters-programs/master-environmental-data-science/meds-capstone-projects">MEDS
+capstone project</a> is a collaborative team experience where students
+use data to design, develop, and share a deliverable to help a client
+address an environmental issue. For the 2021-2022 academic year, all
+clients for capstone projects are UCSB affiliated, but in future years
+anyone will be able to propose a project! Projects that are chosen by
+the Capstone Committee get a team of 3-4 students from January to June
+2022 (roughly 1 full-time staff for 6-months). All projects need to be
+product-oriented, have access to necessary data, be fully funded, have
+an environmental justice aspect, and have a clearly defined scope. Check
+out more in the timeline below.</p>
 <p><img src="images/timeline_plot.png" style="width:100.0%" /></p>
 <h2 id="our-proposal-and-capstone">Our proposal and capstone</h2>
-<p>We are co-authors on the proposal, <a href="https://bren.ucsb.edu/projects/ensuring-equitable-access-outdoor-recreation-evaluating-spatiotemporal-patterns-and-trends"><em>Ensuring equitable access to outdoor recreation: Evaluating spatiotemporal patterns and trends in campground use on federal public lands</em></a>. Our project will combine data from the <a href="https://ridb.recreation.gov/landing">Recreation Information Database (RIDB)</a> and <a href="https://data.census.gov/cedsci/">U.S. Census Data</a> to create an online tool that visually represents our analysis of access to federal lands. There is a growing need to understand and mitigate inequities in access to outdoor recreation, especially since outdoor recreation provides critical health and well-being benefits to communities. This proposal aligned closely with our interests, as we both have experience working directly with communities and the environment. Our primary deliverable is to create an interactive platform using the <a href="https://shiny.rstudio.com/">R Package, Shiny</a>. The app will summarize and visualize campground-specific patterns and trends in visitation volume, demand, and visitors’ location of origin.</p>
-<p>Major shout out to <a href="http://www.kaitlyngaynor.com/wil">Kaitlyn Gaynor</a> and <a href="https://www.willrice.us/">Will Rice</a> for all their support and guidance on our proposal!</p>
-<h2 id="other-capstones-for-the-2022-cohort">Other capstones for the 2022 cohort</h2>
+<p>We are co-authors on the proposal, <a
+href="https://bren.ucsb.edu/projects/ensuring-equitable-access-outdoor-recreation-evaluating-spatiotemporal-patterns-and-trends"><em>Ensuring
+equitable access to outdoor recreation: Evaluating spatiotemporal
+patterns and trends in campground use on federal public lands</em></a>.
+Our project will combine data from the <a
+href="https://ridb.recreation.gov/landing">Recreation Information
+Database (RIDB)</a> and <a href="https://data.census.gov/cedsci/">U.S.
+Census Data</a> to create an online tool that visually represents our
+analysis of access to federal lands. There is a growing need to
+understand and mitigate inequities in access to outdoor recreation,
+especially since outdoor recreation provides critical health and
+well-being benefits to communities. This proposal aligned closely with
+our interests, as we both have experience working directly with
+communities and the environment. Our primary deliverable is to create an
+interactive platform using the <a href="https://shiny.rstudio.com/">R
+Package, Shiny</a>. The app will summarize and visualize
+campground-specific patterns and trends in visitation volume, demand,
+and visitors’ location of origin.</p>
+<p>Major shout out to <a href="http://www.kaitlyngaynor.com/wil">Kaitlyn
+Gaynor</a> and <a href="https://www.willrice.us/">Will Rice</a> for all
+their support and guidance on our proposal!</p>
+<h2 id="other-capstones-for-the-2022-cohort">Other capstones for the
+2022 cohort</h2>
 <ol type="1">
-<li><p><a href="https://bren.ucsb.edu/projects/assessing-potential-environmental-justice-implications-environmental-pressures-global-food">Assessing Potential Environmental Justice Implications of Environmental Pressures from the Global Food System</a></p></li>
-<li><p><a href="https://bren.ucsb.edu/projects/snow-today-delivering-impactful-information-snow-cover-and-albedo-diverse-global-users">Snow Today: Delivering impactful information on snow cover and albedo to diverse global users through web based big data visualizations</a></p></li>
-<li><p><a href="https://bren.ucsb.edu/projects/web-based-application-visualizing-spatial-and-temporal-patterns-anthropogenic-stressors">A web‐based application for visualizing spatial and temporal patterns of anthropogenic stressors on coral reefs in the lagoons of Moorea, French Polynesia</a></p></li>
-<li><p><a href="https://bren.ucsb.edu/projects/renewable-energy-siting-predictors-observed-national-data-wind-and-solar-respond-wind-and">Renewable Energy Siting Predictors Observed from National Data for Wind and Solar (RESPOND Wind and Solar)</a></p></li>
-<li><p><a href="https://bren.ucsb.edu/projects/understanding-climate-changes-impact-forest-ecosystem-developing-reproducible-machine">Understanding Climate Change’s Impact on the Forest Ecosystem: Developing a Reproducible Machine Learning Approach to Ecohydrologic Model Output</a></p></li>
-<li><p><a href="https://bren.ucsb.edu/projects/open-source-pipeline-remote-sensing-crop-yields-under-environmental-change-sub-saharan">An open-source pipeline for remote sensing of crop yields under environmental change in Sub-Saharan Africa</a></p></li>
+<li><p><a
+href="https://bren.ucsb.edu/projects/assessing-potential-environmental-justice-implications-environmental-pressures-global-food">Assessing
+Potential Environmental Justice Implications of Environmental Pressures
+from the Global Food System</a></p></li>
+<li><p><a
+href="https://bren.ucsb.edu/projects/snow-today-delivering-impactful-information-snow-cover-and-albedo-diverse-global-users">Snow
+Today: Delivering impactful information on snow cover and albedo to
+diverse global users through web based big data
+visualizations</a></p></li>
+<li><p><a
+href="https://bren.ucsb.edu/projects/web-based-application-visualizing-spatial-and-temporal-patterns-anthropogenic-stressors">A
+web‐based application for visualizing spatial and temporal patterns of
+anthropogenic stressors on coral reefs in the lagoons of Moorea, French
+Polynesia</a></p></li>
+<li><p><a
+href="https://bren.ucsb.edu/projects/renewable-energy-siting-predictors-observed-national-data-wind-and-solar-respond-wind-and">Renewable
+Energy Siting Predictors Observed from National Data for Wind and Solar
+(RESPOND Wind and Solar)</a></p></li>
+<li><p><a
+href="https://bren.ucsb.edu/projects/understanding-climate-changes-impact-forest-ecosystem-developing-reproducible-machine">Understanding
+Climate Change’s Impact on the Forest Ecosystem: Developing a
+Reproducible Machine Learning Approach to Ecohydrologic Model
+Output</a></p></li>
+<li><p><a
+href="https://bren.ucsb.edu/projects/open-source-pipeline-remote-sensing-crop-yields-under-environmental-change-sub-saharan">An
+open-source pipeline for remote sensing of crop yields under
+environmental change in Sub-Saharan Africa</a></p></li>
 </ol>
-<h2 id="tips-thoughts-and-recommendations">Tips, thoughts, and recommendations</h2>
-<p>Now that our proposal has been submitted (and selected!), we’re waiting to begin work in January 2022. While we wait, we’ve taken some time to reflect on the proposal process. There’s a lot we’ve learned and we’ve compiled our most essential thoughts below.</p>
-<h3 id="why-you-should-write-a-proposal-even-if-you-think-you-shouldnt">Why you should write a proposal (even if you think you shouldn’t)</h3>
-<p>We won’t deny that writing a proposal can be a daunting task – it takes time and work – but we think it’s a worthwhile process. Even if the proposal deadline is two weeks away while you’re reading this, we encourage you to write a proposal. See if these reasons can convince you:</p>
+<h2 id="tips-thoughts-and-recommendations">Tips, thoughts, and
+recommendations</h2>
+<p>Now that our proposal has been submitted (and selected!), we’re
+waiting to begin work in January 2022. While we wait, we’ve taken some
+time to reflect on the proposal process. There’s a lot we’ve learned and
+we’ve compiled our most essential thoughts below.</p>
+<h3
+id="why-you-should-write-a-proposal-even-if-you-think-you-shouldnt">Why
+you should write a proposal (even if you think you shouldn’t)</h3>
+<p>We won’t deny that writing a proposal can be a daunting task – it
+takes time and work – but we think it’s a worthwhile process. Even if
+the proposal deadline is two weeks away while you’re reading this, we
+encourage you to write a proposal. See if these reasons can convince
+you:</p>
 <ul>
-<li><p>You will hear this plenty at Bren (if you haven’t already), but <strong>networking</strong> is a crucial part of your grad school experience. This includes networking with your cohort! Your cohort will be some of your strongest connections after you graduate, and working on a capstone proposal is a great opportunity to build those connections early. Beyond your cohort, working on a proposal with a client gives you many excellent opportunities to network with potential employers (or someone who can connect you to potential employers).</p></li>
-<li><p>The MEDS program is a professional-degree program and is all about preparing you for a career to solve environmental problems using data science. The capstone proposal is one of the first opportunities use what you’re learning. It’s a moment to practice several professional skills like project management, communication, research, proposal writing and data exploration. This means this is <strong>a real-life experience that you can put on your resume.</strong> We found this to be crucial for us since our backgrounds include less technical data experiences and we want to be able to graduate with both a degree <em>and</em> relevant experience.</p></li>
-<li><p>Our primary motivation to write a capstone proposal was because <strong>we care about the topic</strong>. We deeply care about environmental justice, and while we aren’t 100% sure what this looks like for our data science futures, we know we want careers that involve people and how they interact with the environment. So when we saw a proposal idea focused on studying spatiotemporal patterns of visitors in National Parks we both instantly wanted to know more. Writing a proposal gave us the <strong>opportunity to dive into a topic we were interested in</strong>. This made writing the proposal less of a daunting task since we were internally motivated. It also meant that we were more willing to challenge ourselves because we personally care about the outcome of the proposal.</p></li>
+<li><p>You will hear this plenty at Bren (if you haven’t already), but
+<strong>networking</strong> is a crucial part of your grad school
+experience. This includes networking with your cohort! Your cohort will
+be some of your strongest connections after you graduate, and working on
+a capstone proposal is a great opportunity to build those connections
+early. Beyond your cohort, working on a proposal with a client gives you
+many excellent opportunities to network with potential employers (or
+someone who can connect you to potential employers).</p></li>
+<li><p>The MEDS program is a professional-degree program and is all
+about preparing you for a career to solve environmental problems using
+data science. The capstone proposal is one of the first opportunities
+use what you’re learning. It’s a moment to practice several professional
+skills like project management, communication, research, proposal
+writing and data exploration. This means this is <strong>a real-life
+experience that you can put on your resume.</strong> We found this to be
+crucial for us since our backgrounds include less technical data
+experiences and we want to be able to graduate with both a degree
+<em>and</em> relevant experience.</p></li>
+<li><p>Our primary motivation to write a capstone proposal was because
+<strong>we care about the topic</strong>. We deeply care about
+environmental justice, and while we aren’t 100% sure what this looks
+like for our data science futures, we know we want careers that involve
+people and how they interact with the environment. So when we saw a
+proposal idea focused on studying spatiotemporal patterns of visitors in
+National Parks we both instantly wanted to know more. Writing a proposal
+gave us the <strong>opportunity to dive into a topic we were interested
+in</strong>. This made writing the proposal less of a daunting task
+since we were internally motivated. It also meant that we were more
+willing to challenge ourselves because we personally care about the
+outcome of the proposal.</p></li>
 </ul>
 <h3 id="most-helpful-resources">Most helpful resources</h3>
 <ul>
-<li><p>Each other! After the first few weeks of summer, you and your cohort will have already spent at least 40 hrs a week with each other. Meaning - there’s a good chance you’ll have at least a basic understanding of everyone’s interests (also you may not have an interest yet, or maybe your interests are only vague ideas - that’s okay!). Anyway, what we are trying to say is find who in your cohort has similar interests to you! Because writing a proposal together makes the whole task less daunting. This allows you to split up the work, lean on each other for support, and discuss when you feel uncertain (which we did a <strong>lot</strong>).</p></li>
-<li><p>We approached our client the second week of the summer and started brainstorming ideas soon after. By starting early, this gave us time to really sit with the information, the data, and the overall question we wanted to answer. When it comes to writing a proposal, <strong>time to sit and reflect about your proposal idea is part of the process.</strong></p></li>
-<li><p>Not sure where to start your research? Have too many topics you’re interested in? Talk to a librarian! Each department at UCSB has their own dedicated librarian. Check out the <a href="https://guides.library.ucsb.edu/">Subject Guides webpage</a> on the library’s website for resources and contact information to subject experts. You might also want to check out the <a href="https://guides.library.ucsb.edu/zotero-workshop/home">Zoetro Workshop</a> so you can start organizing your background research right away.</p></li>
-<li><p>Something else you’ve probably heard is <strong>don’t reinvent the wheel</strong>. Many functions and solutions you need already exist thanks to the many amazing and talented individuals within the data science field. The same goes for project proposals. If you’re getting writer’s block look at the <a href="https://bren.ucsb.edu/projects">Master’s Project Directory on the Bren website</a> to see proposals from previous years for inspiration (Bren students have been doing capstone projects since 1999).</p></li>
-<li><p>If you haven’t written in awhile…talk to professors or students in the <a href="https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management/academics-mesm/communication-focus">Communications Focus</a>. They know how important writing skills are and want you to succeed. Some helpful readings to check out are:</p>
+<li><p>Each other! After the first few weeks of summer, you and your
+cohort will have already spent at least 40 hrs a week with each other.
+Meaning - there’s a good chance you’ll have at least a basic
+understanding of everyone’s interests (also you may not have an interest
+yet, or maybe your interests are only vague ideas - that’s okay!).
+Anyway, what we are trying to say is find who in your cohort has similar
+interests to you! Because writing a proposal together makes the whole
+task less daunting. This allows you to split up the work, lean on each
+other for support, and discuss when you feel uncertain (which we did a
+<strong>lot</strong>).</p></li>
+<li><p>We approached our client the second week of the summer and
+started brainstorming ideas soon after. By starting early, this gave us
+time to really sit with the information, the data, and the overall
+question we wanted to answer. When it comes to writing a proposal,
+<strong>time to sit and reflect about your proposal idea is part of the
+process.</strong></p></li>
+<li><p>Not sure where to start your research? Have too many topics
+you’re interested in? Talk to a librarian! Each department at UCSB has
+their own dedicated librarian. Check out the <a
+href="https://guides.library.ucsb.edu/">Subject Guides webpage</a> on
+the library’s website for resources and contact information to subject
+experts. You might also want to check out the <a
+href="https://guides.library.ucsb.edu/zotero-workshop/home">Zoetro
+Workshop</a> so you can start organizing your background research right
+away.</p></li>
+<li><p>Something else you’ve probably heard is <strong>don’t reinvent
+the wheel</strong>. Many functions and solutions you need already exist
+thanks to the many amazing and talented individuals within the data
+science field. The same goes for project proposals. If you’re getting
+writer’s block look at the <a
+href="https://bren.ucsb.edu/projects">Master’s Project Directory on the
+Bren website</a> to see proposals from previous years for inspiration
+(Bren students have been doing capstone projects since 1999).</p></li>
+<li><p>If you haven’t written in awhile…talk to professors or students
+in the <a
+href="https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management/academics-mesm/communication-focus">Communications
+Focus</a>. They know how important writing skills are and want you to
+succeed. Some helpful readings to check out are:</p>
 <ul>
-<li><a href="https://www.ssrc.org/publications/the-art-of-writing-proposals/">On the Art of Writing Proposals by Adam Pzreworski and Frank Salomon</a>. This is a pretty quick read - only 9 pages.</li>
-<li><a href="https://www.ucg.ac.me/skladiste/blog_609332/objava_105202/fajlovi/Creswell.pdf">Research Design: Qualitative, Quantitative, and Mixed Methods Approaches by John W. Creswell</a>. Skip to Chapter Two: Review of the Literature.</li>
+<li><a
+href="https://www.ssrc.org/publications/the-art-of-writing-proposals/">On
+the Art of Writing Proposals by Adam Pzreworski and Frank Salomon</a>.
+This is a pretty quick read - only 9 pages.</li>
+<li><a
+href="https://www.ucg.ac.me/skladiste/blog_609332/objava_105202/fajlovi/Creswell.pdf">Research
+Design: Qualitative, Quantitative, and Mixed Methods Approaches by John
+W. Creswell</a>. Skip to Chapter Two: Review of the Literature.</li>
 </ul></li>
 </ul>
-<h3 id="the-hardest-parts-of-the-process">The “hardest” parts of the process</h3>
-<p>Writing a proposal is doable and we’re <em>all</em> capable of writing one! For us, describing the work before we’ve learned how to do it was the most overwhelming part of the process. But you’re not alone! That’s where the clients for our project came into play. They were able to put into technical terms our ideas and excitement for the project. Don’t be afraid to be upfront with what you don’t know yet.</p>
-<h3 id="how-to-consider-an-environmental-justice-lens-in-your-prosposal-and-beyond">How to consider an Environmental Justice lens in your prosposal (and beyond)</h3>
-<p>Environmental Justice (EJ) has multiple definitions that changes with context. One framework we’d like to share with you is <a href="https://www.intersectionalenvironmentalist.com/">intersectional environmentalism</a>, coined by <a href="https://www.greengirlleah.com/">Leah Thomas</a>. Intersectional enviornmentalism focuses on the interconnections between injustices that harm people (especially frontline communities or those who have been historically discriminated against) and the environment. This is a crucial lens to maintain while you are writing your proposal because the solutions we write about are not solutions unless it works for everyone involved. We have found this lens to be challenging at times because it forces us to think differently and tests assumptions we’ve grown up with, but ultimately it makes use better data scientists.</p>
-<p>Here are some EJ themes and questions to think about while writing your proposal. These questions use <strong>Justice Analysis</strong> to identify environmental injustices and come from Bren’s <a href="https://bren.ucsb.edu/courses/esm-296-1f-0">Equity and the Environment course</a> (highly recommend taking).</p>
+<h3 id="the-hardest-parts-of-the-process">The “hardest” parts of the
+process</h3>
+<p>Writing a proposal is doable and we’re <em>all</em> capable of
+writing one! For us, describing the work before we’ve learned how to do
+it was the most overwhelming part of the process. But you’re not alone!
+That’s where the clients for our project came into play. They were able
+to put into technical terms our ideas and excitement for the project.
+Don’t be afraid to be upfront with what you don’t know yet.</p>
+<h3
+id="how-to-consider-an-environmental-justice-lens-in-your-prosposal-and-beyond">How
+to consider an Environmental Justice lens in your prosposal (and
+beyond)</h3>
+<p>Environmental Justice (EJ) has multiple definitions that changes with
+context. One framework we’d like to share with you is <a
+href="https://www.intersectionalenvironmentalist.com/">intersectional
+environmentalism</a>, coined by <a
+href="https://www.greengirlleah.com/">Leah Thomas</a>. Intersectional
+enviornmentalism focuses on the interconnections between injustices that
+harm people (especially frontline communities or those who have been
+historically discriminated against) and the environment. This is a
+crucial lens to maintain while you are writing your proposal because the
+solutions we write about are not solutions unless it works for everyone
+involved. We have found this lens to be challenging at times because it
+forces us to think differently and tests assumptions we’ve grown up
+with, but ultimately it makes use better data scientists.</p>
+<p>Here are some EJ themes and questions to think about while writing
+your proposal. These questions use <strong>Justice Analysis</strong> to
+identify environmental injustices and come from Bren’s <a
+href="https://bren.ucsb.edu/courses/esm-296-1f-0">Equity and the
+Environment course</a> (highly recommend taking).</p>
 <div class="layout-chunk" data-layout="l-body">
-<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-Overarching Theme
-</th>
-<th style="text-align:left;">
-Question(s)
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Power
-</td>
-<td style="text-align:left;">
-Who has the power in the situation?
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-Who has privilege?
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-How does power and privilege play into communication, representation, access to resources, or decision-making?
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Distribution of Harm
-</td>
-<td style="text-align:left;">
-Who is receiving the brunt of the suffering or harm in the situation?
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Anthropocentrism / Species-ism
-</td>
-<td style="text-align:left;">
-What aspects of the environment are being systematically overlooked and why?
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-How is excessive self-centeredness playing into this - on the part of the humans?
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-What can we do to overcome it?
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Racism &amp; Xenophobia
-</td>
-<td style="text-align:left;">
-How is this factoring into the situation?
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-Does someone have less power or privilege because of their race or ethnicity?
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Ways of Knowing
-</td>
-<td style="text-align:left;">
-Whose ‘way of knowing’ are privileged?
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-Is there a type of evidence or data that is privileged over others?
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-Is the world view of the dominant group causing harm?
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Exclusionary Solutions
-</td>
-<td style="text-align:left;">
-Does what is offered make sense for all potential parties involved?
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-Is the solution reasonable and accessible?
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Burden of Evidence
-</td>
-<td style="text-align:left;">
-Who is responsible for showing there is environmental harm?
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-Is this appropriate? What would an alternative be?
-</td>
-</tr>
-</tbody>
-</table>
+
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

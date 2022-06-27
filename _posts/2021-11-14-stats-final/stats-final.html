@@ -1489,7 +1489,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <ul>
 <li><a href="#question">Question</a>
 <ul>
-<li><a href="#are-we-drilling-deeper-wells-faster-over-time-in-california">Are we drilling deeper wells faster over time in California?</a></li>
+<li><a
+href="#are-we-drilling-deeper-wells-faster-over-time-in-california">Are
+we drilling deeper wells faster over time in California?</a></li>
 </ul></li>
 <li><a href="#data">Data</a>
 <ul>
@@ -1498,9 +1500,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <li><a href="#analysis-plan">Analysis Plan</a></li>
 <li><a href="#results">Results</a>
 <ul>
-<li><a href="#multiple-linear-regression">Multiple Linear Regression</a></li>
-<li><a href="#mulitple-linear-regression-model-with-interaction-effect">Mulitple Linear Regression Model with Interaction Effect</a></li>
-<li><a href="#time-series-analysis---decomposition">Time Series Analysis - Decomposition</a></li>
+<li><a href="#multiple-linear-regression">Multiple Linear
+Regression</a></li>
+<li><a
+href="#mulitple-linear-regression-model-with-interaction-effect">Mulitple
+Linear Regression Model with Interaction Effect</a></li>
+<li><a href="#time-series-analysis---decomposition">Time Series Analysis
+- Decomposition</a></li>
 </ul></li>
 <li><a href="#future-research">Future Research</a></li>
 <li><a href="#appendix">Appendix</a>
@@ -1523,12 +1529,45 @@ Show code
 </details>
 </div>
 <h1 id="question">Question</h1>
-<h2 id="are-we-drilling-deeper-wells-faster-over-time-in-california">Are we drilling deeper wells faster over time in California?</h2>
-<p>1.5 million people in California rely on domestic well water<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Majority of the 1.5 million reside in rural areas without alternative drinking-water sources. Furthermore, in the Central Valley, it has been found that one in five wells now run dry due to groundwater level declines<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. While some have responded to this issue by drilling deeper, this practice has also been found to be unsustainable because it is costly, it is impractical in certain hydrogeological conditions, and deep groundwater is often brackish or saline<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. While we are aware that groundwater levels are declining and that deeper drilling is unsustainable, we do not know how fast we are drilling deeper in California over time.</p>
-<p>It is important to study groundwater trends because water is an important resource in California and it is crucial for groundwater management to be sustainable and equitable. By understanding the rate at which we are drilling deeper wells over time, we can improve groundwater management and make well water a more secure resource, especially for communities that depend on it.</p>
+<h2 id="are-we-drilling-deeper-wells-faster-over-time-in-california">Are
+we drilling deeper wells faster over time in California?</h2>
+<p>1.5 million people in California rely on domestic well water<a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>. Majority of the 1.5 million reside
+in rural areas without alternative drinking-water sources. Furthermore,
+in the Central Valley, it has been found that one in five wells now run
+dry due to groundwater level declines<a href="#fn2" class="footnote-ref"
+id="fnref2" role="doc-noteref"><sup>2</sup></a>. While some have
+responded to this issue by drilling deeper, this practice has also been
+found to be unsustainable because it is costly, it is impractical in
+certain hydrogeological conditions, and deep groundwater is often
+brackish or saline<a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a>. While we are aware that groundwater
+levels are declining and that deeper drilling is unsustainable, we do
+not know how fast we are drilling deeper in California over time.</p>
+<p>It is important to study groundwater trends because water is an
+important resource in California and it is crucial for groundwater
+management to be sustainable and equitable. By understanding the rate at
+which we are drilling deeper wells over time, we can improve groundwater
+management and make well water a more secure resource, especially for
+communities that depend on it.</p>
 <h1 id="data">Data</h1>
-<p>My data was obtained by Dr. Debra Perrone and Dr. Scott Jasechko for their research on groundwater wells. California domestic well water data was obtained through personal communication with state representatives from the California Department of Water Resources (CADWR) in March 2016 and April 2016. The CADWR maintains the <a href="https://data.cnra.ca.gov/dataset/well-completion-reports">California Groundwater Well Completion Report database</a>. Dr. Perrone and Dr. Jasechko reported that the data may contain biases by region, time, purpose, and compliance.</p>
-<p>This data is international, but I subsetted the data to only contain wells from California. I also added region codes based on the <a href="https://census.ca.gov/regions/">California Complete Count Office</a>, which groups California’s 58 counties into 10 regions based on hard-to-count populations, like-mindedness of the counties, capacity of community-based organizations within the counties, and state Census staff workload capabilities.</p>
+<p>My data was obtained by Dr. Debra Perrone and Dr. Scott Jasechko for
+their research on groundwater wells. California domestic well water data
+was obtained through personal communication with state representatives
+from the California Department of Water Resources (CADWR) in March 2016
+and April 2016. The CADWR maintains the <a
+href="https://data.cnra.ca.gov/dataset/well-completion-reports">California
+Groundwater Well Completion Report database</a>. Dr. Perrone and
+Dr. Jasechko reported that the data may contain biases by region, time,
+purpose, and compliance.</p>
+<p>This data is international, but I subsetted the data to only contain
+wells from California. I also added region codes based on the <a
+href="https://census.ca.gov/regions/">California Complete Count
+Office</a>, which groups California’s 58 counties into 10 regions based
+on hard-to-count populations, like-mindedness of the counties, capacity
+of community-based organizations within the counties, and state Census
+staff workload capabilities.</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
@@ -1624,7 +1663,9 @@ Show code
 </details>
 </div>
 <h2 id="data-histograms">Data Histograms</h2>
-<p>After taking the natural log of well depth (m), it appears to have a normal distribution . It also looks like majority of wells are located in Region 1 or Superior California (Figure 1).</p>
+<p>After taking the natural log of well depth (m), it appears to have a
+normal distribution . It also looks like majority of wells are located
+in Region 1 or Superior California (Figure 1).</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
@@ -1677,11 +1718,17 @@ Show code
 <div class="figure"><span style="display:block;" id="fig:unnamed-chunk-2"></span>
 <img src="stats-final_files/figure-html5/unnamed-chunk-2-1.png" alt="Well depth (m) data transformed by natural log were normally distributed (top). Majority of wells in California can be found in Northern regions of California identified here as region codes 1-5 (bottom)." width="528" />
 <p class="caption">
-Figure 1: Well depth (m) data transformed by natural log were normally distributed (top). Majority of wells in California can be found in Northern regions of California identified here as region codes 1-5 (bottom).
+Figure 1: Well depth (m) data transformed by natural log
+were normally distributed (top). Majority of wells in California can be
+found in Northern regions of California identified here as region codes
+1-5 (bottom).
 </p>
 </div>
 </div>
-<p>Exploratory graphs of total counts of wells both over time and by region suggests that overall we are completing less wells (Figure 1). However, we are also seeing that we could be potentially drilling deeper wells over time (Figure 2).</p>
+<p>Exploratory graphs of total counts of wells both over time and by
+region suggests that overall we are completing less wells (Figure 1).
+However, we are also seeing that we could be potentially drilling deeper
+wells over time (Figure 2).</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
@@ -1739,16 +1786,34 @@ Show code
 <div class="figure"><span style="display:block;" id="fig:unnamed-chunk-3"></span>
 <img src="stats-final_files/figure-html5/unnamed-chunk-3-1.png" alt="Number of wells are appearing to decrease overtime in California with a significant drop in 2005 (top). Average well depth (m) are appearing to increase overtime in California with a significant increase after 2010 (bottom)." width="528" />
 <p class="caption">
-Figure 2: Number of wells are appearing to decrease overtime in California with a significant drop in 2005 (top). Average well depth (m) are appearing to increase overtime in California with a significant increase after 2010 (bottom).
+Figure 2: Number of wells are appearing to decrease overtime
+in California with a significant drop in 2005 (top). Average well depth
+(m) are appearing to increase overtime in California with a significant
+increase after 2010 (bottom).
 </p>
 </div>
 </div>
 <h1 id="analysis-plan">Analysis Plan</h1>
 <p><strong>1. Regression Analysis</strong></p>
-<p>Use a multiple linear regression model to test if there is an effect of time and region on well depth (m), and if there is an effect - find what is the rate of well depth (m) over time. <span class="math display">\[welldepth(m) =\beta_{0}+\beta_{1} \cdot year_i +\beta_{2} \cdot region_i+\varepsilon_i\]</span></p>
-<p>I added an interaction effect to my multiple linear regression model to see if the effect of year on well depth (m) depends on region. I predict there may be deeper wells in the northern regions than the southern regions since majority of California’s drinking water comes from northern regions, and that the rate of well depth will be faster in the northern region than the southern region. <span class="math display">\[welldepth(m) =\beta_{0}+\beta_{1} \cdot year_i +\beta_{2} \cdot region_i+ \beta_{3} \cdot year_i \cdot region_i + \varepsilon_i\]</span></p>
+<p>Use a multiple linear regression model to test if there is an effect
+of time and region on well depth (m), and if there is an effect - find
+what is the rate of well depth (m) over time. <span
+class="math display">\[welldepth(m) =\beta_{0}+\beta_{1} \cdot year_i
++\beta_{2} \cdot region_i+\varepsilon_i\]</span></p>
+<p>I added an interaction effect to my multiple linear regression model
+to see if the effect of year on well depth (m) depends on region. I
+predict there may be deeper wells in the northern regions than the
+southern regions since majority of California’s drinking water comes
+from northern regions, and that the rate of well depth will be faster in
+the northern region than the southern region. <span
+class="math display">\[welldepth(m) =\beta_{0}+\beta_{1} \cdot year_i
++\beta_{2} \cdot region_i+ \beta_{3} \cdot year_i \cdot region_i +
+\varepsilon_i\]</span></p>
 <p><strong>2. Time Series Analysis</strong></p>
-<p>Run decomposition analysis to test for seasonality. From my exploratory graphs, I visually saw some evidence of cyclical patterns (see Figure 6 in Appendix) and wanted to test to see if this was significant.</p>
+<p>Run decomposition analysis to test for seasonality. From my
+exploratory graphs, I visually saw some evidence of cyclical patterns
+(see Figure 6 in Appendix) and wanted to test to see if this was
+significant.</p>
 <h1 id="results">Results</h1>
 <h2 id="multiple-linear-regression">Multiple Linear Regression</h2>
 <div class="layout-chunk" data-layout="l-body">
@@ -1774,13 +1839,34 @@ Show code
 <div class="figure"><span style="display:block;" id="fig:unnamed-chunk-4"></span>
 <img src="stats-final_files/figure-html5/unnamed-chunk-4-1.png" alt="Mulitple linear regression model of year and region on well depth. The regression is significant with a p-value &lt; 0.00000000000000022 at the 0.01 significance level. Adjusted R-squared value 0.7354648." width="528" />
 <p class="caption">
-Figure 3: Mulitple linear regression model of year and region on well depth. The regression is significant with a p-value &lt; 0.00000000000000022 at the 0.01 significance level. Adjusted R-squared value 0.7354648.
+Figure 3: Mulitple linear regression model of year and
+region on well depth. The regression is significant with a p-value &lt;
+0.00000000000000022 at the 0.01 significance level. Adjusted R-squared
+value 0.7354648.
 </p>
 </div>
 </div>
-<p><strong>Reporting &amp; Interpretation of Coefficients:</strong> The <code>intercept</code> coefficient tells us that we expect to see a well depth of <strong>-292.98 m</strong> at year 0 in the south region (this is nonsensical). The <code>year_completed</code> coefficient tells us that we expect well depth to increase by <strong>0.178 m</strong> each year, holding region constant. The <code>north_south</code> coefficient tells us that we expect to see, on average, a <strong>23.85 m</strong> increase in well depth in the south region compared to the north region, holding <code>year</code> constant.</p>
-<p><strong>Overall Interpretation:</strong> This parallel slopes model tells us that <code>year</code>, regardless of <code>region</code>, will have the same impact on yearly average well depth (m). This impact is <strong>significant with a p-value of 0.00000000000000022 at the significance level 0.01</strong>. The adjusted r-squared also reports that <strong>74%</strong> of the data is explained by <code>year</code>. So over time we are seeing that <code>year</code> is significantly increasing well depth (m) by <strong>0.178 m</strong> every year. This is a fairly fast rate.</p>
-<h2 id="mulitple-linear-regression-model-with-interaction-effect">Mulitple Linear Regression Model with Interaction Effect</h2>
+<p><strong>Reporting &amp; Interpretation of Coefficients:</strong> The
+<code>intercept</code> coefficient tells us that we expect to see a well
+depth of <strong>-292.98 m</strong> at year 0 in the south region (this
+is nonsensical). The <code>year_completed</code> coefficient tells us
+that we expect well depth to increase by <strong>0.178 m</strong> each
+year, holding region constant. The <code>north_south</code> coefficient
+tells us that we expect to see, on average, a <strong>23.85 m</strong>
+increase in well depth in the south region compared to the north region,
+holding <code>year</code> constant.</p>
+<p><strong>Overall Interpretation:</strong> This parallel slopes model
+tells us that <code>year</code>, regardless of <code>region</code>, will
+have the same impact on yearly average well depth (m). This impact is
+<strong>significant with a p-value of 0.00000000000000022 at the
+significance level 0.01</strong>. The adjusted r-squared also reports
+that <strong>74%</strong> of the data is explained by <code>year</code>.
+So over time we are seeing that <code>year</code> is significantly
+increasing well depth (m) by <strong>0.178 m</strong> every year. This
+is a fairly fast rate.</p>
+<h2
+id="mulitple-linear-regression-model-with-interaction-effect">Mulitple
+Linear Regression Model with Interaction Effect</h2>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
@@ -1805,13 +1891,43 @@ Show code
 <div class="figure"><span style="display:block;" id="fig:unnamed-chunk-5"></span>
 <img src="stats-final_files/figure-html5/unnamed-chunk-5-1.png" alt="Interaction effect of year and region on well depth. The interaction effect is significant with a p-value &lt; 0.00000000000000022 at the 0.01 significance level. Adjusted R-squared value is 0.7563347." width="528" data-distill-preview=1 />
 <p class="caption">
-Figure 4: Interaction effect of year and region on well depth. The interaction effect is significant with a p-value &lt; 0.00000000000000022 at the 0.01 significance level. Adjusted R-squared value is 0.7563347.
+Figure 4: Interaction effect of year and region on well
+depth. The interaction effect is significant with a p-value &lt;
+0.00000000000000022 at the 0.01 significance level. Adjusted R-squared
+value is 0.7563347.
 </p>
 </div>
 </div>
-<p><strong>Reporting &amp; Interpretation of Coefficients:</strong> The <code>intercept</code> coefficient tells us that we expect to see a well depth of <strong>-493.84 m</strong> at year 0 in the north region (this is nonsensical). The <code>year_completed</code> coefficient tells us that we expect well depth to increase by <strong>0.27 m</strong> each year for a well located in the northern region. The <code>north_south</code> coefficient tells us that well depths are, on average, <strong>689.50 m</strong> deeper in the north region than the south region at year 0 (this is also nonsensical). The <code>year_completed:north_south</code> coefficient tells us that the change in average well depth (m) after one year for a well in a northern region compared to a well in the southern region is <strong>-0.334 m</strong>.</p>
-<p><strong>Overall Interpretation:</strong> This interaction effect tells us that the relationship between <code>year</code> and <code>well_depth</code> varies with <code>region</code>. This is a significant effect with a <strong>p-value of 0.00000000000000022 at the the significance level 0.01</strong>. The adjusted r-squared is reports that <strong>75%</strong> of the data is explained by this interaction effect. Since this is a slight increase from the adjusted <span class="math inline">\(R^2\)</span> value from the model with no interaction, this tells us that the interaction model improves the model fit (at least a little). The rate of the wells being drilled in the north are at a <strong>rate of 0.28 m per year</strong>. This is faster than the rate we found without the interaction effect, so we are seeing that not only are we drilling deeper wells faster over time, but that we are drilling deeper in northern regions than southern regions over time as well.</p>
-<h2 id="time-series-analysis---decomposition">Time Series Analysis - Decomposition</h2>
+<p><strong>Reporting &amp; Interpretation of Coefficients:</strong> The
+<code>intercept</code> coefficient tells us that we expect to see a well
+depth of <strong>-493.84 m</strong> at year 0 in the north region (this
+is nonsensical). The <code>year_completed</code> coefficient tells us
+that we expect well depth to increase by <strong>0.27 m</strong> each
+year for a well located in the northern region. The
+<code>north_south</code> coefficient tells us that well depths are, on
+average, <strong>689.50 m</strong> deeper in the north region than the
+south region at year 0 (this is also nonsensical). The
+<code>year_completed:north_south</code> coefficient tells us that the
+change in average well depth (m) after one year for a well in a northern
+region compared to a well in the southern region is <strong>-0.334
+m</strong>.</p>
+<p><strong>Overall Interpretation:</strong> This interaction effect
+tells us that the relationship between <code>year</code> and
+<code>well_depth</code> varies with <code>region</code>. This is a
+significant effect with a <strong>p-value of 0.00000000000000022 at the
+the significance level 0.01</strong>. The adjusted r-squared is reports
+that <strong>75%</strong> of the data is explained by this interaction
+effect. Since this is a slight increase from the adjusted <span
+class="math inline">\(R^2\)</span> value from the model with no
+interaction, this tells us that the interaction model improves the model
+fit (at least a little). The rate of the wells being drilled in the
+north are at a <strong>rate of 0.28 m per year</strong>. This is faster
+than the rate we found without the interaction effect, so we are seeing
+that not only are we drilling deeper wells faster over time, but that we
+are drilling deeper in northern regions than southern regions over time
+as well.</p>
+<h2 id="time-series-analysis---decomposition">Time Series Analysis -
+Decomposition</h2>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
@@ -1857,14 +1973,36 @@ Show code
 <div class="figure"><span style="display:block;" id="fig:unnamed-chunk-7"></span>
 <img src="stats-final_files/figure-html5/unnamed-chunk-7-1.png" alt="Decomposition of yearly mean well depth (m) is significant with trend component, but not with seasonal component" width="528" />
 <p class="caption">
-Figure 5: Decomposition of yearly mean well depth (m) is significant with trend component, but not with seasonal component
+Figure 5: Decomposition of yearly mean well depth (m) is
+significant with trend component, but not with seasonal component
 </p>
 </div>
 </div>
-<p><strong>Interpretation:</strong> We see there is evidence of a <strong>long-run upward trend</strong> over time and there is <strong>no evidence of seasonality</strong>. Based on the size of the bars, the <strong><code>trend</code> component is more important in driving overall variation in yearly average well depth (m)</strong> since the gray bar for <code>trend</code> is much smaller than the bar for the <code>seasonal</code> component. This confirmed for me that the “cycles” I was seeing in Figure 6 were not significant. It also confirms what we already know: that over time we are drilling deeper wells in California.</p>
+<p><strong>Interpretation:</strong> We see there is evidence of a
+<strong>long-run upward trend</strong> over time and there is <strong>no
+evidence of seasonality</strong>. Based on the size of the bars, the
+<strong><code>trend</code> component is more important in driving
+overall variation in yearly average well depth (m)</strong> since the
+gray bar for <code>trend</code> is much smaller than the bar for the
+<code>seasonal</code> component. This confirmed for me that the “cycles”
+I was seeing in Figure 6 were not significant. It also confirms what we
+already know: that over time we are drilling deeper wells in
+California.</p>
 <h1 id="future-research">Future Research</h1>
-<p>Future research could check to see if seasonality is significant in only northern regions. A closer look at Figure 6 shows that most of the seasonality is visible in regions one through five, which represent the northern region. This could make sense, as intuition tells me there could be a more seasonal affect in northern regions due to geology or colder climates.</p>
-<p>Other research could include policy as an independent variable in regression or other statistical analysis to see what kind of impact policy has on well drilling depth in California. This would be important to look at since we know that a large amount of wells are running dry in California<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. And if groundwater levels continue to decline, we need to understand what policies are most effective so that we can better manage water now and for the future.</p>
+<p>Future research could check to see if seasonality is significant in
+only northern regions. A closer look at Figure 6 shows that most of the
+seasonality is visible in regions one through five, which represent the
+northern region. This could make sense, as intuition tells me there
+could be a more seasonal affect in northern regions due to geology or
+colder climates.</p>
+<p>Other research could include policy as an independent variable in
+regression or other statistical analysis to see what kind of impact
+policy has on well drilling depth in California. This would be important
+to look at since we know that a large amount of wells are running dry in
+California<a href="#fn4" class="footnote-ref" id="fnref4"
+role="doc-noteref"><sup>4</sup></a>. And if groundwater levels continue
+to decline, we need to understand what policies are most effective so
+that we can better manage water now and for the future.</p>
 <div style="page-break-after: always;"></div>
 <h1 id="appendix">Appendix</h1>
 <h2 id="figures">Figures</h2>
@@ -1899,31 +2037,58 @@ Show code
 <div class="figure"><span style="display:block;" id="fig:unnamed-chunk-8"></span>
 <img src="stats-final_files/figure-html5/unnamed-chunk-8-1.png" alt="Total number of wells by region with potential for cyclical or seasonal trending." width="528" />
 <p class="caption">
-Figure 6: Total number of wells by region with potential for cyclical or seasonal trending.
+Figure 6: Total number of wells by region with potential for
+cyclical or seasonal trending.
 </p>
 </div>
 </div>
 <h2 id="references">References</h2>
-<p>Full code can be found at my <a href="https://github.com/hdolinh/hdolinh.github.io/tree/main/_posts/2021-11-14-stats-final">GitHub repository hdolinh.github.io</a>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<p>Full code can be found at my <a
+href="https://github.com/hdolinh/hdolinh.github.io/tree/main/_posts/2021-11-14-stats-final">GitHub
+repository hdolinh.github.io</a>.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div id="refs" class="references csl-bib-body hanging-indent"
+role="doc-bibliography">
 <div id="ref-Jasechko" class="csl-entry" role="doc-biblioentry">
-Jasechko, Scott, and Debra Perrone. 2020. <span>“California’s Central Valley Groundwater Wells Run Dry During Recent Drought.”</span> <em>Earth’s Future</em> 8. <a href="https://doi.org/10.1029/2019EF001339">https://doi.org/10.1029/2019EF001339</a>.
+Jasechko, Scott, and Debra Perrone. 2020. <span>“California’s Central
+Valley Groundwater Wells Run Dry During Recent Drought.”</span>
+<em>Earth’s Future</em> 8. <a
+href="https://doi.org/10.1029/2019EF001339">https://doi.org/10.1029/2019EF001339</a>.
 </div>
 <div id="ref-Johnson" class="csl-entry" role="doc-biblioentry">
-Johnson, Tyler D., and Kenneth Belitz. 2015. <span>“Identifying the Location and Population Served by Domestic Wells in California.”</span> <em>Journal of Hydrology: Regional Studies</em> 3: 31–86. <a href="https://doi.org/10.1016/j.ejrh.2014.09.002">https://doi.org/10.1016/j.ejrh.2014.09.002</a>.
+Johnson, Tyler D., and Kenneth Belitz. 2015. <span>“Identifying the
+Location and Population Served by Domestic Wells in California.”</span>
+<em>Journal of Hydrology: Regional Studies</em> 3: 31–86. <a
+href="https://doi.org/10.1016/j.ejrh.2014.09.002">https://doi.org/10.1016/j.ejrh.2014.09.002</a>.
 </div>
 <div id="ref-Perrone" class="csl-entry" role="doc-biblioentry">
-Perrone, Debra, and Scott Jasechko. 2019. <span>“Deeper Well Drilling an Unsustainable Stopgap to Groundwater Depletion.”</span> <em>Nature Sustainability</em> 2: 773–82. <a href="https://doi.org/10.1038/s41893-019-0325-z">https://doi.org/10.1038/s41893-019-0325-z</a>.
+Perrone, Debra, and Scott Jasechko. 2019. <span>“Deeper Well Drilling an
+Unsustainable Stopgap to Groundwater Depletion.”</span> <em>Nature
+Sustainability</em> 2: 773–82. <a
+href="https://doi.org/10.1038/s41893-019-0325-z">https://doi.org/10.1038/s41893-019-0325-z</a>.
 </div>
 </div>
-<section class="footnotes" role="doc-endnotes">
+<section class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p><span class="citation" data-cites="Johnson"><a href="#ref-Johnson" role="doc-biblioref">Johnson and Belitz</a> (<a href="#ref-Johnson" role="doc-biblioref">2015</a>)</span><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p><span class="citation" data-cites="Jasechko"><a href="#ref-Jasechko" role="doc-biblioref">Jasechko and Perrone</a> (<a href="#ref-Jasechko" role="doc-biblioref">2020</a>)</span><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p><span class="citation" data-cites="Perrone"><a href="#ref-Perrone" role="doc-biblioref">Perrone and Jasechko</a> (<a href="#ref-Perrone" role="doc-biblioref">2019</a>)</span><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4" role="doc-endnote"><p><span class="citation" data-cites="Jasechko"><a href="#ref-Jasechko" role="doc-biblioref">Jasechko and Perrone</a> (<a href="#ref-Jasechko" role="doc-biblioref">2020</a>)</span><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p><span class="citation"
+data-cites="Johnson">Johnson and Belitz (<a href="#ref-Johnson"
+role="doc-biblioref">2015</a>)</span><a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p><span class="citation"
+data-cites="Jasechko">Jasechko and Perrone (<a href="#ref-Jasechko"
+role="doc-biblioref">2020</a>)</span><a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p><span class="citation"
+data-cites="Perrone">Perrone and Jasechko (<a href="#ref-Perrone"
+role="doc-biblioref">2019</a>)</span><a href="#fnref3"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p><span class="citation"
+data-cites="Jasechko">Jasechko and Perrone (<a href="#ref-Jasechko"
+role="doc-biblioref">2020</a>)</span><a href="#fnref4"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->

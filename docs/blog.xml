@@ -12,16 +12,7 @@
       <link>hdolinh.github.io</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Mon, 28 Mar 2022 00:00:00 +0000</lastBuildDate>
-    <item>
-      <title>MEDS Capstone Proposal</title>
-      <dc:creator>Halina Do-Linh</dc:creator>
-      <link>hdolinh.github.io/posts/2022-03-28-meds-capstone-proposal</link>
-      <description>MEDS Capstone Proposal</description>
-      <guid>hdolinh.github.io/posts/2022-03-28-meds-capstone-proposal</guid>
-      <pubDate>Mon, 28 Mar 2022 00:00:00 +0000</pubDate>
-      <media:content url="hdolinh.github.io/posts/2022-03-28-meds-capstone-proposal/images/outdoor-equity-logo.png" medium="image" type="image/png" width="442" height="322"/>
-    </item>
+    <lastBuildDate>Thu, 02 Dec 2021 00:00:00 +0000</lastBuildDate>
     <item>
       <title>1990-2021 data suggests well depth rate is increasing in California</title>
       <dc:creator>Halina Do-Linh</dc:creator>
@@ -30,15 +21,6 @@
       <guid>hdolinh.github.io/posts/2021-11-14-stats-final</guid>
       <pubDate>Thu, 02 Dec 2021 00:00:00 +0000</pubDate>
       <media:content url="hdolinh.github.io/posts/2021-11-14-stats-final/stats-final_files/figure-html5/unnamed-chunk-5-1.png" medium="image" type="image/png" width="1056" height="672"/>
-    </item>
-    <item>
-      <title>Spatial Analysis of Houston Power Outage</title>
-      <dc:creator>Halina Do-Linh</dc:creator>
-      <link>hdolinh.github.io/posts/2021-11-03-spatial-analysis-houston</link>
-      <description/>
-      <guid>hdolinh.github.io/posts/2021-11-03-spatial-analysis-houston</guid>
-      <pubDate>Wed, 03 Nov 2021 00:00:00 +0000</pubDate>
-      <media:content url="hdolinh.github.io/posts/2021-11-03-spatial-analysis-houston/images/houston-blackout-income.png" medium="image" type="image/png" width="617" height="465"/>
     </item>
   </channel>
 </rss>
