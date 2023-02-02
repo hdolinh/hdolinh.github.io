@@ -50,16 +50,17 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  { color: #00769e; background-color: #f1f3f5; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span { color: #00769e; } /* Normal */
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { color: #657422; } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
-code span.cf { color: #007ba5; } /* ControlFlow */
+code span.cf { color: #00769e; } /* ControlFlow */
 code span.ch { color: #20794d; } /* Char */
 code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #5e5e5e; } /* Comment */
@@ -73,17 +74,18 @@ code span.fl { color: #ad0000; } /* Float */
 code span.fu { color: #4758ab; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #5e5e5e; } /* Information */
-code span.kw { color: #007ba5; } /* Keyword */
+code span.kw { color: #00769e; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
-code span.ot { color: #007ba5; } /* Other */
+code span.ot { color: #00769e; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
   <title>Halina Do-Linh: About Me</title>
@@ -787,6 +789,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
+    font-size: 100%;
   }
 
   .html-widget {
@@ -1028,10 +1031,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     position: relative;
     margin-bottom: 2.5em;
     margin-top: 1.5em;
-  }
-
-  .figure img {
-    width: 100%;
   }
 
   .figure .caption {
@@ -1863,7 +1862,22 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
+        }).join("\n");
         window.tippy(this, {
           allowHTML: true,
           content: refHtml,
@@ -1874,6 +1888,31 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
           placement: 'bottom-start'
         });
       });
+
+      // fix footnotes in tables (#411)
+      // replacing broken distill.pub feature
+      $('table d-footnote').each(function() {
+        // we replace internal showAtNode methode which is triggered when hovering a footnote
+        this.hoverBox.showAtNode = function(node) {
+          // ported from https://github.com/distillpub/template/pull/105/files
+          calcOffset = function(elem) {
+              let x = elem.offsetLeft;
+              let y = elem.offsetTop;
+              // Traverse upwards until an `absolute` element is found or `elem`
+              // becomes null.
+              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                  x += elem.offsetLeft;
+                  y += elem.offsetTop;
+              }
+
+              return { left: x, top: y };
+          }
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+          const bbox = node.getBoundingClientRect();
+          const offset = calcOffset(node);
+          this.show([offset.left + bbox.width, offset.top + bbox.height]);
+        }
+      })
 
       // clear polling timer
       clearInterval(tid);
@@ -1973,6 +2012,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // mark non-body figures created by knitr chunks as 100% width
     $('.layout-chunk').each(function(i, val) {
       var figures = $(this).find('img, .html-widget');
+      // ignore leaflet img layers (#106)
+      figures = figures.filter(':not(img[class*="leaflet"])')
       if ($(this).attr('data-layout') !== "l-body") {
         figures.css('width', '100%');
       } else {
@@ -1995,7 +2036,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // get rid of index.html references in header
     if (window.location.protocol !== "file:") {
       $('.distill-site-header a[href]').each(function(i,val) {
-        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
       });
     }
 
@@ -2350,7 +2391,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.17/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2406,74 +2447,24 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
 <div class="d-article">
-<p>Halina Do-Linh achieved a <strong>Bachelor’s Degree in Environmental
-Studies &amp; Biology from the University of California, Santa Cruz
-(UCSC)</strong>. There she grew her interests in sustainable
-development, field research and conservation.</p>
+<p>Halina Do-Linh achieved a <strong>Bachelor’s Degree in Environmental Studies &amp; Biology from the University of California, Santa Cruz (UCSC)</strong>. There she grew her interests in sustainable development, field research and conservation.</p>
 <center>
-<img src="images/about/march-for-science.JPG"
-title="San Francisco&#39;s March for Science" style="width:70.0%" />
+<img src="images/about/march-for-science.JPG" title="San Francisco&#39;s March for Science" style="width:70.0%" />
 </center>
-<p>Her interest in an environmental career was solidified after
-researching green and hawksbill sea turtles in Baja California through
-the <strong>Ecology and Conservation Supercourse field quarter</strong>
-at UC Santa Cruz.</p>
+<p>Her interest in an environmental career was solidified after researching green and hawksbill sea turtles in Baja California through the <strong>Ecology and Conservation Supercourse field quarter</strong> at UC Santa Cruz.</p>
 <center>
-<img src="images/about/halina-mangrove.JPG"
-title="Collecting data through the mangroves in the Sea of Cortez"
-style="width:30.0%" /> <img src="images/about/el-pardito.JPG"
-title="Isla El Pardito, my home for three weeks" style="width:30.0%" />
-<img src="images/about/turtle-group.JPG"
-title="My research group and a green sea turtle" style="width:30.0%" />
+<img src="images/about/halina-mangrove.JPG" title="Collecting data through the mangroves in the Sea of Cortez" style="width:30.0%" /> <img src="images/about/el-pardito.JPG" title="Isla El Pardito, my home for three weeks" style="width:30.0%" /> <img src="images/about/turtle-group.JPG" title="My research group and a green sea turtle" style="width:30.0%" />
 </center>
-<p>After graduating, Halina applied her <strong>field research
-skills</strong> to outdoor education, where she <strong>taught
-environmental topics to K-12 students</strong> and later, <strong>field
-research methods</strong> to University of California
-undergraduates.</p>
+<p>After graduating, Halina applied her <strong>field research skills</strong> to outdoor education, where she <strong>taught environmental topics to K-12 students</strong> and later, <strong>field research methods</strong> to University of California undergraduates.</p>
 <center>
-<img src="images/about/cec-granite.JPG"
-title="Sweeney Granite Mountains Desert Research Center"
-style="width:30.0%" /> <img src="images/about/cec-mark.jpg"
-title="Leaving our mark in Granite" style="width:30.0%" /> <img
-src="images/about/hd-kelso.JPG" title="At the top of Kelso Dunes"
-style="width:30.0%" /> <img src="images/about/cec-transect.JPG"
-title="Setting up transects for our small mammal traps"
-style="width:30.05%" /> <img src="images/about/cec-kelso.JPG"
-title="Group hike to Kelso Dunes" style="width:29.51%" /> <img
-src="images/about/hd-smm.JPG"
-title="Taking measurements of small mammals" style="width:30.0%" /> <img
-src="images/about/tent-angelo.JPG"
-title="Tent setup at Angelo Coast Range Reserve" style="width:30.0%" />
-<img src="images/about/kitchen-point-reyes.JPG"
-title="Breakfast at Point Reyes Field Station" style="width:30.0%" />
-<img src="images/about/fort-ord-van.JPG"
-title="Van at Fort Ord Natural Reserve" style="width:30.0%" />
+<img src="images/about/cec-granite.JPG" title="Sweeney Granite Mountains Desert Research Center" style="width:30.0%" /> <img src="images/about/cec-mark.jpg" title="Leaving our mark in Granite" style="width:30.0%" /> <img src="images/about/hd-kelso.JPG" title="At the top of Kelso Dunes" style="width:30.0%" /> <img src="images/about/cec-transect.JPG" title="Setting up transects for our small mammal traps" style="width:30.05%" /> <img src="images/about/cec-kelso.JPG" title="Group hike to Kelso Dunes" style="width:29.51%" /> <img src="images/about/hd-smm.JPG" title="Taking measurements of small mammals" style="width:30.0%" /> <img src="images/about/tent-angelo.JPG" title="Tent setup at Angelo Coast Range Reserve" style="width:30.0%" /> <img src="images/about/kitchen-point-reyes.JPG" title="Breakfast at Point Reyes Field Station" style="width:30.0%" /> <img src="images/about/fort-ord-van.JPG" title="Van at Fort Ord Natural Reserve" style="width:30.0%" />
 </center>
-<p>In 2018, she moved to Los Angeles to work for <strong>Heal the Bay,
-an environmental non-profit focused on safe, clean water</strong>. There
-she garnered support for environmental campaigns including the
-<strong>Safe, Clean Water Program (Measure W)</strong> and The
-<strong>California Circular Economy and Plastic Pollution Reduction Act
-(SB 54 and AB 1080)</strong>. These campaigns expanded Halina’s
-knowledge of <strong>watershed health, environmental justice, and
-environmental policy</strong>. Though these campaigns were successful,
-she recognized there were data inaccuracies in representation and in
-metrics.</p>
+<p>In 2018, she moved to Los Angeles to work for <strong>Heal the Bay, an environmental non-profit focused on safe, clean water</strong>. There she garnered support for environmental campaigns including the <strong>Safe, Clean Water Program (Measure W)</strong> and The <strong>California Circular Economy and Plastic Pollution Reduction Act (SB 54 and AB 1080)</strong>. These campaigns expanded Halina’s knowledge of <strong>watershed health, environmental justice, and environmental policy</strong>. Though these campaigns were successful, she recognized there were data inaccuracies in representation and in metrics.</p>
 <center>
-<p><img src="images/about/measure-w.JPG"
-title="Grassroots environmental advocacy on the LA River. Halina is third from the right."
-style="width:70.0%" /></p>
+<p><img src="images/about/measure-w.JPG" title="Grassroots environmental advocacy on the LA River. Halina is third from the right." style="width:70.0%" /></p>
 </center>
-<p>To gain the skills to overcome these data challenges, Halina is
-studying <strong><a
-href="https://bren.ucsb.edu/masters-programs/master-environmental-data-science">Environmental
-Data Science at the Bren School of Environmental Science &amp;
-Management</a></strong>. After Bren, Halina plans to apply her training
-in data science to finding equitable solutions for environmental issues
-affecting urban watersheds.</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>To gain the skills to overcome these data challenges, Halina is studying <strong><a href="https://bren.ucsb.edu/masters-programs/master-environmental-data-science">Environmental Data Science at the Bren School of Environmental Science &amp; Management</a></strong>. After Bren, Halina plans to apply her training in data science to finding equitable solutions for environmental issues affecting urban watersheds.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
