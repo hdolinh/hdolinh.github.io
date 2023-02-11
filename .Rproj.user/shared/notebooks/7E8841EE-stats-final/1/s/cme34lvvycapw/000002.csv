@@ -1,0 +1,9 @@
+"0","wells_depth_yearmon <- monthly_depth %>% 
+  select(well_id, month_year_completed, depth_m) %>% 
+  group_by(month_year_completed) %>% 
+  summarize(mean_depth_m_year = mean(depth_m))
+
+wells_tbsl_2 <- as_tsibble(wells_depth_yearmon)
+"
+"1","Using `month_year_completed` as index variable.
+"

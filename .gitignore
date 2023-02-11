@@ -1,9 +1,0 @@
-.Rproj.user
-.Rhistory
-.Rdata
-.httr-oauth
-.DS_Store
-_posts/**/data
-_posts/**/rosm
-_posts/**/rosm/osm
-docs/posts/**/data

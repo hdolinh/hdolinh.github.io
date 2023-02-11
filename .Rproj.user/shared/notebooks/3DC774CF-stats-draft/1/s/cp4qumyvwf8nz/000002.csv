@@ -1,0 +1,4 @@
+"0","mod_summary <- lm(mean_depth_m ~ year_completed + north_south, data = region_north_south) %>% summary() "
+"0",""
+"0","mod_table <- mod_summary %>% xtable() %>% kbl() %>% kable_material(""striped"")"
+"0","mod_table"

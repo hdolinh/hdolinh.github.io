@@ -1,0 +1,90 @@
+"0",""
+"0","### figure height and size in {r}"
+"0",""
+"0","library(tidyverse) "
+"2","Registered S3 methods overwritten by 'dbplyr':
+  method         from
+  print.tbl_lazy     
+  print.tbl_sql      
+"
+"2","[37m── [1mAttaching packages[22m ────────────────────────────────────────── tidyverse 1.3.1 ──[39m
+"
+"2","[37m[32m✓[37m [34mggplot2[37m 3.3.5     [32m✓[37m [34mpurrr  [37m 0.3.4
+[32m✓[37m [34mtibble [37m 3.1.6     [32m✓[37m [34mdplyr  [37m 1.0.7
+[32m✓[37m [34mtidyr  [37m 1.1.4     [32m✓[37m [34mstringr[37m 1.4.0
+[32m✓[37m [34mreadr  [37m 2.0.2     [32m✓[37m [34mforcats[37m 0.5.1[39m
+"
+"2","[37m── [1mConflicts[22m ───────────────────────────────────────────── tidyverse_conflicts() ──
+[31mx[37m [34mdplyr[37m::[32mfilter()[37m masks [34mstats[37m::filter()
+[31mx[37m [34mdplyr[37m::[32mlag()[37m    masks [34mstats[37m::lag()[39m
+"
+"0","library(here)"
+"2","here() starts at /Users/hdolinh/MEDS/hdolinh.github.io
+"
+"0","library(janitor)"
+"2","
+Attaching package: ‘janitor’
+
+"
+"2","The following objects are masked from ‘package:stats’:
+
+    chisq.test, fisher.test
+
+"
+"0","library(lubridate)"
+"2","
+Attaching package: ‘lubridate’
+
+"
+"2","The following objects are masked from ‘package:base’:
+
+    date, intersect, setdiff, union
+
+"
+"0","library(kableExtra)"
+"2","
+Attaching package: ‘kableExtra’
+
+"
+"2","The following object is masked from ‘package:dplyr’:
+
+    group_rows
+
+"
+"0","library(xtable)"
+"0","library(patchwork)"
+"0","library(feasts)"
+"2","Loading required package: fabletools
+"
+"0","library(zoo) # use this for as.yearmon "
+"2","
+Attaching package: ‘zoo’
+
+"
+"2","The following objects are masked from ‘package:base’:
+
+    as.Date, as.Date.numeric
+
+"
+"0","library(knitr) # use this to make kable tables"
+"0","library(tsibble) # use to make as.ts"
+"2","
+Attaching package: ‘tsibble’
+
+"
+"2","The following object is masked from ‘package:zoo’:
+
+    index
+
+"
+"2","The following object is masked from ‘package:lubridate’:
+
+    interval
+
+"
+"2","The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, union
+
+"
+"0","options(scipen = 999) # disable scientific notation"
