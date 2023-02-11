@@ -1,0 +1,38 @@
+project:
+  type: website
+  output-dir: docs
+  
+website: 
+  title: "Halina Do-Linh" # comes up on tab
+  
+  navbar:
+    title: "Halina Do-Linh" 
+    # logo:
+    # logo-alt: alternative text for logo
+    right: 
+      - href: index.qmd
+        text: Home
+      - href: about.qmd
+        text: About
+      - icon: github
+        href: https://github.com/hdolinh
+      - icon: linkedin
+        href: https://www.linkedin.com/in/halinadolinh/
+        
+  page-footer:
+    left: 
+      - "Copyright 2023 Halina Do-Linh | Last updated Feb 2023"
+    right: 
+      - icon: github
+        href: https://github.com/hdolinh/hdolinh.github.io
+        
+format:
+  html:
+    page-layout: full
+    theme: simplex
+    mainfont: Verdana
+    linkcolor: "#7e9493"
+    link-external-newwindow: true
+    # toc:
+      
+    
