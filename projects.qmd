@@ -1,9 +1,0 @@
----
-title: "Projects"
----
-
-# 
-
-bren dashboard
-
-master's capstone: outdoor equity
