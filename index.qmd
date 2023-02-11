@@ -1,21 +1,26 @@
 ---
 image: images/halina-sierras.JPG
-about:
+image-alt: "Halina is smiling and positioned to the right with a epic mountain and meadow landscape behind her. She is wearing a backpack, a blue bandana around her neck, a green flannel over a tan t-shirt, and blue shorts with sunglasses perched on top of her head."
+about: 
   template: marquee
   image-shape: rounded
   links:
-    - icon: linkedin 
-      text: LinkedIn
+    - icon: linkedin
+      # text: LinkedIn
       href: https://www.linkedin.com/in/halinadolinh/
+      aria-label: LinkedIn icon
     - icon: twitter 
-      text: Twitter
+      # text: Twitter
       href: https://twitter.com/hdolinh
+      aria-label: Twitter icon
     - icon: github 
-      text: GitHub
+      # text: GitHub
       href: https://github.com/hdolinh
+      aria-label: GitHub icon
     - icon: envelope 
-      text: Email
+      # text: Email
       href: mailto:dolinh@nceas.ucsb.edu
+      aria-label: Email icon
 ---
 
 # Hello! `r fontawesome::fa("mountain-city")`

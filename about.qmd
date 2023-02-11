@@ -2,4 +2,4 @@
 title: "about me"
 ---
 
-All things about *me*!
+Coming soon: all things about *me*!

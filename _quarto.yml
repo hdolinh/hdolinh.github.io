@@ -5,10 +5,15 @@ project:
 website: 
   title: "Halina Do-Linh" # comes up on tab
   
+  search:
+    location: navbar
+    type: overlay
+  
   navbar:
     title: "Halina Do-Linh" 
     # logo:
     # logo-alt: alternative text for logo
+    foreground: "#8b5958" # dark brown
     right: 
       - href: index.qmd
         text: Home
@@ -16,10 +21,14 @@ website:
         text: About
       - icon: github
         href: https://github.com/hdolinh
+        aria-label: GitHub icon
       - icon: linkedin
         href: https://www.linkedin.com/in/halinadolinh/
+        aria-label: LinkedIn icon
         
   page-footer:
+    border: "#7e9493" # sage green
+    background: "#8b5958" # dark brown
     left: 
       - "Copyright 2023 Halina Do-Linh | Last updated Feb 2023"
     right: 
