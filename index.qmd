@@ -27,6 +27,6 @@ about:
 
 ----
 
-My name is Halina Do-Linh (she/her/hers) I am an environmental data scientist who cares about urban environmental systems and the people within them. Usually you can find me in the mountains, but these days I'm closer to the beach working on data science curricula for the [Learning Hub](https://www.nceas.ucsb.edu/learning-hub) at the [National Center for Ecological Analysis and Synthesis (NCEAS)](https://www.nceas.ucsb.edu/).
+My name is Halina Do-Linh (she/her/hers). I am an environmental data scientist who cares about urban environmental systems and the people within them. Usually you can find me in the mountains, but these days I'm closer to the beach working on data science curricula for the [Learning Hub](https://www.nceas.ucsb.edu/learning-hub) at the [National Center for Ecological Analysis and Synthesis (NCEAS)](https://www.nceas.ucsb.edu/).
 
 Click around and I look forward to connecting with you.

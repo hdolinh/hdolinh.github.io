@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Halina Do-Linh",
     "section": "",
-    "text": "My name is Halina Do-Linh (she/her/hers) I am an environmental data scientist who cares about urban environmental systems and the people within them. Usually you can find me in the mountains, but these days I’m closer to the beach working on data science curricula for the Learning Hub at the National Center for Ecological Analysis and Synthesis (NCEAS).\nClick around and I look forward to connecting with you."
+    "text": "My name is Halina Do-Linh (she/her/hers). I am an environmental data scientist who cares about urban environmental systems and the people within them. Usually you can find me in the mountains, but these days I’m closer to the beach working on data science curricula for the Learning Hub at the National Center for Ecological Analysis and Synthesis (NCEAS).\nClick around and I look forward to connecting with you."
   },
   {
     "objectID": "about.html",
@@ -12,12 +12,5 @@
     "title": "about me",
     "section": "",
     "text": "Coming soon: all things about me!"
-  },
-  {
-    "objectID": "projects.html",
-    "href": "projects.html",
-    "title": "Projects",
-    "section": "",
-    "text": "bren dashboard\nmaster’s capstone: outdoor equity"
   }
 ]
