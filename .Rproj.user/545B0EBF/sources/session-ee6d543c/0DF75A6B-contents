@@ -1,0 +1,142 @@
+---
+title: "ADC Text Analysis Lesson"
+description: "A module on intro to text analysis for Arctic Researchers"
+output:
+  distill::distill_article:
+    self_contained: no
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      warning = F,
+                      message = F)
+```
+
+## Set up
+
+```{r load libraries}
+library(dplyr)
+library(tibble)
+library(readr)
+library(tidytext)
+library(wordcloud)
+library(reshape2)
+library(pdftools) # read in pdf
+library(stringr) # manipulate strings
+```
+
+```{r read data}
+survey_raw <- read_csv("https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3A71cb8d0d-70d5-4752-abcd-e3bcf7f14783", show_col_types = FALSE)
+
+events <- read_csv("https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3A0a1dd2d8-e8db-4089-a176-1b557d6e2786", show_col_types = FALSE)
+```
+
+```{r clean data}
+survey_clean <-  survey_raw %>% 
+  select(-notes) %>% 
+  mutate(Q1 = ifelse(Q1 == "1", "below expectations", Q1)) %>% 
+  mutate(Q2 = tolower(Q2))
+```
+
+```{r join data}
+survey_joined <- left_join(survey_clean, events, by = "StartDate")
+```
+
+## Unnest Tokens Q3
+
+```{r q3 data}
+q3_df <- survey_joined %>% 
+  select(StartDate, location, Q3) %>% 
+  unnest_tokens(output = word, input = Q3) # from `tidytext` 
+  
+# remove stop words using stop_words df from `tidytext` 
+q3_df <- anti_join(q3_df, stop_words, by = "word")
+```
+
+
+## Most common words used in Q3
+
+```{r summarize q3}
+q3_summarize <- q3_df %>% 
+  group_by(word) %>% 
+  summarize(count = n()) %>% 
+  arrange(-count)
+```
+
+
+## Unnest tokens Q4
+
+```{r q4 data}
+q4_df <- survey_joined %>% 
+  select(StartDate, location, Q4) %>% 
+  unnest_tokens(output = word, input = Q4) # from `tidytext` 
+  
+# remove stop words using stop_words df from `tidytext` 
+q4_df <- anti_join(q4_df, stop_words, by = "word")
+```
+
+
+## Most common words used in Q4
+
+```{r summarize q4}
+q4_summarize <- q4_df %>% 
+  group_by(word) %>% 
+  summarize(count = n()) %>% 
+  arrange(-count)
+```
+
+## Add custom stop words
+
+```{r custom stop words}
+custom_words <- data.frame(word = "data", lexicon = "custom")
+
+stop_words_full <- rbind(stop_words, custom_words)
+```
+
+
+## Read in pdf using `pdf_text`
+
+```{r load pdf}
+preg_txt <- pdf_text("data/Translation_of_FG_8_Ilulissat_170410_0077.pdf")
+
+class(preg_txt)
+```
+
+## Convert pdf character value to data frame
+
+```{r pdf to df}
+preg_txt_clean <- preg_txt %>%
+  enframe() %>% # from `tibble`
+  rename(page = name) # new col name = old col name
+```
+
+## Unnest and remove stop words from pdf text
+
+```{r unnest rm stop words}
+txt_clean <- preg_txt_clean %>%  
+  unnest_tokens(output = word, input = value) # from `tidytext` 
+  
+# remove stop words using stop_words df from `tidytext` 
+txt_clean <- anti_join(txt_clean, stop_words, by = "word")
+```
+
+## Summarize text in pdf
+
+```{r summarize pdf txt}
+txt_summarize <- txt_clean %>% 
+  group_by(word) %>% 
+  summarize(count = n()) %>% 
+  arrange(-count)
+```
+
+# Remove headers from pdfs
+
+Who remembers what the $ does? Also called the subset operator? Right, it allows us to access the different cols or objects in a data frame
+
+Indexing syntax uses square brackets `[]` and allows us to explore specific values in a col of a df. Remember what Matt said yesterday, all data frames are made up of vectors. 
+
+```{r}
+# preview first 500 characters on the first pdf page 
+substr(preg_txt_clean$value[1], 1, 500)
+```
