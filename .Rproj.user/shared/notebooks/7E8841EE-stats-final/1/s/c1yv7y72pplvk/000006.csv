@@ -1,8 +1,0 @@
-"0","wells_tidy <- wells %>% "
-"0","  janitor::clean_names() %>% "
-"0","  select(""well_id"", ""county"", ""purpose_5"", ""date_completed"", ""depth_m"") %>%"
-"0","  filter(str_detect(well_id, pattern = ""CA"")) %>% "
-"0","  filter(depth_m > -1) %>% "
-"0","  mutate(date_completed = lubridate::parse_date_time(date_completed, orders = c(""mdy"", ""mdy HMS"", ""mdY""))) %>% "
-"0","  mutate(year_completed = lubridate::year(date_completed)) %>% "
-"0","  filter(year_completed >= 1900 & year_completed <= 2021)"

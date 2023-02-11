@@ -1,6 +1,0 @@
-"0","justice_analysis_df_clean %>%
-  janitor::clean_names()
-"
-"2","Error in janitor::clean_names(.) : 
-  object 'justice_analysis_df_clean' not found
-"

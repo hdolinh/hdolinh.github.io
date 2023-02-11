@@ -1,5 +1,0 @@
-"0","ggplot(region_north_south, aes(y = mean_depth_m, x = year_completed, color = north_south)) + "
-"0","  geom_point() + "
-"0","  geom_smooth(method = ""lm"", se = FALSE)"
-"2","`geom_smooth()` using formula 'y ~ x'
-"

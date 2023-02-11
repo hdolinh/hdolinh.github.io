@@ -1,5 +1,0 @@
-"0","wells_north <- monthly_depth %>% "
-"0","  filter(north_south == ""north"")"
-"2","Error in filter(., north_south == ""north"") : 
-  object 'monthly_depth' not found
-"
